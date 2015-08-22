@@ -2,6 +2,9 @@
   "name": "retro-twitter-client",
   "version": "0.0.1",
   "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
   "author": "Ryo Nakamura <r7kamura@gmail.com> (https://github.com/r7kamura)",
   "license": "MIT"
 }
