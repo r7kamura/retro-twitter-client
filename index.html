@@ -4,8 +4,18 @@
     <title>Retro twitter client</title>
   </head>
   <body>
-    <p>
-      Hello, world!
-    </p>
+    <webview src="https://twitter.com" autosize="on"></webview>
+    <style>
+      webview {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+      }
+    </style>
+    <script>
+      // dummy, but needed at least one script element for webview bug ;(
+    </script>
   </body>
 </html>
