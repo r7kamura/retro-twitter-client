@@ -1,0 +1,34 @@
+.account {
+  &-list {
+    border-radius: 0 3px 3px 0;
+    color: #aaa;
+    cursor: pointer;
+    margin-right: 16px;
+    padding-left: 16px;
+
+    &:hover {
+      background-color: #3f4c5b;
+    }
+
+    &-selected {
+      background-color: #6698c8;
+      color: #fff;
+    }
+  }
+
+  &-lists {
+    padding-bottom: 16px;
+    padding-top: 16px;
+
+    &-heading {
+      color: #aaa;
+      padding-left: 16px;
+    }
+  }
+
+  &-screen-name {
+    color: #fff;
+    font-size: 20px;
+    padding: 16px;
+  }
+}
