@@ -1,11 +1,11 @@
 {
   "name": "retro-twitter-client",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "main.js",
   "scripts": {
-    "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.1 --platform=darwin,win32 --version=0.31.0",
-    "release": "ghr v0.0.1 packages/",
+    "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.2 --platform=darwin,win32 --version=0.31.0",
+    "release": "ghr v0.0.2 packages/",
     "setup": "npm install && brew tap tcnksm/ghr && brew install ghr",
     "start": "electron ."
   },
