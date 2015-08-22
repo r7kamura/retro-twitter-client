@@ -21,7 +21,7 @@ gulp.task(
   'compile-scss',
   function () {
     gulp.src('assets/stylesheets/**/*.scss')
-      .pipe(sass().on('error', sass.logError))
+      .pipe(sass({ includePaths: ['node_modules'] }).on('error', sass.logError))
       .pipe(gulp.dest('public/stylesheets'));
   }
 );
