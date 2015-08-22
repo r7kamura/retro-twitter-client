@@ -26,5 +26,8 @@
     "gulp-babel": "^5.2.1",
     "gulp-sass": "^2.0.4",
     "gulp-watch": "^4.3.5"
+  },
+  "dependencies": {
+    "HTML5-Reset": "git://github.com/r7kamura/HTML5-Reset.git"
   }
 }
