@@ -6,5 +6,8 @@
     "start": "electron ."
   },
   "author": "Ryo Nakamura <r7kamura@gmail.com> (https://github.com/r7kamura)",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "electron-prebuilt": "^0.31.0"
+  }
 }
