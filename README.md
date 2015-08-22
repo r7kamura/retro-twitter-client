@@ -4,6 +4,16 @@ A retro twitter client.
 ![](/images/preview.png)
 
 ## Development
+### npm run setup
+Set up your development environment for this project.
+
+```
+$ npm run setup
+
+> retro-twitter-client@0.0.1 setup /Users/r7kamura/src/github.com/r7kamura/retro-twitter-client
+> npm install
+```
+
 ### npm run start
 Launch the application.
 
