@@ -28,6 +28,7 @@
     "gulp-watch": "^4.3.5"
   },
   "dependencies": {
-    "HTML5-Reset": "git://github.com/r7kamura/HTML5-Reset.git"
+    "HTML5-Reset": "git://github.com/r7kamura/HTML5-Reset.git",
+    "qiita-coat": "^0.1.0"
   }
 }
