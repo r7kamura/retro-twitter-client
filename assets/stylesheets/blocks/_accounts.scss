@@ -2,10 +2,14 @@
 
 .accounts {
   &-item {
-    border-left: solid 4px #fff;
+    border-left: solid 4px transparent;
     margin-top: 16px;
     padding-left: 12px;
     padding-right: 12px;
+
+    &-selected {
+      border-left-color: #fff;
+    }
 
     &-avatar {
       @include avatar;
