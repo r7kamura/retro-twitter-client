@@ -7,8 +7,8 @@ A retro twitter client.
 ### npm run setup
 Set up your development environment for this project.
 
-### npm run build
-Build JavaScripts in lib dir.
+### npm run compile
+Compile JavaScripts and Stylesheets.
 
 ### npm run watch
 Start to watch changes of assets to automatically compile them.
