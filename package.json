@@ -4,10 +4,15 @@
   "version": "0.0.2",
   "main": "main.js",
   "scripts": {
+    "clean": "rm -rf packages/v0.0.2/{retro-twitter-client-{darwin,win32}-x64}",
     "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.2 --platform=darwin,win32 --version=0.31.0",
-    "release": "ghr v0.0.2 packages/",
+    "release": "npm run zip && npm run clean && npm run upload",
     "setup": "npm install && brew tap tcnksm/ghr && brew install ghr",
-    "start": "electron ."
+    "start": "electron .",
+    "upload": "ghr v0.0.2 packages/",
+    "zip": "npm run zip-darwin && npm run zip-win32",
+    "zip-darwin": "cd packages/v0.0.2 && zip -r retro-twitter-client-darwin-x64.zip retro-twitter-client-darwin-x64",
+    "zip-win32": "cd packages/v0.0.2 && zip -r retro-twitter-client-win32-x64.zip retro-twitter-client-win32-x64"
   },
   "repository": "r7kamura/retro-twitter-client",
   "author": "Ryo Nakamura <r7kamura@gmail.com> (https://github.com/r7kamura)",
