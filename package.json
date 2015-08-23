@@ -2,7 +2,7 @@
   "name": "retro-twitter-client",
   "private": true,
   "version": "0.0.2",
-  "main": "lib/main.js",
+  "main": "app/browser/index.js",
   "scripts": {
     "clean": "rm -rf packages/v0.0.2/{retro-twitter-client-{darwin,win32}-x64}",
     "compile": "gulp compile",
@@ -31,6 +31,7 @@
     "HTML5-Reset": "git://github.com/r7kamura/HTML5-Reset.git",
     "font-awesome": "^4.4.0",
     "node-twitter-api": "^1.6.0",
-    "qiita-coat": "git://github.com/increments/qiita-coat.git#d751df7df60d0dcd0c97b9dc05c8ab5da3db22e3"
+    "qiita-coat": "git://github.com/increments/qiita-coat.git#d751df7df60d0dcd0c97b9dc05c8ab5da3db22e3",
+    "react": "^0.13.3"
   }
 }

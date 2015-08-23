@@ -1,5 +1,5 @@
-/lib
+/app/**/*.css
+/app/**/*.js
 /node_modules
 /npm-debug.log
 /packages
-/public/stylesheets

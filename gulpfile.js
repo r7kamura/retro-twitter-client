@@ -13,22 +13,22 @@ gulp.task(
   function () {
     return gulp.src('src/**/*.js')
       .pipe(babel())
-      .pipe(gulp.dest('lib'));
+      .pipe(gulp.dest('app/'));
   }
 );
 
 gulp.task(
   'compile-scss',
   function () {
-    gulp.src('assets/stylesheets/**/*.scss')
+    gulp.src('src/**/*.scss')
       .pipe(sass({ includePaths: ['node_modules'] }).on('error', sass.logError))
-      .pipe(gulp.dest('public/stylesheets'));
+      .pipe(gulp.dest('app'));
   }
 );
 
 gulp.task(
   'watch',
   function () {
-    gulp.watch('{assets/stylesheets/**/*.scss,src/**/*.js}', ['compile']);
+    gulp.watch('src/**/*.js', ['compile']);
   }
 );
