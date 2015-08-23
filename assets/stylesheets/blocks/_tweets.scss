@@ -1,0 +1,42 @@
+@import "qiita-coat/scss/avatars";
+
+.tweets {
+  margin-top: 16px;
+
+  &-item {
+    display: flex;
+
+    & + & {
+      margin-top: 16px;
+    }
+
+    &-avatar {
+      @include avatar;
+    }
+
+    &-datetime {
+      color: #aaa;
+      display: inline-block;
+
+      &:before {
+        content: "-";
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+    }
+
+    &-display-name {
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    &-screen-name {
+      color: #aaa;
+      display: inline-block;
+    }
+
+    &-sub {
+      margin-right: 12px;
+    }
+  }
+}

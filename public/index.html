@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Retro twitter client</title>
     <link rel="stylesheet" href="stylesheets/application.css" media="screen">
   </head>
@@ -9,7 +10,7 @@
       <div class="account-switcher">
         <ul class="accounts">
           <li class="accounts-item accounts-item-selected">
-            <img class="accounts-item-avatar" src="https://abs.twimg.com/sticky/default_profile_images/default_profile_2_400x400.png" />
+            <img class="accounts-item-avatar" src="https://pbs.twimg.com/profile_images/519846472406151169/5GrJiV-2_400x400.jpeg" />
             <div class="accounts-item-key">
               &#x2318;1
             </div>
@@ -46,9 +47,56 @@
             <textarea name="name" rows="3" cols="40" class="editor-textarea"></textarea>
           </div>
           <div>
-            <input type="submit" name="name" value="Tweet" class="editor-submit-button">
+            <button class="editor-submit-button" type="button">
+              <i class="fa fa-bullhorn"></i>
+              Tweet
+            </button>
           </div>
         </div>
+        <ul class="tweets">
+          <li class="tweets-item">
+            <div class="tweets-item-sub">
+              <img class="tweets-item-avatar" src="https://pbs.twimg.com/profile_images/519846472406151169/5GrJiV-2_400x400.jpeg" height="48" width="48" />
+            </div>
+            <div class="tweets-item-main">
+              <div class="tweets-item-header">
+                <div class="tweets-item-display-name">
+                  内製フレームワーク
+                </div>
+                <div class="tweets-item-screen-name">
+                  @r7kamura
+                </div>
+                <div class="tweets-item-datetime">
+                  2015-08-23 11:52
+                </div>
+              </div>
+              <div class="tweets-item-body">
+                renderer processとbrowser processとの間のやりとりが増えてきてもsingletonのipcベッタリで次第に体験になりそう
+              </div>
+            </div>
+          </li>
+          <li class="tweets-item">
+            <div class="tweets-item-sub">
+              <img class="tweets-item-avatar" src="https://pbs.twimg.com/profile_images/519846472406151169/5GrJiV-2_400x400.jpeg" height="48" width="48" />
+            </div>
+            <div class="tweets-item-main">
+              <div class="tweets-item-header">
+                <div class="tweets-item-display-name">
+                  内製フレームワーク
+                </div>
+                <div class="tweets-item-screen-name">
+                  @r7kamura
+                </div>
+                <div class="tweets-item-datetime">
+                  2015-08-23 11:43
+                </div>
+              </div>
+              <div class="tweets-item-body">
+                git co ← ギットコ
+              </div>
+            </div>
+          </li>
+        </ul>
       </main>
     </div>
   </body>
