@@ -1,3 +1,3 @@
 import Application from './application'
 
-new Application();
+global.application = new Application();
