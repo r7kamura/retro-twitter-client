@@ -12,21 +12,37 @@ export default class Application {
     this.registerApplicationCallbacks();
   }
 
+  onAuthenticationSucceeded(credentials) {
+    this.credentials = credentials;
+    this.openMainWindow();
+  }
+
+  onReady() {
+    this.openAuthenicationWindow();
+  }
+
+  onWindowAllClosed() {
+    if (process.platform != 'darwin') {
+      app.quit();
+    }
+  }
+
+  openAuthenicationWindow() {
+    new AuthenticationWindow((credentials) => {
+      this.onAuthenticationSucceeded(credentials);
+    });
+  }
+
   openMainWindow() {
     this.windows.push(new MainWindow());
   }
 
   registerApplicationCallbacks() {
     app.on('window-all-closed', () => {
-      if (process.platform != 'darwin') {
-        app.quit();
-      }
+      this.onWindowAllClosed();
     });
     app.on('ready', () => {
-      new AuthenticationWindow((credentials) => {
-        this.credentials = credentials;
-        this.openMainWindow();
-      });
+      this.onReady();
     });
   }
 
