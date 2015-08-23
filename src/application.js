@@ -1,6 +1,7 @@
 import app from 'app'
 import BrowserWindow from 'browser-window'
 import crashReporter from 'crash-reporter'
+import MainWindow from './main-window'
 import Twitter from 'node-twitter-api'
 
 export default class Application {
@@ -8,6 +9,7 @@ export default class Application {
     this.accessToken = null;
     this.accessTokenSecret = null;
     this.mainWindow = null;
+    this.windows = [];
     this.startCrashReporter();
     this.registerApplicationCallbacks();
   }
@@ -49,11 +51,7 @@ export default class Application {
   }
 
   openMainWindow() {
-    this.mainWindow = new BrowserWindow({ width: 1200, height: 800 });
-    this.mainWindow.loadUrl(`file://${__dirname}/../public/index.html`);
-    this.mainWindow.on('closed', () => {
-      this.mainWindow = null;
-    });
+    this.windows.push(new MainWindow());
   }
 
   startCrashReporter() {
