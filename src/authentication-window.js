@@ -3,8 +3,7 @@ import Twitter from 'node-twitter-api'
 
 export default class AuthenticationWindow {
   /**
-   * @param {Object} twitter
-   * @param {String} url
+   * @param {Function} callback
    */
   constructor(callback) {
     const twitter = new Twitter({
