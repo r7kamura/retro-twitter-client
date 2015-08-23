@@ -12,6 +12,10 @@ export default class Application {
     this.registerApplicationCallbacks();
   }
 
+  openMainWindow() {
+    this.windows.push(new MainWindow());
+  }
+
   registerApplicationCallbacks() {
     app.on('window-all-closed', () => {
       if (process.platform != 'darwin') {
@@ -24,10 +28,6 @@ export default class Application {
         this.openMainWindow();
       });
     });
-  }
-
-  openMainWindow() {
-    this.windows.push(new MainWindow());
   }
 
   startCrashReporter() {
