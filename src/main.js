@@ -1,9 +1,10 @@
-var app = require('app');
-var BrowserWindow = require('browser-window');
+import app from 'app'
+import BrowserWindow from 'browser-window'
+import crashReporter from 'crash-reporter'
 
-require('crash-reporter').start();
+crashReporter.start()
 
-var mainWindow = null;
+const mainWindow = null;
 
 app.on('window-all-closed', () => {
   if (process.platform != 'darwin') {
