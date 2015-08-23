@@ -1,0 +1,17 @@
+@import "qiita-coat/scss/buttons";
+
+.editor {
+  border-radius: 0 3px 3px 0;
+
+  &-submit-button {
+    @include button;
+    @include button-primary;
+  }
+
+  &-textarea {
+    border: solid 1px #ddd;
+    border-radius: 3px;;
+    resize: none;
+    width: 100%;
+  }
+}
