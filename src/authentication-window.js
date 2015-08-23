@@ -20,12 +20,13 @@ export default class AuthenticationWindow {
         let matched;
         if (matched = url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/)) {
           twitter.getAccessToken(requestToken, requestTokenSecret, matched[2], (error, accessToken, accessTokenSecret) => {
-            this.accessToken = accessToken;
-            this.accessTokenSecret = accessTokenSecret;
+            callback({
+              accessToken: accessToken,
+              accessTokenSecret: accessTokenSecret
+            });
           });
         }
         event.preventDefault();
-        callback();
         setTimeout(() => {
           this.window.close();
         }, 0);

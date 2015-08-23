@@ -5,8 +5,7 @@ import MainWindow from './main-window'
 
 export default class Application {
   constructor() {
-    this.accessToken = null;
-    this.accessTokenSecret = null;
+    this.credentials = null;
     this.mainWindow = null;
     this.windows = [];
     this.startCrashReporter();
@@ -20,7 +19,8 @@ export default class Application {
       }
     });
     app.on('ready', () => {
-      new AuthenticationWindow(() => {
+      new AuthenticationWindow((credentials) => {
+        this.credentials = credentials;
         this.openMainWindow();
       });
     });
