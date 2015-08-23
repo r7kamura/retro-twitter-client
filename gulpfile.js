@@ -29,6 +29,6 @@ gulp.task(
 gulp.task(
   'watch',
   function () {
-    gulp.watch('{assets/stylesheets/**/*.scss,lib/**/*.js}', ['compile']);
+    gulp.watch('{assets/stylesheets/**/*.scss,src/**/*.js}', ['compile']);
   }
 );
