@@ -29,6 +29,6 @@ gulp.task(
 gulp.task(
   'watch',
   function () {
-    gulp.watch('src/**/*.js', ['compile']);
+    gulp.watch('src/**/*.{js,scss}', ['compile']);
   }
 );
