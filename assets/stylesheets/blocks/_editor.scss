@@ -3,6 +3,13 @@
 .editor {
   border-radius: 0 3px 3px 0;
 
+  &-counter {
+    display: inline-block;
+    margin-left: 4px;
+    padding-bottom: 6px;
+    padding-top: 6px;
+  }
+
   &-submit-button {
     @include button;
     @include button-primary;
