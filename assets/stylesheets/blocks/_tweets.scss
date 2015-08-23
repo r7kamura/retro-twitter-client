@@ -30,6 +30,10 @@
       font-weight: bold;
     }
 
+    &-main {
+      flex: 1;
+    }
+
     &-screen-name {
       color: #aaa;
       display: inline-block;
