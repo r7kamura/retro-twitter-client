@@ -1,5 +1,4 @@
-/app/**/*.css
-/app/**/*.js
+/app
 /node_modules
 /npm-debug.log
 /packages

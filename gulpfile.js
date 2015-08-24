@@ -2,11 +2,17 @@ var babel = require('gulp-babel');
 var gulp = require('gulp');
 var plumber = require('gulp-plumber');
 var sass = require('gulp-sass');
+var sym = require('gulp-sym');
 var watch = require('gulp-watch');
 
 gulp.task(
   'compile',
-  ['compile-es6', 'compile-scss']
+  [
+    'compile-es6',
+    'compile-html',
+    'compile-scss',
+    'compile-symlink'
+  ]
 );
 
 gulp.task(
@@ -20,6 +26,14 @@ gulp.task(
 );
 
 gulp.task(
+  'compile-html',
+  function () {
+    gulp.src('src/**/*.html')
+      .pipe(gulp.dest('app'));
+  }
+);
+
+gulp.task(
   'compile-scss',
   function () {
     gulp.src('src/**/*.scss')
@@ -29,8 +43,16 @@ gulp.task(
 );
 
 gulp.task(
+  'compile-symlink',
+  function () {
+    gulp.src('node_modules/font-awesome/fonts')
+      .pipe(sym('app/renderer/fonts', { force: true }));
+  }
+);
+
+gulp.task(
   'watch',
   function () {
-    gulp.watch('src/**/*.{js,scss}', ['compile']);
+    gulp.watch('src/**/*', ['compile']);
   }
 );
