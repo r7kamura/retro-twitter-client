@@ -7,7 +7,7 @@ export default class Main extends React.Component {
     return(
       <main className="main">
         <Editor />
-        <Tweets />
+        <Tweets tweets={this.props.tweets} />
       </main>
     );
   }
