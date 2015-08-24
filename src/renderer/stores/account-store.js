@@ -3,7 +3,7 @@ import { EventEmitter } from 'events';
 class AccountStore extends EventEmitter {
   constructor() {
     super();
-    this.account = null;
+    this.account = {};
   }
 
   getAccount() {

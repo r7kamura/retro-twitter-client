@@ -2,19 +2,21 @@ import React from 'react';
 import accountStore from '../stores/account-store'
 
 export default class ContextSwitcher extends React.Component {
-  constructor() {
-    super();
-    this.state = { account: {} };
+  constructor(props) {
+    super(props);
+    this.state = this.getStateFromStore();
   }
 
   componentDidMount() {
     accountStore.on('changed', () => {
-      this.setState({ account: this.getStateFromStore() });
+      this.setState(this.getStateFromStore());
     });
   }
 
   getStateFromStore() {
-    return accountStore.getAccount();
+    return {
+      account: accountStore.getAccount()
+    };
   }
 
   render() {
