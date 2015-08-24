@@ -1,6 +1,7 @@
+import Editor from './editor'
+import homeTimelineStore from '../stores/home-timeline-store'
 import React from 'react'
 import TweetsItem from './tweets-item'
-import homeTimelineStore from '../stores/home-timeline-store'
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -26,20 +27,7 @@ export default class Main extends React.Component {
     });
     return(
       <main className="main">
-        <div className="editor">
-          <div>
-            <textarea name="name" rows="3" cols="40" className="editor-textarea" placeholder="What's happening?"></textarea>
-          </div>
-          <div>
-            <button className="editor-submit-button" type="button">
-              <i className="fa fa-bullhorn"></i>
-              Tweet
-            </button>
-            <div className="editor-counter">
-              140
-            </div>
-          </div>
-        </div>
+        <Editor />
         <ul className="tweets">
           {tweetsItems}
         </ul>
