@@ -5,15 +5,16 @@ import MainWindow from './main-window'
 
 export default class Application {
   constructor() {
-    this.credentials = null;
+    this.accessToken = null;
+    this.accessTokenSecret = null;
+    this.consumerKey = 'KAR2eM09o2GCddFfHUXz7vFKV';
+    this.consumerSecret = '8MoozYzEzkstemW4fagnm5qlGMVELIxuWBTcBOz0BpUDIpDWqY';
     this.mainWindow = null;
-    this.windows = [];
-    this.startCrashReporter();
-    this.registerApplicationCallbacks();
   }
 
-  onAuthenticationSucceeded(credentials) {
-    this.credentials = credentials;
+  onAuthenticationSucceeded({ accessToken, accessTokenSecret }) {
+    this.accessToken = accessToken;
+    this.accessTokenSecret = accessTokenSecret;
     this.openMainWindow();
   }
 
@@ -28,22 +29,27 @@ export default class Application {
   }
 
   openAuthenicationWindow() {
-    new AuthenticationWindow((credentials) => {
-      this.onAuthenticationSucceeded(credentials);
-    });
+    new AuthenticationWindow({
+      consumerKey: this.consumerKey,
+      consumerSecret: this.consumerSecret,
+    }).on(
+      'authentication-succeeded',
+      this.onAuthenticationSucceeded.bind(this)
+    );
   }
 
   openMainWindow() {
-    this.windows.push(new MainWindow());
+    this.mainWindow = new MainWindow();
   }
 
   registerApplicationCallbacks() {
-    app.on('window-all-closed', () => {
-      this.onWindowAllClosed();
-    });
-    app.on('ready', () => {
-      this.onReady();
-    });
+    app.on('window-all-closed', this.onWindowAllClosed.bind(this));
+    app.on('ready', this.onReady.bind(this));
+  }
+
+  run() {
+    this.startCrashReporter();
+    this.registerApplicationCallbacks();
   }
 
   startCrashReporter() {

@@ -4,12 +4,12 @@ const Twitter = remote.require('twitter');
 
 const twitterActions = {
   fetchTweets: () => {
-    const credentials = remote.getGlobal('application').credentials;
+    const application = remote.getGlobal('application');
     new Twitter({
-      access_token_key: credentials.accessToken,
-      access_token_secret: credentials.accessTokenSecret,
-      consumer_key: 'KAR2eM09o2GCddFfHUXz7vFKV',
-      consumer_secret: '8MoozYzEzkstemW4fagnm5qlGMVELIxuWBTcBOz0BpUDIpDWqY'
+      access_token_key: application.accessToken,
+      access_token_secret: application.accessTokenSecret,
+      consumer_key: application.consumerKey,
+      consumer_secret: application.consumerSecret
     }).get(
       'statuses/home_timeline',
       {

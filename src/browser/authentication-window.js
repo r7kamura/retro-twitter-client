@@ -1,11 +1,13 @@
+import { EventEmitter } from 'events'
 import BrowserWindow from 'browser-window'
 import Twitter from 'node-twitter-api'
 
-export default class AuthenticationWindow {
+export default class AuthenticationWindow extends EventEmitter {
   /**
    * @param {Function} callback
    */
   constructor(callback) {
+    super();
     const twitter = new Twitter({
       callback: 'http://example.com',
       consumerKey: 'KAR2eM09o2GCddFfHUXz7vFKV',
@@ -19,10 +21,13 @@ export default class AuthenticationWindow {
         let matched;
         if (matched = url.match(/\?oauth_token=([^&]*)&oauth_verifier=([^&]*)/)) {
           twitter.getAccessToken(requestToken, requestTokenSecret, matched[2], (error, accessToken, accessTokenSecret) => {
-            callback({
-              accessToken: accessToken,
-              accessTokenSecret: accessTokenSecret
-            });
+            this.emit(
+              'authentication-succeeded',
+              {
+                accessToken: accessToken,
+                accessTokenSecret: accessTokenSecret
+              }
+            );
           });
         }
         event.preventDefault();
