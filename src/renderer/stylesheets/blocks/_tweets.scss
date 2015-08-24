@@ -1,46 +1,46 @@
 @import "qiita-coat/scss/avatars";
 
+.tweet {
+  display: flex;
+
+  & + & {
+    margin-top: 16px;
+  }
+
+  &-avatar {
+    @include avatar;
+  }
+
+  &-datetime {
+    color: #aaa;
+    padding-left: 8px;
+  }
+
+  &-display-name {
+    font-weight: bold;
+  }
+
+  &-header {
+    display: flex;
+  }
+
+  &-main {
+    flex: 1;
+  }
+
+  &-names {
+    margin-right: auto;
+  }
+
+  &-screen-name {
+    color: #aaa;
+  }
+
+  &-sub {
+    margin-right: 12px;
+  }
+}
+
 .tweets {
   margin-top: 16px;
-
-  &-item {
-    display: flex;
-
-    & + & {
-      margin-top: 16px;
-    }
-
-    &-avatar {
-      @include avatar;
-    }
-
-    &-datetime {
-      color: #aaa;
-      padding-left: 8px;
-    }
-
-    &-display-name {
-      font-weight: bold;
-    }
-
-    &-header {
-      display: flex;
-    }
-
-    &-main {
-      flex: 1;
-    }
-
-    &-names {
-      margin-right: auto;
-    }
-
-    &-screen-name {
-      color: #aaa;
-    }
-
-    &-sub {
-      margin-right: 12px;
-    }
-  }
 }

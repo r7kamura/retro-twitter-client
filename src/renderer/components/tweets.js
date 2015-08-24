@@ -1,6 +1,6 @@
 import homeTimelineStore from '../stores/home-timeline-store'
 import React from 'react'
-import TweetsItem from './tweets-item'
+import Tweet from './tweet'
 
 export default class Tweets extends React.Component {
   constructor(props) {
@@ -21,12 +21,12 @@ export default class Tweets extends React.Component {
   }
 
   render() {
-    let tweetsItems = this.state.tweets.map((tweet) => {
-      return <TweetsItem key={tweet.id_str} tweet={tweet} />
+    let tweets = this.state.tweets.map((tweet) => {
+      return <Tweet key={tweet.id_str} tweet={tweet} />
     });
     return(
       <ul className="tweets">
-        {tweetsItems}
+        {tweets}
       </ul>
     );
   }
