@@ -7,6 +7,10 @@ export default class Editor extends React.Component {
     this.state = { text: '' };
   }
 
+  getRestTextLength() {
+    return 140 - this.state.text.length;
+  }
+
   onSubmitButtonClicked(event) {
     twitterClient.postTweet({ text: this.state.text });
     this.setState({ text: '' });
@@ -28,7 +32,7 @@ export default class Editor extends React.Component {
             Tweet
           </button>
           <div className="editor-counter">
-            140
+            {this.getRestTextLength()}
           </div>
         </div>
       </div>
