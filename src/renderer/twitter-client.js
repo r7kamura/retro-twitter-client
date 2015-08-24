@@ -45,6 +45,20 @@ class TwitterClient {
     }
     return this.twitter;
   }
+
+  postTweet({ text }) {
+    return new Promise((resolve, reject) => {
+      this.getTwitter().post(
+        'statuses/update',
+        {
+          status: text
+        },
+        (error, tweet, response) => {
+          resolve({ tweet: tweet, response: response });
+        }
+      );
+    });
+  }
 }
 
 const application = remote.getGlobal('application');
