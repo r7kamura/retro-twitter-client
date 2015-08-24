@@ -6,6 +6,7 @@ import twitterActions from '../actions/twitter-actions'
 
 export default class Root extends React.Component {
   componentDidMount() {
+    twitterActions.fetchAccount();
     twitterActions.fetchTweets();
   }
 
