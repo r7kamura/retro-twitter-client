@@ -7,13 +7,6 @@ html {
   width: 100%;
 }
 
-body > .body-inner {
-  display: flex;
-  height: 100%;
-  overflow: scroll;
-  -webkit-overflow-scrolling: touch;
-}
-
 body {
   font-family: $font-family-sans-serif;
   height: 100%;

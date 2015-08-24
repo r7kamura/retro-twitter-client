@@ -1,7 +1,7 @@
-import Application from './components/application'
+import Root from './components/root'
 import React from 'react'
 
 React.render(
-  <Application />,
+  <Root />,
   document.body
 );
