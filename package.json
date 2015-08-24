@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rm -rf packages/v0.0.2/{retro-twitter-client-{darwin,win32}-x64}",
     "compile": "gulp compile",
-    "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.2 --platform=darwin,win32 --version=0.31.0",
+    "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.2 --platform=darwin,win32 --version=0.31.0 --ignore=packages/*",
     "release": "npm run zip && npm run clean && npm run upload",
     "setup": "npm install && brew tap tcnksm/ghr && brew install ghr",
     "start": "electron .",
