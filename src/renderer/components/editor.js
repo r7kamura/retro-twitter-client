@@ -1,3 +1,4 @@
+import homeTimelineStore from '../stores/home-timeline-store';
 import React from 'react'
 import twitterClient from '../twitter-client'
 
@@ -24,7 +25,9 @@ export default class Editor extends React.Component {
   }
 
   onSubmitButtonClicked(event) {
-    this.postTweet();
+    this.postTweet().then(({ tweet }) => {
+      homeTimelineStore.mergeTweet(tweet);
+    });
   }
 
   onTextareaChanged(event) {
