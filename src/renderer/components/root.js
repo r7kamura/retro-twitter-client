@@ -44,7 +44,7 @@ export default class Root extends React.Component {
   render() {
     return(
       <div className="root">
-        <AccountSwitcher />
+        <AccountSwitcher account={this.state.account} />
         <ContextSwitcher account={this.state.account} lists={this.state.lists} />
         <Main tweets={this.state.tweets} />
       </div>
