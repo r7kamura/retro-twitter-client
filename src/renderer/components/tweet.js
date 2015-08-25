@@ -3,7 +3,7 @@ import React from 'react'
 export default class Tweet extends React.Component {
   render() {
     return(
-      <li className="tweet">
+      <li className="tweet" key={this.props.tweet.id_str}>
         <div className="tweet-sub">
           <img className="tweet-avatar" src={this.props.tweet.user.profile_image_url} height="48" width="48" />
         </div>
