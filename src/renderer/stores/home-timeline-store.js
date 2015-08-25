@@ -7,8 +7,7 @@ class HomeTimelineStore extends EventEmitter {
   }
 
   /**
-   * @todo Sort
-   * @return {Array<Object>} An array of raw tweets fetched from Twitter API
+   * @return {Array<Object>} Tweets fetched from home timeline or stream API
    */
   getTweets() {
     return Object.keys(this.tweetsTable).map((key) => {
