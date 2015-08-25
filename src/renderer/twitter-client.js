@@ -21,6 +21,18 @@ class TwitterClient {
     });
   }
 
+  fetchLists() {
+    return new Promise((resolve, reject) => {
+      this.getTwitter().get(
+        'lists/list',
+        (error, lists, response) => {
+          resolve({ lists: lists, response: response });
+        }
+      );
+    });
+  }
+
+
   fetchTweets() {
     return new Promise((resolve, reject) => {
       this.getTwitter().get(
