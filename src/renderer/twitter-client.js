@@ -32,13 +32,26 @@ class TwitterClient {
     });
   }
 
-
   fetchTweets() {
     return new Promise((resolve, reject) => {
       this.getTwitter().get(
         'statuses/home_timeline',
         {
           screen_name: 'r7kamura'
+        },
+        (error, tweets, response) => {
+          resolve({ tweets: tweets, response: response });
+        }
+      );
+    });
+  }
+
+  fetchTweetsFromList({ listId }) {
+    return new Promise((resolve, reject) => {
+      this.getTwitter().get(
+        'lists/statuses',
+        {
+          list_id: listId
         },
         (error, tweets, response) => {
           resolve({ tweets: tweets, response: response });
