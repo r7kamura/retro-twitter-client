@@ -12,15 +12,20 @@ export default class ContextSwitcher extends React.Component {
             Lists
           </h3>
           <ul>
-            <li className="account-list account-list-selected">
-              # electron
-            </li>
-            <li className="account-list">
-              # node
-            </li>
+            {this.renderLists()}
           </ul>
         </div>
       </div>
     );
+  }
+
+  renderLists() {
+    return this.props.lists.map((list) => {
+      return(
+        <li className="account-list" key={list.id_str}>
+          # {list.name}
+        </li>
+      );
+    });
   }
 }

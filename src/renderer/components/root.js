@@ -2,6 +2,7 @@ import accountStore from '../stores/account-store';
 import AccountSwitcher from './account-switcher'
 import ContextSwitcher from './context-switcher'
 import homeTimelineStore from '../stores/home-timeline-store';
+import listsStore from '../stores/lists-store';
 import Main from './main'
 import React from 'react';
 import twitterClient from '../twitter-client';
@@ -11,6 +12,7 @@ export default class Root extends React.Component {
     super(props);
     this.state = {
       account: accountStore.getAccount(),
+      lists: listsStore.getLists(),
       tweets: homeTimelineStore.getTweets()
     };
   }
@@ -23,7 +25,7 @@ export default class Root extends React.Component {
       homeTimelineStore.mergeTweets(tweets);
     });
     twitterClient.fetchLists().then(({ response, lists }) => {
-      console.log(JSON.stringify(lists, null, 2)); // debug
+      listsStore.mergeLists(lists);
     });
     twitterClient.subscribeStream().on('tweeted', (tweet) => {
       homeTimelineStore.mergeTweet(tweet);
@@ -34,13 +36,16 @@ export default class Root extends React.Component {
     homeTimelineStore.on('changed', () => {
       this.setState({ tweets: homeTimelineStore.getTweets() });
     });
+    listsStore.on('changed', () => {
+      this.setState({ lists: listsStore.getLists() });
+    });
   }
 
   render() {
     return(
       <div className="root">
         <AccountSwitcher />
-        <ContextSwitcher account={this.state.account} />
+        <ContextSwitcher account={this.state.account} lists={this.state.lists} />
         <Main tweets={this.state.tweets} />
       </div>
     );
