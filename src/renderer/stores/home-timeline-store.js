@@ -17,7 +17,16 @@ class HomeTimelineStore extends EventEmitter {
   }
 
   /**
-   * Merge given tweets into this store, then an emit changed event.
+   * Merge a given tweet into this store, then emit a changed event.
+   * @param {Object} tweet
+   */
+  mergeTweet(tweet) {
+    this.tweetsTable[tweet.id_str] = tweet;
+    this.emit('changed');
+  }
+
+  /**
+   * Merge given batch of tweets into this store, then emit a changed event.
    * @param {Array.<Object>} tweets
    */
   mergeTweets(tweets) {

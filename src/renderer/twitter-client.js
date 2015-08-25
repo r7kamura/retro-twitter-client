@@ -1,3 +1,4 @@
+import { EventEmitter } from 'events'
 import remote from 'remote';
 const Twitter = remote.require('twitter');
 
@@ -58,6 +59,28 @@ class TwitterClient {
         }
       );
     });
+  }
+
+  /*
+   * @return {EventEmitter}
+   */
+  subscribeStream() {
+    const eventEmitter = new EventEmitter();
+    this.getTwitter().stream(
+      'user',
+      (stream) => {
+        stream.on('data', (data) => {
+          if (data['friends']) {
+          } else if (data['event']) {
+          } else if (data['friends']) {
+          } else if (data['delete']) {
+          } else if (data['created_at']) {
+            eventEmitter.emit('tweeted', data);
+          }
+        });
+      }
+    );
+    return eventEmitter;
   }
 }
 

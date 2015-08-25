@@ -22,6 +22,9 @@ export default class Root extends React.Component {
     twitterClient.fetchTweets().then(({ response, tweets }) => {
       homeTimelineStore.mergeTweets(tweets);
     });
+    twitterClient.subscribeStream().on('tweeted', (tweet) => {
+      homeTimelineStore.mergeTweet(tweet);
+    });
     accountStore.on('changed', () => {
       this.setState({ account: accountStore.getAccount() });
     });
