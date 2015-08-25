@@ -18,6 +18,15 @@ export default class Root extends React.Component {
   }
 
   componentDidMount() {
+    accountStore.on('changed', () => {
+      this.setState({ account: accountStore.getAccount() });
+    });
+    homeTimelineStore.on('changed', () => {
+      this.setState({ tweets: homeTimelineStore.getTweets() });
+    });
+    listsStore.on('changed', () => {
+      this.setState({ lists: listsStore.getLists() });
+    });
     twitterClient.fetchAccount().then(({ account, response }) => {
       accountStore.updateAccount(account);
     });
@@ -29,15 +38,6 @@ export default class Root extends React.Component {
     });
     twitterClient.subscribeStream().on('tweeted', (tweet) => {
       homeTimelineStore.mergeTweet(tweet);
-    });
-    accountStore.on('changed', () => {
-      this.setState({ account: accountStore.getAccount() });
-    });
-    homeTimelineStore.on('changed', () => {
-      this.setState({ tweets: homeTimelineStore.getTweets() });
-    });
-    listsStore.on('changed', () => {
-      this.setState({ lists: listsStore.getLists() });
     });
   }
 
