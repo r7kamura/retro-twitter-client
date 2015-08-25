@@ -13,6 +13,8 @@ class HomeTimelineStore extends EventEmitter {
   getTweets() {
     return Object.keys(this.tweetsTable).map((key) => {
       return this.tweetsTable[key];
+    }).sort((a, b) => {
+      return b.id - a.id;
     });
   }
 
