@@ -1,3 +1,4 @@
+import List from './list';
 import React from 'react';
 
 export default class ContextSwitcher extends React.Component {
@@ -21,11 +22,7 @@ export default class ContextSwitcher extends React.Component {
 
   renderLists() {
     return this.props.lists.map((list) => {
-      return(
-        <li className="account-list" key={list.id_str}>
-          # {list.name}
-        </li>
-      );
+      return <List key={list.id_str} list={list} />;
     });
   }
 }
