@@ -1,28 +1,17 @@
-import { createStore } from 'redux'
+import { applyMiddleware, createStore } from 'redux'
+import { fetchAccount, fetchTweets, fetchLists, subscribeStream } from './action-creators'
 import { Provider } from 'react-redux'
-import { updateAccount, updateLists, updateHomeTimelineTweet, updateHomeTimelineTweets } from './action-creators'
 import React from 'react'
 import reducer from './reducer'
 import Root from './components/root'
-import twitterClient from './twitter-client';
+import thunkMiddleware from 'redux-thunk'
 
-const store = createStore(reducer);
+const store = applyMiddleware(thunkMiddleware)(createStore)(reducer);
 
-twitterClient.fetchAccount().then(({ account }) => {
-  store.dispatch(updateAccount(account));
-});
-
-twitterClient.fetchTweets().then(({ tweets }) => {
-  store.dispatch(updateHomeTimelineTweets(tweets));
-});
-
-twitterClient.fetchLists().then(({ lists }) => {
-  store.dispatch(updateLists(lists));
-});
-
-twitterClient.subscribeStream().on('tweeted', (tweet) => {
-  store.dispatch(updateHomeTimelineTweet(tweet));
-});
+store.dispatch(fetchAccount());
+store.dispatch(fetchTweets());
+store.dispatch(fetchLists());
+store.dispatch(subscribeStream());
 
 React.render(
   <Provider store={store}>

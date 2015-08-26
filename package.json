@@ -37,6 +37,7 @@
     "react": "^0.13.3",
     "react-redux": "^1.0.1",
     "redux": "^1.0.1",
+    "redux-thunk": "^0.1.0",
     "twitter": "^1.2.5"
   }
 }
