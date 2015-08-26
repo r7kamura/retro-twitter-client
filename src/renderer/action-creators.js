@@ -1,5 +1,6 @@
 import twitterClient from './twitter-client';
 
+export const SELECT_LIST = 'SELECT_LIST';
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 export const UPDATE_HOME_TIMELINE_TWEET = 'UPDATE_HOME_TIMELINE_TWEET';
 export const UPDATE_HOME_TIMELINE_TWEETS = 'UPDATE_HOME_TIMELINE_TWEETS';
@@ -35,6 +36,13 @@ export function subscribeStream() {
       dispatch(updateHomeTimelineTweet(tweet));
     });
   };
+}
+
+export function selectList(listId) {
+  return {
+    listId,
+    type: SELECT_LIST
+  }
 }
 
 function updateAccount(account) {

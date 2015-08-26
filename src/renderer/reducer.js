@@ -1,4 +1,5 @@
 import {
+  SELECT_LIST,
   UPDATE_ACCOUNT,
   UPDATE_HOME_TIMELINE_TWEET,
   UPDATE_HOME_TIMELINE_TWEETS,
@@ -9,6 +10,15 @@ const account = (state = {}, action) => {
   switch (action.type) {
   case UPDATE_ACCOUNT:
     return action.account;
+  default:
+    return state;
+  }
+};
+
+const context = (state = 'homeTimeline', action) => {
+  switch (action.type) {
+  case SELECT_LIST:
+    return action.listId;
   default:
     return state;
   }
@@ -37,6 +47,7 @@ const lists = (state = [], action) => {
 export default (state = {}, action) => {
   return {
     account: account(state.account, action),
+    context: context(state.context, action),
     homeTimeline: homeTimeline(state.homeTimeline, action),
     lists: lists(state.lists, action)
   };

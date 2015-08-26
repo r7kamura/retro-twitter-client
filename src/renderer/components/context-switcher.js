@@ -22,7 +22,7 @@ export default class ContextSwitcher extends React.Component {
 
   renderLists() {
     return this.props.lists.map((list) => {
-      return <List key={list.id_str} list={list} />;
+      return <List context={this.props.context} key={list.id_str} list={list} onListClicked={this.props.onListClicked} />;
     });
   }
 }

@@ -10,7 +10,8 @@
       background-color: #3f4c5b;
     }
 
-    &-selected {
+    &-selected,
+    &-selected:hover {
       background-color: #6698c8;
       color: #fff;
     }

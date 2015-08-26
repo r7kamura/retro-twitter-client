@@ -1,6 +1,7 @@
+import { connect } from 'react-redux'
+import { selectList } from '../action-creators'
 import accountStore from '../stores/account-store';
 import AccountSwitcher from './account-switcher'
-import { connect } from 'react-redux'
 import ContextSwitcher from './context-switcher'
 import homeTimelineStore from '../stores/home-timeline-store';
 import listsStore from '../stores/lists-store';
@@ -8,11 +9,15 @@ import Main from './main'
 import React from 'react';
 
 class Root extends React.Component {
+  onListClicked(listId) {
+    this.props.dispatch(selectList(listId));
+  }
+
   render() {
     return(
       <div className="root">
         <AccountSwitcher account={this.props.account} />
-        <ContextSwitcher account={this.props.account} lists={this.props.lists} />
+        <ContextSwitcher account={this.props.account} context={this.props.context} lists={this.props.lists} onListClicked={this.onListClicked.bind(this)} />
         <Main tweets={this.props.homeTimeline} />
       </div>
     );
