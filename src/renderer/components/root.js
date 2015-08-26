@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { selectList } from '../action-creators'
+import { fetchAccount, fetchTweets, fetchLists, selectList, subscribeStream } from '../action-creators'
 import accountStore from '../stores/account-store';
 import AccountSwitcher from './account-switcher'
 import ContextSwitcher from './context-switcher'
@@ -9,6 +9,13 @@ import Main from './main'
 import React from 'react';
 
 class Root extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(fetchAccount());
+    this.props.dispatch(fetchTweets());
+    this.props.dispatch(fetchLists());
+    this.props.dispatch(subscribeStream());
+  }
+
   onListClicked(listId) {
     this.props.dispatch(selectList(listId));
   }
