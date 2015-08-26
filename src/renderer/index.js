@@ -5,8 +5,9 @@ import React from 'react'
 import reducer from './reducer'
 import Root from './components/root'
 import thunkMiddleware from 'redux-thunk'
+import createLogger from 'redux-logger'
 
-const store = applyMiddleware(thunkMiddleware)(createStore)(reducer);
+const store = applyMiddleware(thunkMiddleware, createLogger())(createStore)(reducer);
 
 store.dispatch(fetchAccount());
 store.dispatch(fetchTweets());
