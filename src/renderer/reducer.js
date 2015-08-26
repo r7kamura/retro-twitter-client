@@ -1,6 +1,13 @@
+import {
+  UPDATE_ACCOUNT,
+  UPDATE_HOME_TIMELINE_TWEET,
+  UPDATE_HOME_TIMELINE_TWEETS,
+  UPDATE_LISTS
+} from './action-creators'
+
 const account = (state = {}, action) => {
   switch (action.type) {
-  case 'UPDATE_ACCOUNT':
+  case UPDATE_ACCOUNT:
     return action.account;
   default:
     return state;
@@ -9,9 +16,9 @@ const account = (state = {}, action) => {
 
 const homeTimeline = (state = [], action) => {
   switch (action.type) {
-  case 'UPDATE_HOME_TIMELINE_TWEET':
+  case UPDATE_HOME_TIMELINE_TWEET:
     return [action.tweet, ...state];
-  case 'UPDATE_HOME_TIMELINE_TWEETS':
+  case UPDATE_HOME_TIMELINE_TWEETS:
     return [...action.tweets, ...state];
   default:
     return state;
@@ -20,7 +27,7 @@ const homeTimeline = (state = [], action) => {
 
 const lists = (state = [], action) => {
   switch (action.type) {
-  case 'UPDATE_LISTS':
+  case UPDATE_LISTS:
     return [...state, ...action.lists];
   default:
     return state;
