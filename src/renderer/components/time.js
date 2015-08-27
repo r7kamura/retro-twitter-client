@@ -1,6 +1,27 @@
 import moment from 'moment'
 import React, { PropTypes } from 'react'
 
+moment.locale(
+  'en-short',
+  {
+    relativeTime: {
+      d: "1d",
+      dd: "%dd",
+      future: "%s",
+      h: "1h",
+      hh: "%dh",
+      m: "1m",
+      M: "1M",
+      mm: "%dm",
+      MM: "%dM",
+      past: "%s",
+      s: "now",
+      y: "1y",
+      yy: "%dy"
+    }
+  }
+);
+
 export default class Time extends React.Component {
   componentDidMount() {
     setInterval(this.update.bind(this), 1000 * 60);
@@ -14,7 +35,7 @@ export default class Time extends React.Component {
     if (this.getIsBefore24HoursAgo()) {
       return this.getMomentTime().format('YYYY-MM-DD HH:mm');
     } else {
-      return this.getMomentTime().fromNow();
+      return this.getMomentTime().locale('en-short').fromNow();
     }
   }
 
