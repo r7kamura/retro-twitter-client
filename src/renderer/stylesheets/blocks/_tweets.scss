@@ -9,6 +9,14 @@
 
   &-avatar {
     @include avatar;
+
+    &-child {
+      @include avatar-child;
+    }
+
+    &-parent {
+      @include avatar-parent;
+    }
   }
 
   &-datetime {
@@ -32,8 +40,14 @@
     margin-right: auto;
   }
 
+  &-retweeter-display-name {
+    color: #aaa;
+    margin-left: 4px;
+  }
+
   &-screen-name {
     color: #aaa;
+    margin-left: 4px;
   }
 
   &-sub {
