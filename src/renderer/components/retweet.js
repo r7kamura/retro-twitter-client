@@ -1,4 +1,5 @@
 import React from 'react'
+import Time from './time'
 
 export default class Retweet extends React.Component {
   render() {
@@ -25,9 +26,7 @@ export default class Retweet extends React.Component {
                 {this.props.tweet.user.name}
               </span>
             </div>
-            <div className="tweet-datetime">
-              {this.props.tweet.created_at}
-            </div>
+            <Time className="tweet-datetime" time={this.props.tweet.created_at} />
           </div>
           <div className="tweet-body">
             {this.props.tweet.retweeted_status.text}
