@@ -1,4 +1,5 @@
 import React from 'react'
+import Retweet from './retweet'
 import Tweet from './tweet'
 
 export default class Tweets extends React.Component {
@@ -12,7 +13,11 @@ export default class Tweets extends React.Component {
 
   renderTweets() {
     return this.props.tweets.map((tweet) => {
-      return <Tweet key={tweet.id_str} tweet={tweet} />
+      if (tweet.retweeted_status) {
+        return <Retweet key={tweet.id_str} tweet={tweet} />
+      } else {
+        return <Tweet key={tweet.id_str} tweet={tweet} />
+      }
     });
   }
 }
