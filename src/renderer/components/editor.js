@@ -20,6 +20,10 @@ export default class Editor extends React.Component {
     this.state = { text: '' };
   }
 
+  componentDidMount() {
+    debugger;
+  }
+
   getRestTextLength() {
     return 140 - this.state.text.length;
   }

@@ -1,13 +1,15 @@
-import React from 'react'
+import React from 'react/addons'
 import Retweet from './retweet'
 import Tweet from './tweet'
+
+const CSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 export default class Tweets extends React.Component {
   render() {
     return(
-      <ul className="tweets">
+      <CSSTransitionGroup className="tweets" component="ul" transitionName="tweet">
         {this.renderTweets()}
-      </ul>
+      </CSSTransitionGroup>
     );
   }
 
