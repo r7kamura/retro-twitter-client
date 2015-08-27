@@ -31,11 +31,19 @@ export default class Time extends React.Component {
     clearInterval(this.update.bind(this));
   }
 
+  getRelativeTime() {
+    return this.getMomentTime().locale('en-short').fromNow();
+  }
+
+  getAbsoluteTime() {
+    return this.getMomentTime().format('YYYY-MM-DD HH:mm');
+  }
+
   getHumanReadableTime() {
     if (this.getIsBefore24HoursAgo()) {
-      return this.getMomentTime().format('YYYY-MM-DD HH:mm');
+      return this.getAbsoluteTime();
     } else {
-      return this.getMomentTime().locale('en-short').fromNow();
+      return this.getRelativeTime();
     }
   }
 
@@ -52,10 +60,9 @@ export default class Time extends React.Component {
   }
 
   render() {
-    const humanReadableTime = this.getHumanReadableTime();
     return(
-      <time {...this.props} dateTime={this.getMachineReadableTime()} title={humanReadableTime}>
-        {humanReadableTime}
+      <time {...this.props} dateTime={this.getMachineReadableTime()} title={this.getAbsoluteTime()}>
+        {this.getHumanReadableTime()}
       </time>
     );
   }
