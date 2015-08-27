@@ -10,13 +10,14 @@ export function fetchAccount() {
   return (dispatch) => {
     twitterClient.fetchAccount().then(({ account }) => {
       dispatch(updateAccount(account));
+      dispatch(fetchTweets(account));
     });
   };
 }
 
-export function fetchTweets() {
+export function fetchTweets(account) {
   return (dispatch) => {
-    twitterClient.fetchTweets().then(({ tweets }) => {
+    twitterClient.fetchTweets({ screenName: account.screen_name }).then(({ tweets }) => {
       dispatch(updateHomeTimelineTweets(tweets));
     });
   };

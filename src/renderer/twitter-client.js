@@ -32,12 +32,12 @@ class TwitterClient {
     });
   }
 
-  fetchTweets() {
+  fetchTweets({ screenName }) {
     return new Promise((resolve, reject) => {
       this.getTwitter().get(
         'statuses/home_timeline',
         {
-          screen_name: 'r7kamura'
+          screen_name: screenName
         },
         (error, tweets, response) => {
           resolve({ tweets: tweets, response: response });

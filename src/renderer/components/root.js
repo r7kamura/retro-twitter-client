@@ -11,7 +11,6 @@ import React from 'react';
 class Root extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchAccount());
-    this.props.dispatch(fetchTweets());
     this.props.dispatch(fetchLists());
     this.props.dispatch(subscribeStream());
   }
