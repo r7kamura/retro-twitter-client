@@ -1,5 +1,6 @@
 import React from 'react'
 import Time from './time'
+import twitterText from 'twitter-text'
 
 export default class Retweet extends React.Component {
   render() {
@@ -28,9 +29,7 @@ export default class Retweet extends React.Component {
             </div>
             <Time className="tweet-datetime" time={this.props.tweet.created_at} />
           </div>
-          <div className="tweet-body">
-            {this.props.tweet.retweeted_status.text}
-          </div>
+          <div className="tweet-body" dangerouslySetInnerHTML={{__html: twitterText.autoLink(this.props.tweet.retweeted_status.text)}} />
         </div>
       </li>
     );
