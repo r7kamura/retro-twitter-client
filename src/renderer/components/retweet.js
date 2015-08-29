@@ -27,7 +27,7 @@ export default class Retweet extends React.Component {
                 {this.props.tweet.user.name}
               </span>
             </div>
-            <Time className="tweet-datetime" time={this.props.tweet.created_at} />
+            <Time className="tweet-datetime" time={this.props.tweet.retweeted_status.created_at} />
           </div>
           <TweetBody onAnchorClicked={this.props.onAnchorClicked} tweet={this.props.tweet.retweeted_status} />
         </div>
