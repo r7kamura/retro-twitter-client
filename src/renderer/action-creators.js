@@ -19,6 +19,7 @@ export function fetchTweets(account) {
   return (dispatch) => {
     twitterClient.fetchTweets({ screenName: account.screen_name }).then(({ tweets }) => {
       dispatch(updateHomeTimelineTweets(tweets));
+      dispatch(subscribeStream());
     });
   };
 }
