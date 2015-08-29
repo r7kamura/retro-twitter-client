@@ -1,6 +1,6 @@
 import React from 'react'
 import Time from './time'
-import twitterText from 'twitter-text'
+import TweetBody from './tweet-body'
 
 export default class Tweet extends React.Component {
   render() {
@@ -21,7 +21,7 @@ export default class Tweet extends React.Component {
             </div>
             <Time className="tweet-datetime" time={this.props.tweet.created_at} />
           </div>
-          <div className="tweet-body" dangerouslySetInnerHTML={{__html: twitterText.autoLink(this.props.tweet.text, {urlEntities: this.props.tweet.entities.urls})}} />
+          <TweetBody tweet={this.props.tweet} />
         </div>
       </li>
     );
