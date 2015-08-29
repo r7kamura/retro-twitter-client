@@ -1,3 +1,6 @@
+## v0.0.7
+- Fix window management bug on Windows and Linux platforms
+
 ## v0.0.6
 - Trim package weight (300MB -> 50MB)
 
