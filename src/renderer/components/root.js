@@ -1,10 +1,7 @@
 import { connect } from 'react-redux'
-import { fetchAccount, fetchTweets, fetchLists, openUrl, searchTweets, selectChannel, subscribeStream } from '../action-creators'
-import accountStore from '../stores/account-store';
+import { fetchAccount, fetchTweets, fetchLists, openUrl, postTweet, searchTweets, selectChannel, subscribeStream } from '../action-creators'
 import AccountSwitcher from './account-switcher'
 import ContextSwitcher from './context-switcher'
-import homeTimelineStore from '../stores/home-timeline-store';
-import listsStore from '../stores/lists-store';
 import Main from './main'
 import React from 'react';
 
@@ -12,7 +9,6 @@ class Root extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchAccount());
     this.props.dispatch(fetchLists());
-    // this.props.dispatch(searchTweets('test'));
   }
 
   onAnchorClicked(url) {
@@ -23,12 +19,16 @@ class Root extends React.Component {
     this.props.dispatch(selectChannel(contextId));
   }
 
+  postTweet(text) {
+    this.props.dispatch(postTweet(text));
+  }
+
   render() {
     return(
       <div className="root">
         <AccountSwitcher account={this.props.account} />
         <ContextSwitcher account={this.props.account} context={this.props.context} lists={this.props.lists} onChannelClicked={this.onChannelClicked.bind(this)} />
-        <Main context={this.props.context} onAnchorClicked={this.onAnchorClicked.bind(this)} homeTimeline={this.props.homeTimeline} listTweets={this.props.listTweets} searchedTweets={this.props.searchedTweets} />
+        <Main context={this.props.context} onAnchorClicked={this.onAnchorClicked.bind(this)} postTweet={this.postTweet.bind(this)} homeTimeline={this.props.homeTimeline} listTweets={this.props.listTweets} searchedTweets={this.props.searchedTweets} />
       </div>
     );
   }

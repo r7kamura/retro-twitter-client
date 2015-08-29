@@ -1,4 +1,3 @@
-import homeTimelineStore from '../stores/home-timeline-store';
 import React from 'react'
 import twitterClient from '../twitter-client'
 
@@ -20,18 +19,12 @@ export default class Editor extends React.Component {
     this.state = { text: '' };
   }
 
-  componentDidMount() {
-    debugger;
-  }
-
   getRestTextLength() {
     return 140 - this.state.text.length;
   }
 
   onSubmitButtonClicked(event) {
-    this.postTweet().then(({ tweet }) => {
-      homeTimelineStore.mergeTweet(tweet);
-    });
+    this.postTweet();
   }
 
   onTextareaChanged(event) {
@@ -65,7 +58,7 @@ export default class Editor extends React.Component {
   }
 
   postTweet() {
-    twitterClient.postTweet({ text: this.state.text });
+    this.props.postTweet(this.state.text);
     this.setState({ text: '' });
   }
 }

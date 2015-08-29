@@ -53,6 +53,14 @@ export function openUrl(url) {
   }
 }
 
+export function postTweet(text) {
+  return (dispatch) => {
+    twitterClient.postTweet({ text }).then(({ tweet }) => {
+      dispatch(updateHomeTimelineTweet(tweet));
+    });
+  };
+}
+
 export function searchTweets(queryString) {
   return (dispatch) => {
     twitterClient.searchTweets({ queryString }).then(({ tweets }) => {

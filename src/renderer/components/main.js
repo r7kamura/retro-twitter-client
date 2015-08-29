@@ -17,7 +17,7 @@ export default class Main extends React.Component {
   render() {
     return(
       <main className="main">
-        <Editor key="editor" />
+        <Editor key="editor" postTweet={this.props.postTweet} />
         <Tweets key={this.props.context} onAnchorClicked={this.props.onAnchorClicked} tweets={this.getTweets()} />
       </main>
     );
