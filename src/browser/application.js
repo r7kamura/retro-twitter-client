@@ -22,12 +22,6 @@ export default class Application {
     this.openAuthenicationWindow();
   }
 
-  onWindowAllClosed() {
-    if (process.platform != 'darwin') {
-      app.quit();
-    }
-  }
-
   openAuthenicationWindow() {
     new AuthenticationWindow({
       consumerKey: this.consumerKey,
@@ -43,7 +37,6 @@ export default class Application {
   }
 
   registerApplicationCallbacks() {
-    app.on('window-all-closed', this.onWindowAllClosed.bind(this));
     app.on('ready', this.onReady.bind(this));
   }
 
