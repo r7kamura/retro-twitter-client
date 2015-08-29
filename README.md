@@ -1,7 +1,7 @@
 # retro-twitter-client
 A retro twitter client.
 
-![](/screenshots/preview9.png)
+![](/screenshots/preview10.png)
 
 ## Development
 ### npm run setup
