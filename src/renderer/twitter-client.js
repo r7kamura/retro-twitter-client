@@ -86,6 +86,39 @@ class TwitterClient {
     });
   }
 
+  searchTweets({ queryString }) {
+    return new Promise((resolve, reject) => {
+      this.getTwitter().get(
+        'search/tweets',
+        {
+          q: queryString
+        },
+        (error, data, response) => {
+          resolve({ tweets: data.statuses, response: response });
+        }
+      );
+    });
+  }
+
+  /*
+   * @return {EventEmitter}
+   */
+  subscribeFilteredStream({ queryString }) {
+    const eventEmitter = new EventEmitter();
+    this.getTwitter().stream(
+      'statuses/filter',
+      {
+        track: queryString
+      },
+      (stream) => {
+        stream.on('data', (data) => {
+          eventEmitter.emit('tweeted', data);
+        });
+      }
+    );
+    return eventEmitter;
+  }
+
   /*
    * @return {EventEmitter}
    */

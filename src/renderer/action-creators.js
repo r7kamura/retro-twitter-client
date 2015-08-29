@@ -7,6 +7,8 @@ export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 export const UPDATE_HOME_TIMELINE_TWEET = 'UPDATE_HOME_TIMELINE_TWEET';
 export const UPDATE_HOME_TIMELINE_TWEETS = 'UPDATE_HOME_TIMELINE_TWEETS';
 export const UPDATE_LISTS = 'UPDATE_LISTS';
+export const UPDATE_SEARCHED_TWEET = 'UPDATE_SEARCHED_TWEET';
+export const UPDATE_SEARCHED_TWEETS = 'UPDATE_SEARCHED_TWEETS';
 
 export function fetchAccount() {
   return (dispatch) => {
@@ -42,7 +44,24 @@ export function openUrl(url) {
   }
 }
 
-export function subscribeStream() {
+export function searchTweets(queryString) {
+  return (dispatch) => {
+    twitterClient.searchTweets({ queryString }).then(({ tweets }) => {
+      dispatch(updateSearchedTweets(tweets));
+      dispatch(subscribeFilteredStream({ queryString }));
+    });
+  };
+}
+
+function subscribeFilteredStream({ queryString }) {
+  return (dispatch) => {
+    twitterClient.subscribeFilteredStream({ queryString }).on('tweeted', (tweet) => {
+      dispatch(updateSearchedTweet(tweet));
+    });
+  };
+}
+
+function subscribeStream() {
   return (dispatch) => {
     twitterClient.subscribeStream().on('tweeted', (tweet) => {
       dispatch(updateHomeTimelineTweet(tweet));
@@ -83,4 +102,18 @@ function updateLists(lists) {
     lists,
     type: UPDATE_LISTS
   };
+}
+
+function updateSearchedTweet(tweet) {
+  return {
+    tweet,
+    type: UPDATE_SEARCHED_TWEET
+  }
+}
+
+function updateSearchedTweets(tweets) {
+  return {
+    tweets,
+    type: UPDATE_SEARCHED_TWEETS
+  }
 }

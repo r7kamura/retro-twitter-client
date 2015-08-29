@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchAccount, fetchTweets, fetchLists, openUrl, selectList, subscribeStream } from '../action-creators'
+import { fetchAccount, fetchTweets, fetchLists, openUrl, searchTweets, selectList, subscribeStream } from '../action-creators'
 import accountStore from '../stores/account-store';
 import AccountSwitcher from './account-switcher'
 import ContextSwitcher from './context-switcher'
@@ -12,6 +12,7 @@ class Root extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchAccount());
     this.props.dispatch(fetchLists());
+    // this.props.dispatch(searchTweets('test'));
   }
 
   onAnchorClicked(url) {
