@@ -1,20 +1,20 @@
 {
   "name": "retro-twitter-client",
   "private": true,
-  "version": "0.0.5",
+  "version": "0.0.6",
   "main": "app/browser/index.js",
   "scripts": {
-    "clean": "rm -rf packages/v0.0.5/retro-twitter-client-{darwin,linux,win32}-x64",
+    "clean": "rm -rf packages/v0.0.6/retro-twitter-client-{darwin,linux,win32}-x64",
     "compile": "gulp compile",
-    "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.5 --platform=darwin,linux,win32 --version=0.31.0 --ignore=packages/*",
+    "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.6 --platform=darwin,linux,win32 --version=0.31.0 --ignore=packages/*",
     "release": "npm run zip && npm run clean && npm run upload",
     "setup": "npm install && brew tap tcnksm/ghr && brew install ghr && npm run compile",
     "start": "electron .",
-    "upload": "ghr v0.0.5 packages/",
+    "upload": "ghr v0.0.6 packages/",
     "watch": "gulp watch",
     "zip": "npm run zip-darwin && npm run zip-win32",
-    "zip-darwin": "cd packages/v0.0.5 && zip -r retro-twitter-client-darwin-x64.zip retro-twitter-client-darwin-x64",
-    "zip-win32": "cd packages/v0.0.5 && zip -r retro-twitter-client-win32-x64.zip retro-twitter-client-win32-x64"
+    "zip-darwin": "cd packages/v0.0.6 && zip -r retro-twitter-client-darwin-x64.zip retro-twitter-client-darwin-x64",
+    "zip-win32": "cd packages/v0.0.6 && zip -r retro-twitter-client-win32-x64.zip retro-twitter-client-win32-x64"
   },
   "repository": "r7kamura/retro-twitter-client",
   "author": "Ryo Nakamura <r7kamura@gmail.com> (https://github.com/r7kamura)",

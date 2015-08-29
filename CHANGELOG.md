@@ -1,3 +1,6 @@
+## v0.0.6
+- Trim package weight (300MB -> 50MB)
+
 ## v0.0.5
 - Support lists
 - Support Linux
