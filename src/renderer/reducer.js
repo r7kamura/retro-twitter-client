@@ -1,5 +1,5 @@
 import {
-  SELECT_LIST,
+  SELECT_CHANNEL,
   UPDATE_ACCOUNT,
   UPDATE_HOME_TIMELINE_TWEET,
   UPDATE_HOME_TIMELINE_TWEETS,
@@ -19,8 +19,8 @@ const account = (state = {}, action) => {
 
 const context = (state = 'homeTimeline', action) => {
   switch (action.type) {
-  case SELECT_LIST:
-    return action.listId;
+  case SELECT_CHANNEL:
+    return action.channelId;
   default:
     return state;
   }

@@ -1,8 +1,9 @@
 .account {
-  &-list {
+  &-channel {
     border-radius: 0 3px 3px 0;
     color: #aaa;
     cursor: pointer;
+    font-size: 15px;
     margin-right: 16px;
     padding-left: 16px;
 
@@ -17,12 +18,13 @@
     }
   }
 
-  &-lists {
+  &-section {
     padding-bottom: 16px;
     padding-top: 16px;
 
     &-heading {
       color: #aaa;
+      margin-bottom: 4px;
       padding-left: 16px;
     }
   }

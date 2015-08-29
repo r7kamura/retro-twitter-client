@@ -2,7 +2,7 @@ import { openExternal } from 'shell'
 import twitterClient from './twitter-client';
 
 export const OPEN_URL = 'OPEN_URL';
-export const SELECT_LIST = 'SELECT_LIST';
+export const SELECT_CHANNEL = 'SELECT_CHANNEL';
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 export const UPDATE_HOME_TIMELINE_TWEET = 'UPDATE_HOME_TIMELINE_TWEET';
 export const UPDATE_HOME_TIMELINE_TWEETS = 'UPDATE_HOME_TIMELINE_TWEETS';
@@ -69,10 +69,10 @@ function subscribeStream() {
   };
 }
 
-export function selectList(listId) {
+export function selectChannel(channelId) {
   return {
-    listId,
-    type: SELECT_LIST
+    channelId,
+    type: SELECT_CHANNEL
   }
 }
 
