@@ -1,4 +1,3 @@
-import { openExternal } from 'shell'
 import React from 'react'
 import Time from './time'
 import twitterText from 'twitter-text'
@@ -6,7 +5,7 @@ import twitterText from 'twitter-text'
 class Anchor extends React.Component {
   onClicked(event) {
     event.preventDefault();
-    openExternal(this.props.url);
+    this.props.onAnchorClicked(this.props.url);
   }
 
   render() {
@@ -28,7 +27,7 @@ class AnchorToCashtag extends React.Component {
   }
 
   render() {
-    return <Anchor text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
+    return <Anchor onAnchorClicked={this.props.onAnchorClicked} text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
   }
 }
 
@@ -46,7 +45,7 @@ class AnchorToHashtag extends React.Component {
   }
 
   render() {
-    return <Anchor text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
+    return <Anchor onAnchorClicked={this.props.onAnchorClicked} text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
   }
 }
 
@@ -68,7 +67,7 @@ class AnchorToList extends React.Component {
   }
 
   render() {
-    return <Anchor text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
+    return <Anchor onAnchorClicked={this.props.onAnchorClicked} text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
   }
 }
 
@@ -90,7 +89,7 @@ class AnchorToMention extends React.Component {
   }
 
   render() {
-    return <Anchor text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
+    return <Anchor onAnchorClicked={this.props.onAnchorClicked} text={this.getText()} title={this.getTitle()} url={this.getUrl()} />
   }
 }
 
@@ -104,7 +103,7 @@ class AnchorToUrl extends React.Component {
   }
 
   render() {
-    return <Anchor text={this.getText()} url={this.props.url} />
+    return <Anchor onAnchorClicked={this.props.onAnchorClicked} text={this.getText()} url={this.props.url} />
   }
 }
 
@@ -126,15 +125,15 @@ export default class Tweet extends React.Component {
     this.getEntities().forEach((entity) => {
       components.push(<Text text={text.substring(index, entity.indices[0])} />);
       if (entity.url) {
-        components.push(<AnchorToUrl displayUrl={entity.url} url={entity.url} urlEntity={this.getUrlEntityFromUrl(entity.url)} />);
+        components.push(<AnchorToUrl displayUrl={entity.url} onAnchorClicked={this.props.onAnchorClicked} url={entity.url} urlEntity={this.getUrlEntityFromUrl(entity.url)} />);
       } else if (entity.hashtag) {
-        components.push(<AnchorToHashtag entireText={text} entity={entity} />);
+        components.push(<AnchorToHashtag entireText={text} onAnchorClicked={this.props.onAnchorClicked} entity={entity} />);
       } else if (entity.listSlug) {
-        components.push(<AnchorToList entireText={text} entity={entity} />);
+        components.push(<AnchorToList entireText={text} onAnchorClicked={this.props.onAnchorClicked} entity={entity} />);
       } else if (entity.screenName) {
-        components.push(<AnchorToMention entireText={text} entity={entity} />);
+        components.push(<AnchorToMention entireText={text} onAnchorClicked={this.props.onAnchorClicked} entity={entity} />);
       } else if (entity.cashtag) {
-        components.push(<AnchorToCashtag entireText={text} entity={entity} />);
+        components.push(<AnchorToCashtag entireText={text} onAnchorClicked={this.props.onAnchorClicked} entity={entity} />);
       }
       index = entity.indices[1];
     });
