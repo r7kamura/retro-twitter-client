@@ -4,7 +4,7 @@
   "version": "0.0.5",
   "main": "app/browser/index.js",
   "scripts": {
-    "clean": "rm -rf packages/v0.0.5/retro-twitter-client-{darwin,win32}-x64",
+    "clean": "rm -rf packages/v0.0.5/retro-twitter-client-{darwin,linux,win32}-x64",
     "compile": "gulp compile",
     "package": "electron-packager . retro-twitter-client --arch=x64 --out=packages/v0.0.5 --platform=darwin,linux,win32 --version=0.31.0 --ignore=packages/*",
     "release": "npm run zip && npm run clean && npm run upload",
