@@ -1,10 +1,15 @@
 @import "qiita-coat/scss/avatars";
+@import "../variables";
 
 .tweet {
   display: flex;
 
   & + & {
     margin-top: 16px;
+  }
+
+  &-anchor {
+    color: $color-link;
   }
 
   &-avatar {

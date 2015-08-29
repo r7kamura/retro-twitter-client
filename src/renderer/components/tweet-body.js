@@ -9,7 +9,7 @@ class Anchor extends React.Component {
   }
 
   render() {
-    return <a href={this.props.url} title={this.props.title} onClick={this.onClicked.bind(this)} dangerouslySetInnerHTML={{__html: this.props.text}} />;
+    return <a className="tweet-anchor" href={this.props.url} title={this.props.title} onClick={this.onClicked.bind(this)} dangerouslySetInnerHTML={{__html: this.props.text}} />;
   }
 }
 
