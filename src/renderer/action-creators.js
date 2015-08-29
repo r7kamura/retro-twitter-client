@@ -6,6 +6,7 @@ export const SELECT_CHANNEL = 'SELECT_CHANNEL';
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 export const UPDATE_HOME_TIMELINE_TWEET = 'UPDATE_HOME_TIMELINE_TWEET';
 export const UPDATE_HOME_TIMELINE_TWEETS = 'UPDATE_HOME_TIMELINE_TWEETS';
+export const UPDATE_LIST_TWEETS = 'UPDATE_LIST_TWEETS';
 export const UPDATE_LISTS = 'UPDATE_LISTS';
 export const UPDATE_SEARCHED_TWEET = 'UPDATE_SEARCHED_TWEET';
 export const UPDATE_SEARCHED_TWEETS = 'UPDATE_SEARCHED_TWEETS';
@@ -24,6 +25,14 @@ export function fetchTweets(account) {
     twitterClient.fetchTweets({ screenName: account.screen_name }).then(({ tweets }) => {
       dispatch(updateHomeTimelineTweets(tweets));
       dispatch(subscribeStream());
+    });
+  };
+}
+
+export function fetchTweetsFromList(listId) {
+  return (dispatch) => {
+    twitterClient.fetchTweetsFromList({ listId }).then(({ tweets }) => {
+      dispatch(updateListTweets(tweets));
     });
   };
 }
@@ -70,10 +79,22 @@ function subscribeStream() {
 }
 
 export function selectChannel(channelId) {
-  return {
-    channelId,
-    type: SELECT_CHANNEL
-  }
+  return (dispatch) => {
+    dispatch({
+      channelId,
+      type: SELECT_CHANNEL
+    });
+    switch (channelId) {
+    case 'homeTimeline':
+      dispatch(fetchTweets());
+      break;
+    case 'search':
+      break;
+    default:
+      dispatch(fetchTweetsFromList(channelId));
+      break;
+    }
+  };
 }
 
 function updateAccount(account) {
@@ -102,6 +123,13 @@ function updateLists(lists) {
     lists,
     type: UPDATE_LISTS
   };
+}
+
+function updateListTweets(tweets) {
+  return {
+    tweets,
+    type: UPDATE_LIST_TWEETS
+  }
 }
 
 function updateSearchedTweet(tweet) {

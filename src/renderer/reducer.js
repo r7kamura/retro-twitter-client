@@ -3,6 +3,7 @@ import {
   UPDATE_ACCOUNT,
   UPDATE_HOME_TIMELINE_TWEET,
   UPDATE_HOME_TIMELINE_TWEETS,
+  UPDATE_LIST_TWEETS,
   UPDATE_LISTS,
   UPDATE_SEARCHED_TWEET,
   UPDATE_SEARCHED_TWEETS
@@ -46,6 +47,17 @@ const lists = (state = [], action) => {
   }
 };
 
+const listTweets = (state = [], action) => {
+  switch (action.type) {
+  case SELECT_CHANNEL:
+    return [];
+  case UPDATE_LIST_TWEETS:
+    return action.tweets;
+  default:
+    return state;
+  }
+};
+
 const searchedTweets = (state = [], action) => {
   switch (action.type) {
   case UPDATE_SEARCHED_TWEET:
@@ -63,6 +75,7 @@ export default (state = {}, action) => {
     context: context(state.context, action),
     homeTimeline: homeTimeline(state.homeTimeline, action),
     lists: lists(state.lists, action),
+    listTweets: listTweets(state.listTweets, action),
     searchedTweets: searchedTweets(state.searchedTweets, action)
   };
 }

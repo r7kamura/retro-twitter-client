@@ -28,7 +28,7 @@ class Root extends React.Component {
       <div className="root">
         <AccountSwitcher account={this.props.account} />
         <ContextSwitcher account={this.props.account} context={this.props.context} lists={this.props.lists} onChannelClicked={this.onChannelClicked.bind(this)} />
-        <Main onAnchorClicked={this.onAnchorClicked.bind(this)} tweets={this.props.homeTimeline} />
+        <Main context={this.props.context} onAnchorClicked={this.onAnchorClicked.bind(this)} homeTimeline={this.props.homeTimeline} listTweets={this.props.listTweets} searchedTweets={this.props.searchedTweets} />
       </div>
     );
   }
