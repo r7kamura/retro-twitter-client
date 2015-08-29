@@ -29,7 +29,7 @@ export default class Retweet extends React.Component {
             </div>
             <Time className="tweet-datetime" time={this.props.tweet.created_at} />
           </div>
-          <div className="tweet-body" dangerouslySetInnerHTML={{__html: twitterText.autoLink(this.props.tweet.retweeted_status.text)}} />
+          <div className="tweet-body" dangerouslySetInnerHTML={{__html: twitterText.autoLink(this.props.tweet.retweeted_status.text, {urlEntities: this.props.tweet.retweeted_status.entities.urls})}} />
         </div>
       </li>
     );

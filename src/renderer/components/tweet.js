@@ -21,7 +21,7 @@ export default class Tweet extends React.Component {
             </div>
             <Time className="tweet-datetime" time={this.props.tweet.created_at} />
           </div>
-          <div className="tweet-body" dangerouslySetInnerHTML={{__html: twitterText.autoLink(this.props.tweet.text)}} />
+          <div className="tweet-body" dangerouslySetInnerHTML={{__html: twitterText.autoLink(this.props.tweet.text, {urlEntities: this.props.tweet.entities.urls})}} />
         </div>
       </li>
     );
