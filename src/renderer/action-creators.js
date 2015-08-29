@@ -1,5 +1,7 @@
+import { openExternal } from 'shell'
 import twitterClient from './twitter-client';
 
+export const OPEN_URL = 'OPEN_URL';
 export const SELECT_LIST = 'SELECT_LIST';
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
 export const UPDATE_HOME_TIMELINE_TWEET = 'UPDATE_HOME_TIMELINE_TWEET';
@@ -30,6 +32,14 @@ export function fetchLists() {
       dispatch(updateLists(lists));
     });
   };
+}
+
+export function openUrl(url) {
+  openExternal(url);
+  return {
+    url,
+    type: OPEN_URL
+  }
 }
 
 export function subscribeStream() {

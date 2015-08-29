@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { fetchAccount, fetchTweets, fetchLists, selectList, subscribeStream } from '../action-creators'
+import { fetchAccount, fetchTweets, fetchLists, openUrl, selectList, subscribeStream } from '../action-creators'
 import accountStore from '../stores/account-store';
 import AccountSwitcher from './account-switcher'
 import ContextSwitcher from './context-switcher'
@@ -14,6 +14,10 @@ class Root extends React.Component {
     this.props.dispatch(fetchLists());
   }
 
+  onAnchorClicked(url) {
+    this.props.dispatch(openUrl(url));
+  }
+
   onListClicked(listId) {
     this.props.dispatch(selectList(listId));
   }
@@ -23,7 +27,7 @@ class Root extends React.Component {
       <div className="root">
         <AccountSwitcher account={this.props.account} />
         <ContextSwitcher account={this.props.account} context={this.props.context} lists={this.props.lists} onListClicked={this.onListClicked.bind(this)} />
-        <Main tweets={this.props.homeTimeline} />
+        <Main onAnchorClicked={this.onAnchorClicked.bind(this)} tweets={this.props.homeTimeline} />
       </div>
     );
   }

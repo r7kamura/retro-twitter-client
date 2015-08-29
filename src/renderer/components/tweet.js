@@ -21,7 +21,7 @@ export default class Tweet extends React.Component {
             </div>
             <Time className="tweet-datetime" time={this.props.tweet.created_at} />
           </div>
-          <TweetBody tweet={this.props.tweet} />
+          <TweetBody onAnchorClicked={this.props.onAnchorClicked} tweet={this.props.tweet} />
         </div>
       </li>
     );
