@@ -1,3 +1,10 @@
+## v0.0.5
+- Support lists
+- Support Linux
+- Attach links to mentions, hashtags, cashtags, lists and normal urls
+- Add animation in prepending a new tweet
+- Show original posted time in retweet
+
 ## v0.0.4
 - Use auto-updatable relative time format
 - Improve retweet UI
