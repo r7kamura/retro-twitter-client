@@ -37,6 +37,7 @@ export default class Application {
   }
 
   registerApplicationCallbacks() {
+    app.on('window-all-closed', () => {});
     app.on('ready', this.onReady.bind(this));
   }
 
