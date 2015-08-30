@@ -24,15 +24,6 @@
     }
   }
 
-  &-enter {
-    opacity: 0.01;
-  }
-
-  &-enter-active {
-    opacity: 1;
-    transition: opacity .5s ease-in;
-  }
-
   &-datetime {
     color: #aaa;
     padding-left: 8px;
