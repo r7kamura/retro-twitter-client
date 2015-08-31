@@ -2,6 +2,8 @@ import { openExternal } from 'shell'
 import twitterClient from './twitter-client';
 import {
   CLEAR_LIST_TWEETS,
+  HOME_TIMELINE,
+  SEARCH,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
   UPDATE_HOME_TIMELINE_TWEET,
@@ -97,9 +99,9 @@ function subscribeStream() {
 export function selectChannel(channelId) {
   return (dispatch, getState) => {
     switch (channelId) {
-    case 'homeTimeline':
+    case HOME_TIMELINE:
       break;
-    case 'search':
+    case SEARCH:
       break;
     default:
       if (getState().listId !== channelId) {
@@ -118,10 +120,10 @@ export function selectChannel(channelId) {
 export function selectNextChannel() {
   return (dispatch, getState) => {
     switch (getState().context) {
-    case 'homeTimeline':
-      dispatch(selectChannel('search'));
+    case HOME_TIMELINE:
+      dispatch(selectChannel(SEARCH));
       break;
-    case 'search':
+    case SEARCH:
       const list = getState().lists[0];
       if (list) {
         dispatch(selectChannel(list.id_str));
@@ -129,7 +131,7 @@ export function selectNextChannel() {
       }
       break;
     default:
-      dispatch(selectChannel('homeTimeline'));
+      dispatch(selectChannel(HOME_TIMELINE));
     }
   };
 }

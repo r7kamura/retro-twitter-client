@@ -1,3 +1,4 @@
+import { HOME_TIMELINE, SEARCH } from '../constants'
 import Editor from './editor'
 import React from 'react'
 import Tweets from './tweets'
@@ -5,9 +6,9 @@ import Tweets from './tweets'
 export default class Main extends React.Component {
   getTweets() {
     switch (this.props.context) {
-    case 'homeTimeline':
+    case HOME_TIMELINE:
       return this.props.homeTimeline;
-    case 'search':
+    case SEARCH:
       return this.props.searchedTweets;
     default:
       return this.props.listTweets;
