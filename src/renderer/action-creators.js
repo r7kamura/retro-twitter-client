@@ -108,14 +108,29 @@ export function selectNextChannel() {
       dispatch(selectChannel(SEARCH));
       break;
     case SEARCH:
-      const list = getState().lists[0];
-      if (list) {
-        dispatch(selectChannel(list.id_str));
+      if (getState().lists.length > 0) {
+        dispatch(selectChannel(getState().lists[0].id_str));
         break;
       }
-      break;
     default:
       dispatch(selectChannel(HOME_TIMELINE));
+    }
+  };
+}
+
+export function selectPreviousChannel() {
+  return (dispatch, getState) => {
+    switch (getState().channelId) {
+    case HOME_TIMELINE:
+      if (getState().lists.length > 0) {
+        dispatch(selectChannel(getState().lists[0].id_str));
+        break;
+      }
+    case SEARCH:
+      dispatch(selectChannel(HOME_TIMELINE));
+      break;
+    default:
+      dispatch(selectChannel(SEARCH));
     }
   };
 }

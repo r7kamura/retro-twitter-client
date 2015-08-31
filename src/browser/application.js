@@ -45,6 +45,7 @@ export default class Application {
 
   registerGlobalShortcuts() {
     globalShortcut.register('Alt+Down', this.selectNextChannel.bind(this));
+    globalShortcut.register('Alt+Up', this.selectPreviousChannel.bind(this));
   }
 
   run() {
@@ -54,6 +55,10 @@ export default class Application {
 
   selectNextChannel() {
     this.mainWindow.send('select-next-channel-requested');
+  }
+
+  selectPreviousChannel() {
+    this.mainWindow.send('select-previous-channel-requested');
   }
 
   startCrashReporter() {

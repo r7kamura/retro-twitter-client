@@ -13,6 +13,7 @@ import {
   searchTweets,
   selectChannel,
   selectNextChannel,
+  selectPreviousChannel,
   subscribeStream
 } from '../action-creators'
 
@@ -21,6 +22,9 @@ class Root extends React.Component {
     this.props.dispatch(fetchAccount());
     ipc.on('select-next-channel-requested', () => {
       this.props.dispatch(selectNextChannel());
+    });
+    ipc.on('select-previous-channel-requested', () => {
+      this.props.dispatch(selectPreviousChannel());
     });
   }
 
