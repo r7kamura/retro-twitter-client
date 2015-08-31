@@ -1,6 +1,7 @@
 import { openExternal } from 'shell'
 import twitterClient from './twitter-client';
 
+export const CLEAR_LIST_TWEETS = 'CLEAR_LIST_TWEETS';
 export const OPEN_URL = 'OPEN_URL';
 export const SELECT_CHANNEL = 'SELECT_CHANNEL';
 export const UPDATE_ACCOUNT = 'UPDATE_ACCOUNT';
@@ -10,6 +11,12 @@ export const UPDATE_LIST_TWEETS = 'UPDATE_LIST_TWEETS';
 export const UPDATE_LISTS = 'UPDATE_LISTS';
 export const UPDATE_SEARCHED_TWEET = 'UPDATE_SEARCHED_TWEET';
 export const UPDATE_SEARCHED_TWEETS = 'UPDATE_SEARCHED_TWEETS';
+
+function clearListTweets() {
+  return {
+    type: CLEAR_LIST_TWEETS
+  }
+}
 
 export function fetchAccount() {
   return (dispatch) => {
@@ -88,20 +95,23 @@ function subscribeStream() {
 }
 
 export function selectChannel(channelId) {
-  return (dispatch) => {
-    dispatch({
-      channelId,
-      type: SELECT_CHANNEL
-    });
+  return (dispatch, getState) => {
     switch (channelId) {
     case 'homeTimeline':
       break;
     case 'search':
       break;
     default:
+      if (getState().listId !== channelId) {
+        dispatch(clearListTweets());
+      }
       dispatch(fetchTweetsFromList(channelId));
       break;
     }
+    dispatch({
+      channelId,
+      type: SELECT_CHANNEL
+    });
   };
 }
 

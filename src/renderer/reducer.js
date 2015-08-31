@@ -1,4 +1,5 @@
 import {
+  CLEAR_LIST_TWEETS,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
   UPDATE_HOME_TIMELINE_TWEET,
@@ -38,6 +39,21 @@ const homeTimeline = (state = [], action) => {
   }
 };
 
+const listId = (state = null, action) => {
+  switch (action.type) {
+  case SELECT_CHANNEL:
+    switch (action.channelId) {
+    case 'homeTimeline':
+    case 'search':
+      return state;
+    default:
+      return action.channelId;
+    }
+  default:
+    return state;
+  }
+};
+
 const lists = (state = [], action) => {
   switch (action.type) {
   case UPDATE_LISTS:
@@ -49,10 +65,10 @@ const lists = (state = [], action) => {
 
 const listTweets = (state = [], action) => {
   switch (action.type) {
-  case SELECT_CHANNEL:
+  case CLEAR_LIST_TWEETS:
     return [];
   case UPDATE_LIST_TWEETS:
-    return action.tweets;
+    return [...action.tweets, ...state];
   default:
     return state;
   }
@@ -75,6 +91,7 @@ export default (state = {}, action) => {
     context: context(state.context, action),
     homeTimeline: homeTimeline(state.homeTimeline, action),
     lists: lists(state.lists, action),
+    listId: listId(state.listId, action),
     listTweets: listTweets(state.listTweets, action),
     searchedTweets: searchedTweets(state.searchedTweets, action)
   };
