@@ -24,11 +24,11 @@ moment.locale(
 
 export default class Time extends React.Component {
   componentDidMount() {
-    setInterval(this.update.bind(this), 1000 * 60);
+    this.intervalId = setInterval(this.update.bind(this), 1000 * 60);
   }
 
   componentWillUnmount() {
-    clearInterval(this.update.bind(this));
+    clearInterval(this.intervalId);
   }
 
   getRelativeTime() {
