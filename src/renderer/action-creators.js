@@ -111,9 +111,25 @@ export function selectNextChannel() {
       if (getState().lists.length > 0) {
         dispatch(selectChannel(getState().lists[0].id_str));
         break;
+      } else {
+        dispatch(selectChannel(HOME_TIMELINE_CHANNEL));
+        break;
       }
     default:
-      dispatch(selectChannel(HOME_TIMELINE_CHANNEL));
+      const channelId = getState().channelId;
+      const lists = getState().lists;
+      let index = -1;
+      for (var i = 0; i < lists.length; i++) {
+        index++;
+        if (lists[i].id_str === channelId) {
+          break;
+        }
+      }
+      if (-1 < index && index < getState().lists.length - 1) {
+        dispatch(selectChannel(lists[index + 1].id_str));
+      } else {
+        dispatch(selectChannel(HOME_TIMELINE_CHANNEL));
+      }
     }
   };
 }
@@ -123,14 +139,27 @@ export function selectPreviousChannel() {
     switch (getState().channelId) {
     case HOME_TIMELINE_CHANNEL:
       if (getState().lists.length > 0) {
-        dispatch(selectChannel(getState().lists[0].id_str));
+        dispatch(selectChannel(getState().lists[getState().lists.length - 1].id_str));
         break;
       }
     case SEARCH_CHANNEL:
       dispatch(selectChannel(HOME_TIMELINE_CHANNEL));
       break;
     default:
-      dispatch(selectChannel(SEARCH_CHANNEL));
+      const channelId = getState().channelId;
+      const lists = getState().lists;
+      let index = -1;
+      for (var i = 0; i < lists.length; i++) {
+        index++;
+        if (lists[i].id_str === channelId) {
+          break;
+        }
+      }
+      if (index - 1 >= 0) {
+        dispatch(selectChannel(lists[index - 1].id_str));
+      } else {
+        dispatch(selectChannel(SEARCH_CHANNEL));
+      }
     }
   };
 }
