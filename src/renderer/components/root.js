@@ -19,6 +19,9 @@ import {
 class Root extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchAccount());
+    ipc.on('select-next-channel-requested', () => {
+      this.props.dispatch(selectNextChannel());
+    });
   }
 
   onAnchorClicked(url) {

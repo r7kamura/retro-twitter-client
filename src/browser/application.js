@@ -1,6 +1,7 @@
 import app from 'app'
 import AuthenticationWindow from './authentication-window'
 import crashReporter from 'crash-reporter'
+import globalShortcut from 'global-shortcut'
 import MainWindow from './main-window'
 
 export default class Application {
@@ -20,6 +21,7 @@ export default class Application {
 
   onReady() {
     this.openAuthenicationWindow();
+    this.registerGlobalShortcuts();
   }
 
   openAuthenicationWindow() {
@@ -41,9 +43,17 @@ export default class Application {
     app.on('ready', this.onReady.bind(this));
   }
 
+  registerGlobalShortcuts() {
+    globalShortcut.register('Alt+Down', this.selectNextChannel.bind(this));
+  }
+
   run() {
     this.startCrashReporter();
     this.registerApplicationCallbacks();
+  }
+
+  selectNextChannel() {
+    this.mainWindow.send('select-next-channel-requested');
   }
 
   startCrashReporter() {
