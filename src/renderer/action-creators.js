@@ -80,22 +80,6 @@ export function searchTweets(queryString) {
   };
 }
 
-function subscribeFilteredStream({ queryString }) {
-  return (dispatch) => {
-    twitterClient.subscribeFilteredStream({ queryString }).on('tweeted', (tweet) => {
-      dispatch(updateSearchedTweet(tweet));
-    });
-  };
-}
-
-function subscribeStream() {
-  return (dispatch) => {
-    twitterClient.subscribeStream().on('tweeted', (tweet) => {
-      dispatch(updateHomeTimelineTweet(tweet));
-    });
-  };
-}
-
 export function selectChannel(channelId) {
   return (dispatch, getState) => {
     switch (channelId) {
@@ -133,6 +117,22 @@ export function selectNextChannel() {
     default:
       dispatch(selectChannel(HOME_TIMELINE));
     }
+  };
+}
+
+function subscribeFilteredStream({ queryString }) {
+  return (dispatch) => {
+    twitterClient.subscribeFilteredStream({ queryString }).on('tweeted', (tweet) => {
+      dispatch(updateSearchedTweet(tweet));
+    });
+  };
+}
+
+function subscribeStream() {
+  return (dispatch) => {
+    twitterClient.subscribeStream().on('tweeted', (tweet) => {
+      dispatch(updateHomeTimelineTweet(tweet));
+    });
   };
 }
 
