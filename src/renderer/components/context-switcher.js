@@ -8,7 +8,7 @@ export default class ContextSwitcher extends React.Component {
   }
 
   getHomeChannelSelected() {
-    return this.props.context === HOME_TIMELINE;
+    return this.props.channelId === HOME_TIMELINE;
   }
 
   getSearchChannelClassName() {
@@ -16,7 +16,7 @@ export default class ContextSwitcher extends React.Component {
   }
 
   getSearchChannelSelected() {
-    return this.props.context === SEARCH;
+    return this.props.channelId === SEARCH;
   }
 
   onHomeChannelClicked(event) {
@@ -60,7 +60,7 @@ export default class ContextSwitcher extends React.Component {
 
   renderLists() {
     return this.props.lists.map((list) => {
-      return <List context={this.props.context} key={list.id_str} list={list} onChannelClicked={this.props.onChannelClicked} />;
+      return <List channelId={this.props.channelId} key={list.id_str} list={list} onChannelClicked={this.props.onChannelClicked} />;
     });
   }
 }

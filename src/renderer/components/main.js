@@ -5,7 +5,7 @@ import Tweets from './tweets'
 
 export default class Main extends React.Component {
   getTweets() {
-    switch (this.props.context) {
+    switch (this.props.channelId) {
     case HOME_TIMELINE:
       return this.props.homeTimeline;
     case SEARCH:
@@ -19,7 +19,7 @@ export default class Main extends React.Component {
     return(
       <main className="main">
         <Editor key="editor" postTweet={this.props.postTweet} />
-        <Tweets key={this.props.context} onAnchorClicked={this.props.onAnchorClicked} tweets={this.getTweets()} />
+        <Tweets key={this.props.channelId} onAnchorClicked={this.props.onAnchorClicked} tweets={this.getTweets()} />
       </main>
     );
   }

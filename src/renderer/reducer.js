@@ -21,7 +21,7 @@ const account = (state = {}, action) => {
   }
 };
 
-const context = (state = HOME_TIMELINE, action) => {
+const channelId = (state = HOME_TIMELINE, action) => {
   switch (action.type) {
   case SELECT_CHANNEL:
     return action.channelId;
@@ -90,7 +90,7 @@ const searchedTweets = (state = [], action) => {
 export default (state = {}, action) => {
   return {
     account: account(state.account, action),
-    context: context(state.context, action),
+    channelId: channelId(state.channelId, action),
     homeTimeline: homeTimeline(state.homeTimeline, action),
     lists: lists(state.lists, action),
     listId: listId(state.listId, action),

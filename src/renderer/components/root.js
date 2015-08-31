@@ -28,8 +28,8 @@ class Root extends React.Component {
     this.props.dispatch(openUrl(url));
   }
 
-  onChannelClicked(contextId) {
-    this.props.dispatch(selectChannel(contextId));
+  onChannelClicked(channelId) {
+    this.props.dispatch(selectChannel(channelId));
   }
 
   postTweet(text) {
@@ -40,8 +40,8 @@ class Root extends React.Component {
     return(
       <div className="root">
         <AccountSwitcher account={this.props.account} />
-        <ContextSwitcher account={this.props.account} context={this.props.context} lists={this.props.lists} onChannelClicked={this.onChannelClicked.bind(this)} />
-        <Main context={this.props.context} onAnchorClicked={this.onAnchorClicked.bind(this)} postTweet={this.postTweet.bind(this)} homeTimeline={this.props.homeTimeline} listTweets={this.props.listTweets} searchedTweets={this.props.searchedTweets} />
+        <ContextSwitcher account={this.props.account} channelId={this.props.channelId} lists={this.props.lists} onChannelClicked={this.onChannelClicked.bind(this)} />
+        <Main channelId={this.props.channelId} onAnchorClicked={this.onAnchorClicked.bind(this)} postTweet={this.postTweet.bind(this)} homeTimeline={this.props.homeTimeline} listTweets={this.props.listTweets} searchedTweets={this.props.searchedTweets} />
       </div>
     );
   }

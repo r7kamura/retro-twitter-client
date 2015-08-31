@@ -119,7 +119,7 @@ export function selectChannel(channelId) {
 
 export function selectNextChannel() {
   return (dispatch, getState) => {
-    switch (getState().context) {
+    switch (getState().channelId) {
     case HOME_TIMELINE:
       dispatch(selectChannel(SEARCH));
       break;

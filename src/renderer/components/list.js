@@ -2,11 +2,11 @@ import React from 'react';
 
 export default class List extends React.Component {
   getClassName() {
-    return `account-channel ${this.getSelected() ? ' account-channel-selected' : ''}`;
+    return `account-channel ${this.getIsSelected() ? ' account-channel-selected' : ''}`;
   }
 
-  getSelected() {
-    return this.props.list.id_str === this.props.context;
+  getIsSelected() {
+    return this.props.list.id_str === this.props.channelId;
   }
 
   onChannelClicked() {
