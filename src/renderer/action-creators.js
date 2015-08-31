@@ -3,7 +3,7 @@ import twitterClient from './twitter-client';
 import {
   CLEAR_LIST_TWEETS,
   HOME_TIMELINE,
-  SEARCH,
+  SEARCH_CHANNEL,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
   UPDATE_HOME_TIMELINE_TWEET,
@@ -85,7 +85,7 @@ export function selectChannel(channelId) {
     switch (channelId) {
     case HOME_TIMELINE:
       break;
-    case SEARCH:
+    case SEARCH_CHANNEL:
       break;
     default:
       if (getState().listId !== channelId) {
@@ -105,9 +105,9 @@ export function selectNextChannel() {
   return (dispatch, getState) => {
     switch (getState().channelId) {
     case HOME_TIMELINE:
-      dispatch(selectChannel(SEARCH));
+      dispatch(selectChannel(SEARCH_CHANNEL));
       break;
-    case SEARCH:
+    case SEARCH_CHANNEL:
       if (getState().lists.length > 0) {
         dispatch(selectChannel(getState().lists[0].id_str));
         break;
@@ -126,11 +126,11 @@ export function selectPreviousChannel() {
         dispatch(selectChannel(getState().lists[0].id_str));
         break;
       }
-    case SEARCH:
+    case SEARCH_CHANNEL:
       dispatch(selectChannel(HOME_TIMELINE));
       break;
     default:
-      dispatch(selectChannel(SEARCH));
+      dispatch(selectChannel(SEARCH_CHANNEL));
     }
   };
 }

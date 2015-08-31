@@ -1,7 +1,7 @@
 import {
   CLEAR_LIST_TWEETS,
   HOME_TIMELINE,
-  SEARCH,
+  SEARCH_CHANNEL,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
   UPDATE_HOME_TIMELINE_TWEET,
@@ -46,7 +46,7 @@ const listId = (state = null, action) => {
   case SELECT_CHANNEL:
     switch (action.channelId) {
     case HOME_TIMELINE:
-    case SEARCH:
+    case SEARCH_CHANNEL:
       return state;
     default:
       return action.channelId;
