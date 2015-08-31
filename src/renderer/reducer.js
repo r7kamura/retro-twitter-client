@@ -8,7 +8,7 @@ import {
   UPDATE_LISTS,
   UPDATE_SEARCHED_TWEET,
   UPDATE_SEARCHED_TWEETS
-} from './action-creators'
+} from './constants'
 
 const account = (state = {}, action) => {
   switch (action.type) {
