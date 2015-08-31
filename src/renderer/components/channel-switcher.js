@@ -1,4 +1,4 @@
-import { HOME_TIMELINE_CHANNEL, SEARCH_CHANNEL } from '../constants'
+import { HOME_TIMELINE_CHANNEL, SEARCH_CHANNEL } from '../libraries/constants'
 import List from './list';
 import React from 'react';
 

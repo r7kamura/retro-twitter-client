@@ -15,7 +15,7 @@ import {
   selectNextChannel,
   selectPreviousChannel,
   subscribeStream
-} from '../action-creators'
+} from '../libraries/action-creators'
 
 class Root extends React.Component {
   componentDidMount() {
