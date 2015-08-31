@@ -29,7 +29,7 @@ export default class ContextSwitcher extends React.Component {
 
   render() {
     return(
-      <div className="context-switcher">
+      <div className="channel-switcher">
         <div className="account-screen-name">
           @{this.props.account.screen_name}
         </div>

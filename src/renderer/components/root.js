@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import AccountSwitcher from './account-switcher'
-import ContextSwitcher from './context-switcher'
+import ContextSwitcher from './channel-switcher'
 import ipc from 'ipc'
 import Main from './main'
 import React from 'react';
