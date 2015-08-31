@@ -1,4 +1,4 @@
-import { HOME_TIMELINE, SEARCH_CHANNEL } from '../constants'
+import { HOME_TIMELINE_CHANNEL, SEARCH_CHANNEL } from '../constants'
 import Editor from './editor'
 import React from 'react'
 import Tweets from './tweets'
@@ -6,7 +6,7 @@ import Tweets from './tweets'
 export default class Main extends React.Component {
   getTweets() {
     switch (this.props.channelId) {
-    case HOME_TIMELINE:
+    case HOME_TIMELINE_CHANNEL:
       return this.props.homeTimeline;
     case SEARCH_CHANNEL:
       return this.props.searchedTweets;

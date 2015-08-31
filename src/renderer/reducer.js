@@ -1,11 +1,11 @@
 import {
   CLEAR_LIST_TWEETS,
-  HOME_TIMELINE,
+  HOME_TIMELINE_CHANNEL,
   SEARCH_CHANNEL,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
-  UPDATE_HOME_TIMELINE_TWEET,
-  UPDATE_HOME_TIMELINE_TWEETS,
+  UPDATE_HOME_TIMELINE_CHANNEL_TWEET,
+  UPDATE_HOME_TIMELINE_CHANNEL_TWEETS,
   UPDATE_LIST_TWEETS,
   UPDATE_LISTS,
   UPDATE_SEARCHED_TWEET,
@@ -21,7 +21,7 @@ const account = (state = {}, action) => {
   }
 };
 
-const channelId = (state = HOME_TIMELINE, action) => {
+const channelId = (state = HOME_TIMELINE_CHANNEL, action) => {
   switch (action.type) {
   case SELECT_CHANNEL:
     return action.channelId;
@@ -32,9 +32,9 @@ const channelId = (state = HOME_TIMELINE, action) => {
 
 const homeTimeline = (state = [], action) => {
   switch (action.type) {
-  case UPDATE_HOME_TIMELINE_TWEET:
+  case UPDATE_HOME_TIMELINE_CHANNEL_TWEET:
     return [action.tweet, ...state];
-  case UPDATE_HOME_TIMELINE_TWEETS:
+  case UPDATE_HOME_TIMELINE_CHANNEL_TWEETS:
     return [...action.tweets, ...state];
   default:
     return state;
@@ -45,7 +45,7 @@ const listId = (state = null, action) => {
   switch (action.type) {
   case SELECT_CHANNEL:
     switch (action.channelId) {
-    case HOME_TIMELINE:
+    case HOME_TIMELINE_CHANNEL:
     case SEARCH_CHANNEL:
       return state;
     default:

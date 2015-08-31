@@ -2,12 +2,12 @@ import { openExternal } from 'shell'
 import twitterClient from './twitter-client';
 import {
   CLEAR_LIST_TWEETS,
-  HOME_TIMELINE,
+  HOME_TIMELINE_CHANNEL,
   SEARCH_CHANNEL,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
-  UPDATE_HOME_TIMELINE_TWEET,
-  UPDATE_HOME_TIMELINE_TWEETS,
+  UPDATE_HOME_TIMELINE_CHANNEL_TWEET,
+  UPDATE_HOME_TIMELINE_CHANNEL_TWEETS,
   UPDATE_LIST_TWEETS,
   UPDATE_LISTS,
   UPDATE_SEARCHED_TWEET,
@@ -83,7 +83,7 @@ export function searchTweets(queryString) {
 export function selectChannel(channelId) {
   return (dispatch, getState) => {
     switch (channelId) {
-    case HOME_TIMELINE:
+    case HOME_TIMELINE_CHANNEL:
       break;
     case SEARCH_CHANNEL:
       break;
@@ -104,7 +104,7 @@ export function selectChannel(channelId) {
 export function selectNextChannel() {
   return (dispatch, getState) => {
     switch (getState().channelId) {
-    case HOME_TIMELINE:
+    case HOME_TIMELINE_CHANNEL:
       dispatch(selectChannel(SEARCH_CHANNEL));
       break;
     case SEARCH_CHANNEL:
@@ -113,7 +113,7 @@ export function selectNextChannel() {
         break;
       }
     default:
-      dispatch(selectChannel(HOME_TIMELINE));
+      dispatch(selectChannel(HOME_TIMELINE_CHANNEL));
     }
   };
 }
@@ -121,13 +121,13 @@ export function selectNextChannel() {
 export function selectPreviousChannel() {
   return (dispatch, getState) => {
     switch (getState().channelId) {
-    case HOME_TIMELINE:
+    case HOME_TIMELINE_CHANNEL:
       if (getState().lists.length > 0) {
         dispatch(selectChannel(getState().lists[0].id_str));
         break;
       }
     case SEARCH_CHANNEL:
-      dispatch(selectChannel(HOME_TIMELINE));
+      dispatch(selectChannel(HOME_TIMELINE_CHANNEL));
       break;
     default:
       dispatch(selectChannel(SEARCH_CHANNEL));
@@ -161,14 +161,14 @@ function updateAccount(account) {
 function updateHomeTimelineTweet(tweet) {
   return {
     tweet,
-    type: UPDATE_HOME_TIMELINE_TWEET
+    type: UPDATE_HOME_TIMELINE_CHANNEL_TWEET
   };
 }
 
 function updateHomeTimelineTweets(tweets) {
   return {
     tweets,
-    type: UPDATE_HOME_TIMELINE_TWEETS
+    type: UPDATE_HOME_TIMELINE_CHANNEL_TWEETS
   };
 }
 
