@@ -1,6 +1,7 @@
 import {
   CLEAR_LIST_TWEETS,
   HOME_TIMELINE_CHANNEL,
+  MAX_TWEETS_COUNT,
   SEARCH_CHANNEL,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
@@ -33,9 +34,9 @@ const channelId = (state = HOME_TIMELINE_CHANNEL, action) => {
 const homeTimeline = (state = [], action) => {
   switch (action.type) {
   case UPDATE_HOME_TIMELINE_CHANNEL_TWEET:
-    return [action.tweet, ...state];
+    return [action.tweet, ...state].slice(0, MAX_TWEETS_COUNT);
   case UPDATE_HOME_TIMELINE_CHANNEL_TWEETS:
-    return [...action.tweets, ...state];
+    return [...action.tweets, ...state].slice(0, MAX_TWEETS_COUNT);
   default:
     return state;
   }
