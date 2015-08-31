@@ -1,14 +1,24 @@
 import { connect } from 'react-redux'
-import { fetchAccount, fetchTweets, fetchLists, openUrl, postTweet, searchTweets, selectChannel, subscribeStream } from '../action-creators'
 import AccountSwitcher from './account-switcher'
 import ContextSwitcher from './context-switcher'
+import ipc from 'ipc'
 import Main from './main'
 import React from 'react';
+import {
+  fetchAccount,
+  fetchTweets,
+  fetchLists,
+  openUrl,
+  postTweet,
+  searchTweets,
+  selectChannel,
+  selectNextChannel,
+  subscribeStream
+} from '../action-creators'
 
 class Root extends React.Component {
   componentDidMount() {
     this.props.dispatch(fetchAccount());
-    this.props.dispatch(fetchLists());
   }
 
   onAnchorClicked(url) {

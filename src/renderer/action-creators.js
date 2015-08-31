@@ -15,7 +15,7 @@ export function fetchAccount() {
   return (dispatch) => {
     twitterClient.fetchAccount().then(({ account }) => {
       dispatch(updateAccount(account));
-      dispatch(fetchTweets(account));
+      dispatch(fetchLists(account));
     });
   };
 }
@@ -37,10 +37,11 @@ export function fetchTweetsFromList(listId) {
   };
 }
 
-export function fetchLists() {
+export function fetchLists(account) {
   return (dispatch) => {
     twitterClient.fetchLists().then(({ lists }) => {
       dispatch(updateLists(lists));
+      dispatch(fetchTweets(account));
     });
   };
 }
@@ -94,13 +95,31 @@ export function selectChannel(channelId) {
     });
     switch (channelId) {
     case 'homeTimeline':
-      dispatch(fetchTweets());
       break;
     case 'search':
       break;
     default:
       dispatch(fetchTweetsFromList(channelId));
       break;
+    }
+  };
+}
+
+export function selectNextChannel() {
+  return (dispatch, getState) => {
+    switch (getState().context) {
+    case 'homeTimeline':
+      dispatch(selectChannel('search'));
+      break;
+    case 'search':
+      const list = getState().lists[0];
+      if (list) {
+        dispatch(selectChannel(list.id_str));
+        break;
+      }
+      break;
+    default:
+      dispatch(selectChannel('homeTimeline'));
     }
   };
 }
