@@ -3,7 +3,8 @@ import ContextSwitcher from './channel-switcher'
 import ipc from 'ipc'
 import Main from './main'
 import React from 'react';
-import store from '../libraries/store'
+import reducer from '../libraries/reducer'
+import storeCreator from '../libraries/store-creator'
 import {
   fetchAccount,
   fetchTweets,
@@ -20,7 +21,8 @@ import {
 export default class Root extends React.Component {
   constructor(props) {
     super(props);
-    this.state = store.getState();
+    this.store = storeCreator(reducer);
+    this.initializeState();
   }
 
   componentDidMount() {
@@ -29,34 +31,38 @@ export default class Root extends React.Component {
     this.run();
   }
 
+  initializeState() {
+    this.state = this.store.getState();
+  }
+
   onAnchorClicked(url) {
-    store.dispatch(openUrl(url));
+    this.store.dispatch(openUrl(url));
   }
 
   onChannelClicked(channelId) {
-    store.dispatch(selectChannel(channelId));
+    this.store.dispatch(selectChannel(channelId));
   }
 
   postTweet(text) {
-    store.dispatch(postTweet(text));
+    this.store.dispatch(postTweet(text));
   }
 
   run() {
-    store.dispatch(fetchAccount());
+    this.store.dispatch(fetchAccount());
   }
 
   subscribeGlobalShortcutEvents() {
     ipc.on('select-next-channel-requested', () => {
-      store.dispatch(selectNextChannel());
+      this.store.dispatch(selectNextChannel());
     });
     ipc.on('select-previous-channel-requested', () => {
-      store.dispatch(selectPreviousChannel());
+      this.store.dispatch(selectPreviousChannel());
     });
   }
 
   subscribeStore() {
-    store.subscribe(() => {
-      this.setState(store.getState());
+    this.store.subscribe(() => {
+      this.setState(this.store.getState());
     });
   }
 
