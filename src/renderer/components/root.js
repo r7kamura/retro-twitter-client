@@ -28,7 +28,7 @@ export default class Root extends React.Component {
   componentDidMount() {
     this.subscribeStore();
     this.subscribeGlobalShortcutEvents();
-    this.run();
+    this.startFetching();
   }
 
   initializeState() {
@@ -47,7 +47,7 @@ export default class Root extends React.Component {
     this.store.dispatch(postTweet(text));
   }
 
-  run() {
+  startFetching() {
     this.store.dispatch(fetchAccount());
   }
 
