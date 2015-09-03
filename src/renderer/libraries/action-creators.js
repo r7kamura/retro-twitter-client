@@ -3,6 +3,7 @@ import twitterClient from './twitter-client';
 import {
   CLEAR_LIST_TWEETS,
   HOME_TIMELINE_CHANNEL,
+  OPEN_URL,
   SEARCH_CHANNEL,
   SELECT_CHANNEL,
   UPDATE_ACCOUNT,
