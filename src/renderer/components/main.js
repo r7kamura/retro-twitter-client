@@ -7,7 +7,7 @@ export default class Main extends React.Component {
   getTweets() {
     switch (this.props.channelId) {
     case HOME_TIMELINE_CHANNEL:
-      return this.props.homeTimeline;
+      return this.props.homeTimelineTweets;
     case SEARCH_CHANNEL:
       return this.props.searchedTweets;
     default:

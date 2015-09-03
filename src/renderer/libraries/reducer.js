@@ -31,7 +31,7 @@ const channelId = (state = HOME_TIMELINE_CHANNEL, action) => {
   }
 };
 
-const homeTimeline = (state = [], action) => {
+const homeTimelineTweets = (state = [], action) => {
   switch (action.type) {
   case UPDATE_HOME_TIMELINE_CHANNEL_TWEET:
     return [action.tweet, ...state].slice(0, MAX_TWEETS_COUNT);
@@ -92,7 +92,7 @@ export default (state = {}, action) => {
   return {
     account: account(state.account, action),
     channelId: channelId(state.channelId, action),
-    homeTimeline: homeTimeline(state.homeTimeline, action),
+    homeTimelineTweets: homeTimelineTweets(state.homeTimelineTweets, action),
     lists: lists(state.lists, action),
     listId: listId(state.listId, action),
     listTweets: listTweets(state.listTweets, action),
