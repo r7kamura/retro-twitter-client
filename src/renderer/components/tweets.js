@@ -3,9 +3,13 @@ import Retweet from './retweet'
 import Tweet from './tweet'
 
 export default class Tweets extends React.Component {
+  getClassName() {
+    return `tweets${this.props.selected ? '' : ' tweets-hidden'}`;
+  }
+
   render() {
     return(
-      <div className="tweets">
+      <div className={this.getClassName()}>
         {this.renderTweets()}
       </div>
     );
