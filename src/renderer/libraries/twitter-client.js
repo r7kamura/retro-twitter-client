@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events'
 import remote from 'remote';
-const Twitter = remote.require('twitter');
+const Twitter = require('twitter');
 
 class TwitterClient {
   constructor({ accessToken, accessTokenSecret, consumerKey, consumerSecret }) {
