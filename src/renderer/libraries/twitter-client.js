@@ -127,12 +127,52 @@ class TwitterClient {
     this.getTwitter().stream(
       'user',
       (stream) => {
+        stream.on('follow', (data) => {
+          eventEmitter.emit('follow', data);
+        });
+        stream.on('block', (data) => {
+          eventEmitter.emit('block', data);
+        });
+        stream.on('favorite', (data) => {
+          eventEmitter.emit('favorite', data);
+        });
+        stream.on('list_created', (data) => {
+          eventEmitter.emit('list_created', data);
+        });
+        stream.on('list_destroyed', (data) => {
+          eventEmitter.emit('list_destroyed', data);
+        });
+        stream.on('list_member_added', (data) => {
+          eventEmitter.emit('list_member_added', data);
+        });
+        stream.on('list_member_removed', (data) => {
+          eventEmitter.emit('list_member_removed', data);
+        });
+        stream.on('list_updated', (data) => {
+          eventEmitter.emit('list_updated', data);
+        });
+        stream.on('list_user_subscribed', (data) => {
+          eventEmitter.emit('list_user_subscribed', data);
+        });
+        stream.on('list_user_unsubscribed', (data) => {
+          eventEmitter.emit('list_user_unsubscribed', data);
+        });
+        stream.on('unblock', (data) => {
+          eventEmitter.emit('unblock', data);
+        });
+        stream.on('unfavorite', (data) => {
+          eventEmitter.emit('unfavorite', data);
+        });
+        stream.on('user_update', (data) => {
+          eventEmitter.emit('user_update', data);
+        });
         stream.on('data', (data) => {
-          if (data['friends']) {
-          } else if (data['event']) {
-          } else if (data['friends']) {
-          } else if (data['delete']) {
-          } else if (data['created_at']) {
+          if (data.friends) {
+            eventEmitter.emit('friends', data);
+          } else if (data.event) {
+          } else if (data.delete) {
+            eventEmitter.emit('delete', data);
+          } else if (data.created_at) {
             eventEmitter.emit('tweeted', data);
           }
         });
