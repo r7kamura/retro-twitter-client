@@ -1,3 +1,10 @@
+## v0.0.8
+- Support favorite & retweet desktop notification
+- Support `Alt+Down` and `Alt+Up` global shortcuts
+- Speed up rendering performance
+- Fix windows management bugs on Mac
+- Remove animation
+
 ## v0.0.7
 - Fix window management bug on Windows and Linux platforms
 
