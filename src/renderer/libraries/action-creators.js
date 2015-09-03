@@ -177,6 +177,14 @@ function subscribeStream() {
   return (dispatch) => {
     twitterClient.subscribeStream().on('tweeted', (tweet) => {
       dispatch(updateHomeTimelineTweet(tweet));
+    }).on('favorite', (data) => {
+      new Notification(
+        `${data.source.screen_name} favorited your Tweet`,
+        {
+          body: data.target_object.text,
+          icon: data.source.profile_image_url
+        }
+      );
     });
   };
 }
