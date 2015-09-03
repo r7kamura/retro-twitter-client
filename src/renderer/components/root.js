@@ -1,9 +1,9 @@
-import { connect } from 'react-redux'
 import AccountSwitcher from './account-switcher'
 import ContextSwitcher from './channel-switcher'
 import ipc from 'ipc'
 import Main from './main'
 import React from 'react';
+import store from '../libraries/store'
 import {
   fetchAccount,
   fetchTweets,
@@ -17,42 +17,56 @@ import {
   subscribeStream
 } from '../libraries/action-creators'
 
-class Root extends React.Component {
+export default class Root extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = store.getState();
+  }
+
   componentDidMount() {
-    this.props.dispatch(fetchAccount());
-    ipc.on('select-next-channel-requested', () => {
-      this.props.dispatch(selectNextChannel());
-    });
-    ipc.on('select-previous-channel-requested', () => {
-      this.props.dispatch(selectPreviousChannel());
-    });
+    this.subscribeStore();
+    this.subscribeGlobalShortcutEvents();
+    this.run();
   }
 
   onAnchorClicked(url) {
-    this.props.dispatch(openUrl(url));
+    store.dispatch(openUrl(url));
   }
 
   onChannelClicked(channelId) {
-    this.props.dispatch(selectChannel(channelId));
+    store.dispatch(selectChannel(channelId));
   }
 
   postTweet(text) {
-    this.props.dispatch(postTweet(text));
+    store.dispatch(postTweet(text));
+  }
+
+  run() {
+    store.dispatch(fetchAccount());
+  }
+
+  subscribeGlobalShortcutEvents() {
+    ipc.on('select-next-channel-requested', () => {
+      store.dispatch(selectNextChannel());
+    });
+    ipc.on('select-previous-channel-requested', () => {
+      store.dispatch(selectPreviousChannel());
+    });
+  }
+
+  subscribeStore() {
+    store.subscribe(() => {
+      this.setState(store.getState());
+    });
   }
 
   render() {
     return(
       <div className="root">
-        <AccountSwitcher account={this.props.account} />
-        <ContextSwitcher account={this.props.account} channelId={this.props.channelId} lists={this.props.lists} onChannelClicked={this.onChannelClicked.bind(this)} />
-        <Main channelId={this.props.channelId} onAnchorClicked={this.onAnchorClicked.bind(this)} postTweet={this.postTweet.bind(this)} homeTimelineTweets={this.props.homeTimelineTweets} listTweets={this.props.listTweets} searchedTweets={this.props.searchedTweets} />
+        <AccountSwitcher account={this.state.account} />
+        <ContextSwitcher account={this.state.account} channelId={this.state.channelId} lists={this.state.lists} onChannelClicked={this.onChannelClicked.bind(this)} />
+        <Main channelId={this.state.channelId} onAnchorClicked={this.onAnchorClicked.bind(this)} postTweet={this.postTweet.bind(this)} homeTimelineTweets={this.state.homeTimelineTweets} listTweets={this.state.listTweets} searchedTweets={this.state.searchedTweets} />
       </div>
     );
   }
 }
-
-function mapStateToProps(state) {
-  return state;
-}
-
-export default connect(mapStateToProps)(Root);

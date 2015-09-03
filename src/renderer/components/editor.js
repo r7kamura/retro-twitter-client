@@ -1,5 +1,5 @@
 import React from 'react'
-import twitterClient from '../twitter-client'
+import twitterClient from '../libraries/twitter-client'
 
 /**
  * @param {KeyboardEvent} event
