@@ -173,7 +173,7 @@ class TwitterClient {
           } else if (data.delete) {
             eventEmitter.emit('delete', data);
           } else if (data.created_at) {
-            eventEmitter.emit('tweeted', data);
+            eventEmitter.emit('tweet', data);
           }
         });
       }

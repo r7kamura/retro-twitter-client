@@ -167,7 +167,7 @@ export function selectPreviousChannel() {
 
 function subscribeFilteredStream({ queryString }) {
   return (dispatch) => {
-    twitterClient.subscribeFilteredStream({ queryString }).on('tweeted', (tweet) => {
+    twitterClient.subscribeFilteredStream({ queryString }).on('tweet', (tweet) => {
       dispatch(updateSearchedTweet(tweet));
     });
   };
@@ -175,7 +175,7 @@ function subscribeFilteredStream({ queryString }) {
 
 function subscribeStream() {
   return (dispatch) => {
-    twitterClient.subscribeStream().on('tweeted', (tweet) => {
+    twitterClient.subscribeStream().on('tweet', (tweet) => {
       dispatch(updateHomeTimelineTweet(tweet));
     }).on('favorite', (data) => {
       new Notification(
