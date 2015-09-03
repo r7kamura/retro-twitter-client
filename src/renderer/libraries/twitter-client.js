@@ -120,9 +120,10 @@ class TwitterClient {
   }
 
   /*
+   * @param {Object} user User is used to detect retweet event
    * @return {EventEmitter}
    */
-  subscribeStream() {
+  subscribeStream({ user }) {
     const eventEmitter = new EventEmitter();
     this.getTwitter().stream(
       'user',
@@ -172,6 +173,8 @@ class TwitterClient {
           } else if (data.event) {
           } else if (data.delete) {
             eventEmitter.emit('delete', data);
+          } else if (data.created_at && data.retweeted_status && data.retweeted_status.user.id_str == user.id_str) {
+            eventEmitter.emit('retweet', data);
           } else if (data.created_at) {
             eventEmitter.emit('tweet', data);
           }

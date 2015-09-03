@@ -30,11 +30,11 @@ export function fetchAccount() {
   };
 }
 
-export function fetchTweets(account) {
+export function fetchTweets(user) {
   return (dispatch) => {
-    twitterClient.fetchTweets({ screenName: account.screen_name }).then(({ tweets }) => {
+    twitterClient.fetchTweets({ screenName: user.screen_name }).then(({ tweets }) => {
       dispatch(updateHomeTimelineTweets(tweets));
-      dispatch(subscribeStream());
+      dispatch(subscribeStream({ user }));
     });
   };
 }
@@ -173,9 +173,9 @@ function subscribeFilteredStream({ queryString }) {
   };
 }
 
-function subscribeStream() {
+function subscribeStream({ user }) {
   return (dispatch) => {
-    twitterClient.subscribeStream().on('tweet', (tweet) => {
+    twitterClient.subscribeStream({ user }).on('tweet', (tweet) => {
       dispatch(updateHomeTimelineTweet(tweet));
     }).on('favorite', (data) => {
       new Notification(
@@ -183,6 +183,14 @@ function subscribeStream() {
         {
           body: data.target_object.text,
           icon: data.source.profile_image_url
+        }
+      );
+    }).on('retweet', (tweet) => {
+      new Notification(
+        `${tweet.user.screen_name} retweeted your Tweet`,
+        {
+          body: tweet.retweeted_status.text,
+          icon: tweet.user.profile_image_url
         }
       );
     });
