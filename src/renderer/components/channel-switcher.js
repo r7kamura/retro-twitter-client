@@ -1,4 +1,3 @@
-import { HOME_TIMELINE_CHANNEL, SEARCH_CHANNEL } from '../libraries/constants'
 import List from './list';
 import React from 'react';
 
@@ -8,7 +7,7 @@ export default class ContextSwitcher extends React.Component {
   }
 
   getHomeChannelSelected() {
-    return this.props.channelId === HOME_TIMELINE_CHANNEL;
+    return this.props.channelId === 'HOME_TIMELINE_CHANNEL';
   }
 
   getSearchChannelClassName() {
@@ -16,15 +15,15 @@ export default class ContextSwitcher extends React.Component {
   }
 
   getSearchChannelSelected() {
-    return this.props.channelId === SEARCH_CHANNEL;
+    return this.props.channelId === 'SEARCH_CHANNEL';
   }
 
   onHomeChannelClicked(event) {
-    this.props.onChannelClicked(HOME_TIMELINE_CHANNEL);
+    this.props.onChannelClicked('HOME_TIMELINE_CHANNEL');
   }
 
   onSearchChannelClicked(event) {
-    this.props.onChannelClicked(SEARCH_CHANNEL);
+    this.props.onChannelClicked('SEARCH_CHANNEL');
   }
 
   render() {

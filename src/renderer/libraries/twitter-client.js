@@ -1,8 +1,7 @@
 import { EventEmitter } from 'events'
-import remote from 'remote';
 const Twitter = require('twitter');
 
-class TwitterClient {
+export default class TwitterClient {
   constructor({ accessToken, accessTokenSecret, consumerKey, consumerSecret }) {
     this.accessToken = accessToken;
     this.accessTokenSecret = accessTokenSecret;
@@ -10,12 +9,12 @@ class TwitterClient {
     this.consumerSecret = consumerSecret;
   }
 
-  fetchAccount() {
+  fetchUser() {
     return new Promise((resolve, reject) => {
       this.getTwitter().get(
         'account/verify_credentials',
-        (error, account, response) => {
-          resolve({ account: account, response: response });
+        (error, user, response) => {
+          resolve({ user: user, response: response });
         }
       );
     });
@@ -32,7 +31,7 @@ class TwitterClient {
     });
   }
 
-  fetchTweets({ screenName }) {
+  fetchHomeTimelineTweets({ screenName }) {
     return new Promise((resolve, reject) => {
       this.getTwitter().get(
         'statuses/home_timeline',
@@ -46,7 +45,7 @@ class TwitterClient {
     });
   }
 
-  fetchTweetsFromList({ listId }) {
+  fetchListTweets({ listId }) {
     return new Promise((resolve, reject) => {
       this.getTwitter().get(
         'lists/statuses',
@@ -123,7 +122,7 @@ class TwitterClient {
    * @param {Object} user User is used to detect retweet event
    * @return {EventEmitter}
    */
-  subscribeStream({ user }) {
+  subscribeUserStream({ user }) {
     const eventEmitter = new EventEmitter();
     this.getTwitter().stream(
       'user',
@@ -185,11 +184,3 @@ class TwitterClient {
     return eventEmitter;
   }
 }
-
-const application = remote.getGlobal('application');
-export default new TwitterClient({
-  accessToken: application.accessToken,
-  accessTokenSecret: application.accessTokenSecret,
-  consumerKey: application.consumerKey,
-  consumerSecret: application.consumerSecret
-});
