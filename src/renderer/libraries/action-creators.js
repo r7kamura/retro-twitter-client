@@ -1,30 +1,30 @@
 import { openExternal } from 'shell'
 import twitterClient from './twitter-client';
 import {
-  CLEAR_LIST_TWEETS,
+  LIST_TWEETS_CLEARED,
   HOME_TIMELINE_CHANNEL,
   OPEN_URL,
   SEARCH_CHANNEL,
   SELECT_CHANNEL,
-  UPDATE_ACCOUNT,
-  UPDATE_HOME_TIMELINE_CHANNEL_TWEET,
-  UPDATE_HOME_TIMELINE_CHANNEL_TWEETS,
-  UPDATE_LIST_TWEETS,
-  UPDATE_LISTS,
-  UPDATE_SEARCHED_TWEET,
-  UPDATE_SEARCHED_TWEETS
+  ACCOUNT_UPDATED,
+  HOME_TIMELINE_TWEET_UPDATED,
+  HOME_TIMELINE_TWEETS_UPDATED,
+  LIST_TWEETS_UPDATED,
+  LISTS_UPDATED,
+  SEARCHED_TWEET_UPDATED,
+  SEARCHED_TWEETS_UPDATED
 } from './constants'
 
-function clearListTweets() {
+function listTweetsCleared() {
   return {
-    type: CLEAR_LIST_TWEETS
+    type: LIST_TWEETS_CLEARED
   }
 }
 
 export function fetchAccount() {
   return (dispatch) => {
     twitterClient.fetchAccount().then(({ account }) => {
-      dispatch(updateAccount(account));
+      dispatch(accountUpdated(account));
       dispatch(fetchLists(account));
     });
   };
@@ -33,7 +33,7 @@ export function fetchAccount() {
 export function fetchTweets(user) {
   return (dispatch) => {
     twitterClient.fetchTweets({ screenName: user.screen_name }).then(({ tweets }) => {
-      dispatch(updateHomeTimelineTweets(tweets));
+      dispatch(homeTimelineTweetsUpdated(tweets));
       dispatch(subscribeStream({ user }));
     });
   };
@@ -42,7 +42,7 @@ export function fetchTweets(user) {
 export function fetchTweetsFromList(listId) {
   return (dispatch) => {
     twitterClient.fetchTweetsFromList({ listId }).then(({ tweets }) => {
-      dispatch(updateListTweets(tweets));
+      dispatch(listTweetsUpdated(tweets));
     });
   };
 }
@@ -50,7 +50,7 @@ export function fetchTweetsFromList(listId) {
 export function fetchLists(account) {
   return (dispatch) => {
     twitterClient.fetchLists().then(({ lists }) => {
-      dispatch(updateLists(lists));
+      dispatch(listsUpdated(lists));
       dispatch(fetchTweets(account));
     });
   };
@@ -67,7 +67,7 @@ export function openUrl(url) {
 export function postTweet(text) {
   return (dispatch) => {
     twitterClient.postTweet({ text }).then(({ tweet }) => {
-      dispatch(updateHomeTimelineTweet(tweet));
+      dispatch(homeTimelineTweetUpdated(tweet));
     });
   };
 }
@@ -75,7 +75,7 @@ export function postTweet(text) {
 export function searchTweets(queryString) {
   return (dispatch) => {
     twitterClient.searchTweets({ queryString }).then(({ tweets }) => {
-      dispatch(updateSearchedTweets(tweets));
+      dispatch(searchedTweetsUpdated(tweets));
       dispatch(subscribeFilteredStream({ queryString }));
     });
   };
@@ -90,7 +90,7 @@ export function selectChannel(channelId) {
       break;
     default:
       if (getState().listId !== channelId) {
-        dispatch(clearListTweets());
+        dispatch(listTweetsCleared());
       }
       dispatch(fetchTweetsFromList(channelId));
       break;
@@ -168,7 +168,7 @@ export function selectPreviousChannel() {
 function subscribeFilteredStream({ queryString }) {
   return (dispatch) => {
     twitterClient.subscribeFilteredStream({ queryString }).on('tweet', (tweet) => {
-      dispatch(updateSearchedTweet(tweet));
+      dispatch(searchedTweetUpdated(tweet));
     });
   };
 }
@@ -176,7 +176,7 @@ function subscribeFilteredStream({ queryString }) {
 function subscribeStream({ user }) {
   return (dispatch) => {
     twitterClient.subscribeStream({ user }).on('tweet', (tweet) => {
-      dispatch(updateHomeTimelineTweet(tweet));
+      dispatch(homeTimelineTweetUpdated(tweet));
     }).on('favorite', (data) => {
       new Notification(
         `${data.source.screen_name} favorited your Tweet`,
@@ -197,51 +197,51 @@ function subscribeStream({ user }) {
   };
 }
 
-function updateAccount(account) {
+function accountUpdated(account) {
   return {
     account,
-    type: UPDATE_ACCOUNT
+    type: ACCOUNT_UPDATED
   };
 }
 
-function updateHomeTimelineTweet(tweet) {
+function homeTimelineTweetUpdated(tweet) {
   return {
     tweet,
-    type: UPDATE_HOME_TIMELINE_CHANNEL_TWEET
+    type: HOME_TIMELINE_TWEET_UPDATED
   };
 }
 
-function updateHomeTimelineTweets(tweets) {
+function homeTimelineTweetsUpdated(tweets) {
   return {
     tweets,
-    type: UPDATE_HOME_TIMELINE_CHANNEL_TWEETS
+    type: HOME_TIMELINE_TWEETS_UPDATED
   };
 }
 
-function updateLists(lists) {
+function listsUpdated(lists) {
   return {
     lists,
-    type: UPDATE_LISTS
+    type: LISTS_UPDATED
   };
 }
 
-function updateListTweets(tweets) {
+function listTweetsUpdated(tweets) {
   return {
     tweets,
-    type: UPDATE_LIST_TWEETS
+    type: LIST_TWEETS_UPDATED
   }
 }
 
-function updateSearchedTweet(tweet) {
+function searchedTweetUpdated(tweet) {
   return {
     tweet,
-    type: UPDATE_SEARCHED_TWEET
+    type: SEARCHED_TWEET_UPDATED
   }
 }
 
-function updateSearchedTweets(tweets) {
+function searchedTweetsUpdated(tweets) {
   return {
     tweets,
-    type: UPDATE_SEARCHED_TWEETS
+    type: SEARCHED_TWEETS_UPDATED
   }
 }
