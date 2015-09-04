@@ -1,21 +1,21 @@
 import {
-  CLEAR_LIST_TWEETS,
+  LIST_TWEETS_CLEARED,
   HOME_TIMELINE_CHANNEL,
   MAX_TWEETS_COUNT,
   SEARCH_CHANNEL,
   SELECT_CHANNEL,
-  UPDATE_ACCOUNT,
-  UPDATE_HOME_TIMELINE_CHANNEL_TWEET,
-  UPDATE_HOME_TIMELINE_CHANNEL_TWEETS,
-  UPDATE_LIST_TWEETS,
-  UPDATE_LISTS,
-  UPDATE_SEARCHED_TWEET,
-  UPDATE_SEARCHED_TWEETS
+  ACCOUNT_UPDATED,
+  HOME_TIMELINE_TWEET_UPDATED,
+  HOME_TIMELINE_TWEETS_UPDATED,
+  LIST_TWEETS_UPDATED,
+  LISTS_UPDATED,
+  SEARCHED_TWEET_UPDATED,
+  SEARCHED_TWEETS_UPDATED
 } from './constants'
 
 const account = (state = {}, action) => {
   switch (action.type) {
-  case UPDATE_ACCOUNT:
+  case ACCOUNT_UPDATED:
     return action.account;
   default:
     return state;
@@ -33,9 +33,9 @@ const channelId = (state = HOME_TIMELINE_CHANNEL, action) => {
 
 const homeTimelineTweets = (state = [], action) => {
   switch (action.type) {
-  case UPDATE_HOME_TIMELINE_CHANNEL_TWEET:
+  case HOME_TIMELINE_TWEET_UPDATED:
     return [action.tweet, ...state].slice(0, MAX_TWEETS_COUNT);
-  case UPDATE_HOME_TIMELINE_CHANNEL_TWEETS:
+  case HOME_TIMELINE_TWEETS_UPDATED:
     return [...action.tweets, ...state].slice(0, MAX_TWEETS_COUNT);
   default:
     return state;
@@ -59,7 +59,7 @@ const listId = (state = null, action) => {
 
 const lists = (state = [], action) => {
   switch (action.type) {
-  case UPDATE_LISTS:
+  case LISTS_UPDATED:
     return [...state, ...action.lists];
   default:
     return state;
@@ -68,9 +68,9 @@ const lists = (state = [], action) => {
 
 const listTweets = (state = [], action) => {
   switch (action.type) {
-  case CLEAR_LIST_TWEETS:
+  case LIST_TWEETS_CLEARED:
     return [];
-  case UPDATE_LIST_TWEETS:
+  case LIST_TWEETS_UPDATED:
     return [...action.tweets, ...state];
   default:
     return state;
@@ -79,9 +79,9 @@ const listTweets = (state = [], action) => {
 
 const searchedTweets = (state = [], action) => {
   switch (action.type) {
-  case UPDATE_SEARCHED_TWEET:
+  case SEARCHED_TWEET_UPDATED:
     return [action.tweet, ...state];
-  case UPDATE_SEARCHED_TWEETS:
+  case SEARCHED_TWEETS_UPDATED:
     return [...action.tweets, ...state];
   default:
     return state;
