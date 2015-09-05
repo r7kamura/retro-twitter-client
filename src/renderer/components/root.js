@@ -8,12 +8,7 @@ export default class Root extends React.Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
-  }
-
-  componentDidMount() {
-    store.subscribe(() => {
-      this.setState(store.getState());
-    });
+    store.subscribe(() => this.setState(store.getState()));
   }
 
   render() {
