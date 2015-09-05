@@ -1,11 +1,7 @@
-import React from 'react'
-import Root from './components/root'
+import Application from './libraries/application'
 
 try {
-  React.render(
-    <Root />,
-    document.body
-  );
+  new Application().run();
 } catch (e) {
   console.log(e.stack);
 }

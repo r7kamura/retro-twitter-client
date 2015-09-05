@@ -24,7 +24,7 @@ export default class Editor extends React.Component {
   }
 
   onSubmitButtonClicked(event) {
-    this.postTweet();
+    this.onTweetSubmitted();
   }
 
   onTextareaChanged(event) {
@@ -34,7 +34,7 @@ export default class Editor extends React.Component {
   onTextareaKeyDown(event) {
     if (keyStringOf(event) == 'Ctrl+Return') {
       event.preventDefault();
-      this.postTweet();
+      this.onTweetSubmitted();
     }
   }
 
@@ -57,8 +57,8 @@ export default class Editor extends React.Component {
     );
   }
 
-  postTweet() {
-    this.props.postTweet(this.state.text);
+  onTweetSubmitted() {
+    this.props.onTweetSubmitted(this.state.text);
     this.setState({ text: '' });
   }
 }

@@ -29,7 +29,7 @@ export default class Main extends React.Component {
   render() {
     return(
       <main className="main">
-        <Editor key="editor" postTweet={this.props.postTweet} />
+        <Editor key="editor" onTweetSubmitted={this.props.onTweetSubmitted} />
         <Tweets selected={this.isHomeTimelineSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.homeTimelineTweets} />
         <Tweets selected={this.isSearchSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.searchedTweets} />
         <Tweets selected={this.isListSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.listTweets} />
