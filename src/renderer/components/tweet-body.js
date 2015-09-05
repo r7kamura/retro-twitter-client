@@ -107,6 +107,23 @@ class AnchorToUrl extends React.Component {
   }
 }
 
+class Image extends React.Component {
+  onClicked(event) {
+    event.preventDefault();
+    this.props.onAnchorClicked(this.props.tweetUrl);
+  }
+
+  render() {
+    return(
+      <div>
+        <a href={this.props.tweetUrl} onClick={this.onClicked.bind(this)}>
+          <img className="tweet-image" src={this.props.imageUrl} />
+        </a>
+      </div>
+    );
+  }
+}
+
 class Text extends React.Component {
   getText() {
     return twitterText.htmlEscape(this.props.text);
@@ -125,7 +142,9 @@ export default class Tweet extends React.Component {
     this.getEntities().forEach((entity) => {
       components.push(<Text text={text.substring(index, entity.indices[0])} />);
       if (entity.url) {
-        components.push(<AnchorToUrl displayUrl={entity.url} onAnchorClicked={this.props.onAnchorClicked} url={entity.url} urlEntity={this.getUrlEntityFromUrl(entity.url)} />);
+        if (this.getImageUrls().indexOf(entity.url) === -1) {
+          components.push(<AnchorToUrl displayUrl={entity.url} onAnchorClicked={this.props.onAnchorClicked} url={entity.url} urlEntity={this.getUrlEntityFromUrl(entity.url)} />);
+        }
       } else if (entity.hashtag) {
         components.push(<AnchorToHashtag entireText={text} onAnchorClicked={this.props.onAnchorClicked} entity={entity} />);
       } else if (entity.listSlug) {
@@ -138,6 +157,7 @@ export default class Tweet extends React.Component {
       index = entity.indices[1];
     });
     components.push(<Text text={text.substring(index, text.length)} />);
+    components.push(...this.getImages());
     return components;
   }
 
@@ -146,6 +166,30 @@ export default class Tweet extends React.Component {
       this.props.tweet.text,
       { extractUrlsWithoutProtocol: false }
     );
+  }
+
+  getImages() {
+    if (this.props.tweet.entities.media) {
+      return this.props.tweet.entities.media.filter((media) => {
+        return media.type === 'photo';
+      }).map((media) => {
+        return <Image imageUrl={media.media_url_https} onAnchorClicked={this.props.onAnchorClicked} tweetUrl={media.url} />;
+      });
+    } else {
+      return [];
+    }
+  }
+
+  getImageUrls() {
+    if (this.props.tweet.entities.media) {
+      return this.props.tweet.entities.media.filter((media) => {
+        return media.type === 'photo';
+      }).map((media) => {
+        return media.url;
+      });
+    } else {
+      return [];
+    }
   }
 
   getUrlEntities() {

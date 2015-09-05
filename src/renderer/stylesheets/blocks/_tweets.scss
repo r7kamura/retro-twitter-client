@@ -37,6 +37,10 @@
     display: flex;
   }
 
+  &-image {
+    @include avatar;
+  }
+
   &-main {
     flex: 1;
   }
