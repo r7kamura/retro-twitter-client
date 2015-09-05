@@ -169,8 +169,8 @@ export default class Tweet extends React.Component {
   }
 
   getImages() {
-    if (this.props.tweet.entities.media) {
-      return this.props.tweet.entities.media.filter((media) => {
+    if (this.props.tweet.extended_entities && this.props.tweet.extended_entities.media) {
+      return this.props.tweet.extended_entities.media.filter((media) => {
         return media.type === 'photo';
       }).map((media) => {
         return <Image imageUrl={media.media_url_https} onAnchorClicked={this.props.onAnchorClicked} tweetUrl={media.url} />;
@@ -181,8 +181,8 @@ export default class Tweet extends React.Component {
   }
 
   getImageUrls() {
-    if (this.props.tweet.entities.media) {
-      return this.props.tweet.entities.media.filter((media) => {
+    if (this.props.tweet.extended_entities && this.props.tweet.extended_entities.media) {
+      return this.props.tweet.extended_entities.media.filter((media) => {
         return media.type === 'photo';
       }).map((media) => {
         return media.url;
