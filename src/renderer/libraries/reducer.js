@@ -1,30 +1,6 @@
-import {
-  LIST_TWEETS_CLEARED,
-  HOME_TIMELINE_CHANNEL,
-  MAX_TWEETS_COUNT,
-  SEARCH_CHANNEL,
-  SELECT_CHANNEL,
-  ACCOUNT_UPDATED,
-  HOME_TIMELINE_TWEET_UPDATED,
-  HOME_TIMELINE_TWEETS_UPDATED,
-  LIST_TWEETS_UPDATED,
-  LISTS_UPDATED,
-  SEARCHED_TWEET_UPDATED,
-  SEARCHED_TWEETS_UPDATED
-} from './constants'
-
-const account = (state = {}, action) => {
+const channelId = (state = 'HOME_TIMELINE_CHANNEL', action) => {
   switch (action.type) {
-  case ACCOUNT_UPDATED:
-    return action.account;
-  default:
-    return state;
-  }
-};
-
-const channelId = (state = HOME_TIMELINE_CHANNEL, action) => {
-  switch (action.type) {
-  case SELECT_CHANNEL:
+  case 'CHANNEL_SELECTED':
     return action.channelId;
   default:
     return state;
@@ -33,10 +9,10 @@ const channelId = (state = HOME_TIMELINE_CHANNEL, action) => {
 
 const homeTimelineTweets = (state = [], action) => {
   switch (action.type) {
-  case HOME_TIMELINE_TWEET_UPDATED:
-    return [action.tweet, ...state].slice(0, MAX_TWEETS_COUNT);
-  case HOME_TIMELINE_TWEETS_UPDATED:
-    return [...action.tweets, ...state].slice(0, MAX_TWEETS_COUNT);
+  case 'HOME_TIMELINE_TWEET_RECEIVED':
+    return [action.tweet, ...state].slice(0, 100);
+  case 'HOME_TIMELINE_TWEETS_FETCHED':
+    return [...action.tweets, ...state].slice(0, 100);
   default:
     return state;
   }
@@ -44,10 +20,10 @@ const homeTimelineTweets = (state = [], action) => {
 
 const listId = (state = null, action) => {
   switch (action.type) {
-  case SELECT_CHANNEL:
+  case 'CHANNEL_SELECTED':
     switch (action.channelId) {
-    case HOME_TIMELINE_CHANNEL:
-    case SEARCH_CHANNEL:
+    case 'HOME_TIMELINE_CHANNEL':
+    case 'SEARCH_CHANNEL':
       return state;
     default:
       return action.channelId;
@@ -59,7 +35,7 @@ const listId = (state = null, action) => {
 
 const lists = (state = [], action) => {
   switch (action.type) {
-  case LISTS_UPDATED:
+  case 'LISTS_FETCHED':
     return [...state, ...action.lists];
   default:
     return state;
@@ -68,9 +44,9 @@ const lists = (state = [], action) => {
 
 const listTweets = (state = [], action) => {
   switch (action.type) {
-  case LIST_TWEETS_CLEARED:
+  case 'LIST_TWEETS_CLEARE':
     return [];
-  case LIST_TWEETS_UPDATED:
+  case 'LIST_TWEETS_FETCHED':
     return [...action.tweets, ...state];
   default:
     return state;
@@ -79,10 +55,19 @@ const listTweets = (state = [], action) => {
 
 const searchedTweets = (state = [], action) => {
   switch (action.type) {
-  case SEARCHED_TWEET_UPDATED:
+  case 'FILTERED_TWEET_RECEIVED':
     return [action.tweet, ...state];
-  case SEARCHED_TWEETS_UPDATED:
+  case 'SEARCHED_TWEETS_FETCHED':
     return [...action.tweets, ...state];
+  default:
+    return state;
+  }
+};
+
+const user = (state = {}, action) => {
+  switch (action.type) {
+  case 'USER_FETCHED':
+    return action.user;
   default:
     return state;
   }
@@ -90,7 +75,7 @@ const searchedTweets = (state = [], action) => {
 
 export default (state = {}, action) => {
   return {
-    account: account(state.account, action),
+    user: user(state.user, action),
     channelId: channelId(state.channelId, action),
     homeTimelineTweets: homeTimelineTweets(state.homeTimelineTweets, action),
     lists: lists(state.lists, action),

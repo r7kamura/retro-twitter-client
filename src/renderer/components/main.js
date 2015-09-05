@@ -1,11 +1,10 @@
-import { HOME_TIMELINE_CHANNEL, SEARCH_CHANNEL } from '../libraries/constants'
 import Editor from './editor'
 import React from 'react'
 import Tweets from './tweets'
 
 export default class Main extends React.Component {
   isHomeTimelineSelected() {
-    return this.props.channelId === HOME_TIMELINE_CHANNEL;
+    return this.props.channelId === 'HOME_TIMELINE_CHANNEL';
   }
 
   isListSelected() {
@@ -13,7 +12,7 @@ export default class Main extends React.Component {
   }
 
   isSearchSelected() {
-    return this.props.channelId === SEARCH_CHANNEL;
+    return this.props.channelId === 'SEARCH_CHANNEL';
   }
 
   getTweets() {
