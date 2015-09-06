@@ -1,7 +1,7 @@
 import List from './list';
 import React from 'react';
 
-export default class ContextSwitcher extends React.Component {
+export default class ChannelSwitcher extends React.Component {
   getHomeChannelClassName() {
     return `account-channel ${this.getHomeChannelSelected() ? ' account-channel-selected' : ''}`;
   }
@@ -38,10 +38,10 @@ export default class ContextSwitcher extends React.Component {
           </h3>
           <ul>
             <li className={this.getHomeChannelClassName()} onClick={this.onHomeChannelClicked.bind(this)}>
-              home
+              Home
             </li>
             <li className={this.getSearchChannelClassName()} onClick={this.onSearchChannelClicked.bind(this)}>
-              search
+              Search
             </li>
           </ul>
         </div>

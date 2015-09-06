@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  margin-bottom: 12px;
+
+  &-search {
+    &-box {
+      content: "a";
+      margin-right: 4px;
+      border-radius: 3px;;
+      border: solid 1px #ddd;
+      font-size: 14px;
+      line-height: 14px;
+      padding: 4px 8px;
+    }
+
+    &-icon {
+      color: #ccc;
+    }
+
+    &-text-field {
+      border: 0;
+      color: #666;
+      margin-left: 4px;
+      width: 160px;
+
+      // reset
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  &-title {
+    color: #666;
+    flex: 1;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 24px;
+  }
+}

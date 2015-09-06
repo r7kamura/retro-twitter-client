@@ -1,5 +1,5 @@
 import AccountSwitcher from './account-switcher'
-import ContextSwitcher from './channel-switcher'
+import ChannelSwitcher from './channel-switcher'
 import Main from './main'
 import React from 'react';
 import store from '../singletons/store'
@@ -17,7 +17,7 @@ export default class Root extends React.Component {
         <AccountSwitcher
           account={this.state.user}
         />
-        <ContextSwitcher
+        <ChannelSwitcher
           account={this.state.user}
           channelId={this.state.channelId}
           lists={this.state.lists}
@@ -26,6 +26,7 @@ export default class Root extends React.Component {
         <Main
           channelId={this.state.channelId}
           homeTimelineTweets={this.state.homeTimelineTweets}
+          lists={this.state.lists}
           listTweets={this.state.listTweets}
           onAnchorClicked={this.props.onAnchorClicked}
           onTweetSubmitted={this.props.onTweetSubmitted}
