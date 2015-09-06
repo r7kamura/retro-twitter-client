@@ -1,8 +1,10 @@
+import { openExternal } from 'shell'
 import app from 'app'
 import AuthenticationWindow from './authentication-window'
 import crashReporter from 'crash-reporter'
 import globalShortcut from 'global-shortcut'
 import MainWindow from './main-window'
+import Menu from 'menu'
 
 export default class Application {
   constructor() {
@@ -21,6 +23,7 @@ export default class Application {
 
   onReady() {
     this.openAuthenicationWindow();
+    this.setApplicationMenu();
     this.registerGlobalShortcuts();
   }
 
@@ -59,6 +62,74 @@ export default class Application {
 
   selectPreviousChannel() {
     this.mainWindow.send('select-previous-channel-requested');
+  }
+
+  setApplicationMenu() {
+    Menu.setApplicationMenu(
+      Menu.buildFromTemplate(
+        [
+          {
+            label: 'Application',
+            submenu: [
+              {
+                label: 'About',
+                click() {
+                  openExternal('https://github.com/r7kamura/retro-twitter-client');
+                }
+              },
+              {
+                type: 'separator'
+              },
+              {
+                label: 'Quit',
+                accelerator: 'Command+Q',
+                click() {
+                  app.quit();
+                }
+              }
+            ]
+          },
+          {
+            label: 'Edit',
+            submenu: [
+              {
+                label: 'Undo',
+                accelerator: 'Command+Z',
+                selector: 'undo:'
+              },
+              {
+                label: 'Redo',
+                accelerator: 'Shift+Command+Z',
+                selector: 'redo:'
+              },
+              {
+                type: 'separator'
+              },
+              {
+                label: 'Cut',
+                accelerator: 'Command+X',
+                selector: 'cut:'
+              },
+              {
+                label: 'Copy',
+                accelerator: 'Command+C',
+                selector: 'copy:'
+              },
+              {
+                label: 'Paste',
+                accelerator: 'Command+V',
+                selector: 'paste:'
+              },
+              {
+                label: 'Select All',
+                accelerator: 'Command+A',
+                selector: 'selectAll:'
+              }
+            ]
+          }
+        ]
+      )
+    );
   }
 
   startCrashReporter() {
