@@ -1,3 +1,11 @@
+## v0.0.9
+- Support search
+- Support image expansion
+- Make tweet time clickable
+- Put header area
+- Improve rendering performance
+- Reduce memory size
+
 ## v0.0.8
 - Support favorite & retweet desktop notification
 - Support `Alt+Down` and `Alt+Up` global shortcuts
