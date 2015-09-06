@@ -57,7 +57,7 @@ const searchedTweets = (state = [], action) => {
   switch (action.type) {
   case 'FILTERED_TWEET_RECEIVED':
     return [action.tweet, ...state];
-  case 'SEARCHED_TWEETS_FETCHED':
+  case 'TWEETS_SEARCHED':
     return [...action.tweets, ...state];
   default:
     return state;
