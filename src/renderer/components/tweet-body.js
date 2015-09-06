@@ -5,7 +5,7 @@ import twitterText from 'twitter-text'
 class Anchor extends React.Component {
   onClicked(event) {
     event.preventDefault();
-    this.props.onAnchorClicked(this.props.url);
+    this.props.onAnchorClicked(event.currentTarget.href);
   }
 
   render() {

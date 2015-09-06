@@ -27,6 +27,10 @@
   &-datetime {
     color: #aaa;
     padding-left: 8px;
+
+    &-anchor {
+      text-decoration: none;
+    }
   }
 
   &-display-name {
