@@ -111,7 +111,7 @@ export default class TwitterClient {
       },
       (stream) => {
         stream.on('data', (data) => {
-          eventEmitter.emit('tweeted', data);
+          eventEmitter.emit('tweet', data);
         });
       }
     );
