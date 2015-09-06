@@ -24,7 +24,7 @@ export default class ChannelSelector {
     const state = store.getState();
     switch (state.channelId) {
     case 'HOME_TIMELINE_CHANNEL':
-      this.selectChannel('SEARCH_CHANNEL');
+      this.selectSearchChannel();
       break;
     case 'SEARCH_CHANNEL':
       if (state.lists.length > 0) {
@@ -76,8 +76,12 @@ export default class ChannelSelector {
       if (index - 1 >= 0) {
         this.selectChannel(lists[index - 1].id_str);
       } else {
-        this.selectChannel('SEARCH_CHANNEL');
+        this.selectSearchChannel();
       }
     }
+  }
+
+  selectSearchChannel() {
+    this.selectChannel('SEARCH_CHANNEL');
   }
 }

@@ -28,6 +28,7 @@ export default class Application {
       defaultWebBrowser: this.defaultWebBrowser,
       onAnchorClicked: this.onAnchorClicked.bind(this),
       onChannelClicked: this.onChannelClicked.bind(this),
+      onSearchQueryStringSubmitted: this.onSearchQueryStringSubmitted.bind(this),
       onTweetSubmitted: this.onTweetSubmitted.bind(this),
       twitterAccount: this.twitterAccount
     }
@@ -54,6 +55,12 @@ export default class Application {
 
   onChannelClicked(channelId) {
     this.channelSelector.selectChannel(channelId);
+  }
+
+  onSearchQueryStringSubmitted(queryString) {
+    this.channelSelector.selectSearchChannel();
+    this.twitterAccount.searchTweets({ queryString });
+    this.twitterAccount.subscribeFilteredStream({ queryString });
   }
 
   onTweetSubmitted(text) {

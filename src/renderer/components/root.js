@@ -29,6 +29,7 @@ export default class Root extends React.Component {
           lists={this.state.lists}
           listTweets={this.state.listTweets}
           onAnchorClicked={this.props.onAnchorClicked}
+          onSearchQueryStringSubmitted={this.props.onSearchQueryStringSubmitted}
           onTweetSubmitted={this.props.onTweetSubmitted}
           searchedTweets={this.state.searchedTweets}
         />

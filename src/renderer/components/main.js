@@ -37,7 +37,7 @@ export default class Main extends React.Component {
   render() {
     return(
       <main className="main">
-        <Header title={this.title} />
+        <Header onSearchQueryStringSubmitted={this.props.onSearchQueryStringSubmitted} title={this.title} />
         <Editor key="editor" onTweetSubmitted={this.props.onTweetSubmitted} />
         <Tweets selected={this.isHomeTimelineSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.homeTimelineTweets} />
         <Tweets selected={this.isSearchSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.searchedTweets} />
