@@ -1,3 +1,6 @@
+## v0.0.10
+- Support general global shortcuts (⌘C, ⌘V, etc.)
+
 ## v0.0.9
 - Support search
 - Support image expansion
