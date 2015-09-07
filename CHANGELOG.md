@@ -1,3 +1,7 @@
+## v0.0.11
+- Support 2-factor authentication (thx @babie)
+- Fix scrolling UI bug (thx @yayugu)
+
 ## v0.0.10
 - Support general global shortcuts (⌘C, ⌘V, etc.)
 
