@@ -1,6 +1,7 @@
 import { openExternal } from 'shell'
 import app from 'app'
 import AuthenticationWindow from './authentication-window'
+import BrowserWindow from 'browser-window'
 import crashReporter from 'crash-reporter'
 import globalShortcut from 'global-shortcut'
 import MainWindow from './main-window'
@@ -124,6 +125,25 @@ export default class Application {
                 label: 'Select All',
                 accelerator: 'Command+A',
                 selector: 'selectAll:'
+              }
+            ]
+          },
+          {
+            label: 'View',
+            submenu: [
+              {
+                label: 'Reload',
+                accelerator: 'Command+R',
+                click() {
+                  BrowserWindow.getFocusedWindow().reloadIgnoringCache();
+                }
+              },
+              {
+                label: 'Open DevTools',
+                accelerator: 'Alt+Command+I',
+                click() {
+                  BrowserWindow.getFocusedWindow().toggleDevTools();
+                }
               }
             ]
           }
