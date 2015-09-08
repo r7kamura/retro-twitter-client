@@ -24,6 +24,33 @@
     }
   }
 
+  &-body {
+    flex: 1;
+
+    &-container {
+      display: flex;
+    }
+  }
+
+  &-button {
+    &-favorite,
+    &-reply,
+    &-unfavorite {
+      color: #ddd;
+      cursor: pointer;
+      margin-left: 2px;
+      visibility: hidden;
+
+      .tweet:hover & {
+        visibility: inherit;
+      }
+    }
+
+    &-unfavorite {
+      color: orange;
+    }
+  }
+
   &-datetime {
     color: #aaa;
     padding-left: 8px;

@@ -18,9 +18,21 @@ export default class Tweets extends React.Component {
   renderTweets() {
     return this.props.tweets.map((tweet) => {
       if (tweet.retweeted_status) {
-        return <Retweet key={tweet.id_str} onAnchorClicked={this.props.onAnchorClicked} tweet={tweet} />
+        return <Retweet
+          key={tweet.id_str}
+          onAnchorClicked={this.props.onAnchorClicked}
+          onFavoriteButtonClicked={this.props.onFavoriteButtonClicked}
+          onUnfavoriteButtonClicked={this.props.onUnfavoriteButtonClicked}
+          tweet={tweet}
+        />
       } else {
-        return <Tweet key={tweet.id_str} onAnchorClicked={this.props.onAnchorClicked} tweet={tweet} />
+        return <Tweet
+          key={tweet.id_str}
+          onAnchorClicked={this.props.onAnchorClicked}
+          onFavoriteButtonClicked={this.props.onFavoriteButtonClicked}
+          onUnfavoriteButtonClicked={this.props.onUnfavoriteButtonClicked}
+          tweet={tweet}
+        />
       }
     });
   }

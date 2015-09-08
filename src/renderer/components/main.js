@@ -39,9 +39,27 @@ export default class Main extends React.Component {
       <main className="main">
         <Header onSearchQueryStringSubmitted={this.props.onSearchQueryStringSubmitted} title={this.title} />
         <Editor key="editor" onTweetSubmitted={this.props.onTweetSubmitted} />
-        <Tweets selected={this.isHomeTimelineSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.homeTimelineTweets} />
-        <Tweets selected={this.isSearchSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.searchedTweets} />
-        <Tweets selected={this.isListSelected()} onAnchorClicked={this.props.onAnchorClicked} tweets={this.props.listTweets} />
+        <Tweets
+          selected={this.isHomeTimelineSelected()}
+          onAnchorClicked={this.props.onAnchorClicked}
+          onFavoriteButtonClicked={this.props.onFavoriteButtonClicked}
+          onUnfavoriteButtonClicked={this.props.onUnfavoriteButtonClicked}
+          tweets={this.props.homeTimelineTweets}
+        />
+        <Tweets
+          selected={this.isSearchSelected()}
+          onAnchorClicked={this.props.onAnchorClicked}
+          onFavoriteButtonClicked={this.props.onFavoriteButtonClicked}
+          onUnfavoriteButtonClicked={this.props.onUnfavoriteButtonClicked}
+          tweets={this.props.searchedTweets}
+        />
+        <Tweets
+          selected={this.isListSelected()}
+          onAnchorClicked={this.props.onAnchorClicked}
+          onFavoriteButtonClicked={this.props.onFavoriteButtonClicked}
+          onUnfavoriteButtonClicked={this.props.onUnfavoriteButtonClicked}
+          tweets={this.props.listTweets}
+        />
       </main>
     );
   }

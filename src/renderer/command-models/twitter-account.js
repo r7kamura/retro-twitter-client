@@ -11,6 +11,15 @@ export default class TwitterAccount {
     });
   }
 
+  favorite({ tweetId }) {
+    this.twitterClient.favorite({ tweetId }).then(({ tweet }) => {
+      store.dispatch({
+        tweet,
+        type: 'TWEET_FAVORITED'
+      });
+    });
+  }
+
   fetchAndSubscribeUserData() {
     this.fetchUser().then(({ user }) => {
       this.fetchLists({ user });
@@ -100,6 +109,15 @@ export default class TwitterAccount {
       store.dispatch({
         tweet,
         type: 'RETWEET_RECEIVED'
+      });
+    });
+  }
+
+  unfavorite({ tweetId }) {
+    this.twitterClient.unfavorite({ tweetId }).then(({ tweet }) => {
+      store.dispatch({
+        tweet,
+        type: 'TWEET_UNFAVORITED'
       });
     });
   }

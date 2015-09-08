@@ -9,6 +9,18 @@ export default class TwitterClient {
     this.consumerSecret = consumerSecret;
   }
 
+  favorite({ tweetId }) {
+    return new Promise((resolve, reject) => {
+      this.getTwitter().post(
+        'favorites/create',
+        { id: tweetId },
+        (error, tweet, response) => {
+          resolve({ response: response, tweet: tweet });
+        }
+      );
+    });
+  }
+
   fetchUser() {
     return new Promise((resolve, reject) => {
       this.getTwitter().get(
@@ -182,5 +194,17 @@ export default class TwitterClient {
       }
     );
     return eventEmitter;
+  }
+
+  unfavorite({ tweetId }) {
+    return new Promise((resolve, reject) => {
+      this.getTwitter().post(
+        'favorites/destroy',
+        { id: tweetId },
+        (error, tweet, response) => {
+          resolve({ response: response, tweet: tweet });
+        }
+      );
+    });
   }
 }
