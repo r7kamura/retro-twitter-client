@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const channelId = (state = 'HOME_TIMELINE_CHANNEL', action) => {
   switch (action.type) {
   case 'CHANNEL_SELECTED':
@@ -13,6 +15,20 @@ const homeTimelineTweets = (state = [], action) => {
     return [action.tweet, ...state].slice(0, 100);
   case 'HOME_TIMELINE_TWEETS_FETCHED':
     return [...action.tweets, ...state].slice(0, 100);
+  case 'TWEET_FAVORITED':
+  case 'TWEET_UNFAVORITED':
+    const index = _.findIndex(state, (tweet) => {
+      return tweet.id_str === action.tweet.id_str;
+    });
+    if (index === -1) {
+      return state;
+    } else {
+      return [
+        ...state.slice(0, index),
+        action.tweet,
+        ...state.slice(index + 1, -1)
+      ];
+    }
   default:
     return state;
   }
@@ -48,6 +64,20 @@ const listTweets = (state = [], action) => {
     return [];
   case 'LIST_TWEETS_FETCHED':
     return [...action.tweets, ...state];
+  case 'TWEET_FAVORITED':
+  case 'TWEET_UNFAVORITED':
+    const index = _.findIndex(state, (tweet) => {
+      return tweet.id_str === action.tweet.id_str;
+    });
+    if (index === -1) {
+      return state;
+    } else {
+      return [
+        ...state.slice(0, index),
+        action.tweet,
+        ...state.slice(index + 1, -1)
+      ];
+    }
   default:
     return state;
   }
@@ -59,6 +89,20 @@ const searchedTweets = (state = [], action) => {
     return [action.tweet, ...state];
   case 'TWEETS_SEARCHED':
     return [...action.tweets, ...state];
+  case 'TWEET_FAVORITED':
+  case 'TWEET_UNFAVORITED':
+    const index = _.findIndex(state, (tweet) => {
+      return tweet.id_str === action.tweet.id_str;
+    });
+    if (index === -1) {
+      return state;
+    } else {
+      return [
+        ...state.slice(0, index),
+        action.tweet,
+        ...state.slice(index + 1, -1)
+      ];
+    }
   default:
     return state;
   }
