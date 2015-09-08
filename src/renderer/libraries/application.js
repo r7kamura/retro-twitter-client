@@ -28,8 +28,10 @@ export default class Application {
       defaultWebBrowser: this.defaultWebBrowser,
       onAnchorClicked: this.onAnchorClicked.bind(this),
       onChannelClicked: this.onChannelClicked.bind(this),
+      onFavoriteButtonClicked: this.onFavoriteButtonClicked.bind(this),
       onSearchQueryStringSubmitted: this.onSearchQueryStringSubmitted.bind(this),
       onTweetSubmitted: this.onTweetSubmitted.bind(this),
+      onUnfavoriteButtonClicked: this.onUnfavoriteButtonClicked.bind(this),
       twitterAccount: this.twitterAccount
     }
   }
@@ -57,6 +59,10 @@ export default class Application {
     this.channelSelector.selectChannel(channelId);
   }
 
+  onFavoriteButtonClicked(tweetId) {
+    this.twitterAccount.favorite({ tweetId });
+  }
+
   onSearchQueryStringSubmitted(queryString) {
     this.channelSelector.selectSearchChannel();
     this.twitterAccount.searchTweets({ queryString });
@@ -65,6 +71,10 @@ export default class Application {
 
   onTweetSubmitted(text) {
     this.twitterAccount.postTweet(text);
+  }
+
+  onUnfavoriteButtonClicked(tweetId) {
+    this.twitterAccount.unfavorite({ tweetId });
   }
 
   renderView() {
