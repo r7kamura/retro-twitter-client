@@ -1,3 +1,12 @@
+## v0.0.12
+- Add Command+] and Command+[ to select channels
+- Add Command+F shortcut to focus on search box
+- Add favorite button
+- Reduce focusable targets
+- Fix bug on desktop notification
+- Fix bug on self-favorite
+- Disable drag-and-drop on img elements for better usability
+
 ## v0.0.11
 - Support 2-factor authentication (thx @babie)
 - Fix scrolling UI bug (thx @yayugu)
