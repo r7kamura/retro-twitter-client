@@ -79,14 +79,14 @@ export default class ApplicationMenu extends EventEmitter {
               },
               {
                 label: 'Select next channel',
-                accelerator: 'Alt+Down',
+                accelerator: 'Command+]',
                 click() {
                   self.emit('select-next-channel');
                 }
               },
               {
                 label: 'Select previous channel',
-                accelerator: 'Alt+Up',
+                accelerator: 'Command+[',
                 click() {
                   self.emit('select-previous-channel');
                 }
