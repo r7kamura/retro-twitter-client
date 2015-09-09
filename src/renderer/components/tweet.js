@@ -49,7 +49,7 @@ export default class Tweet extends React.Component {
                 @{this.props.tweet.user.screen_name}
               </span>
             </div>
-            <a className="tweet-datetime-anchor" href={this.url} onClick={this.onAnchorClicked.bind(this)}>
+            <a className="tweet-datetime-anchor" href={this.url} onClick={this.onAnchorClicked.bind(this)} tabIndex="-1">
               <Time className="tweet-datetime" time={this.props.tweet.created_at} />
             </a>
           </div>

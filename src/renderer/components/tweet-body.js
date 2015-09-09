@@ -9,7 +9,14 @@ class Anchor extends React.Component {
   }
 
   render() {
-    return <a className="tweet-anchor" href={this.props.url} title={this.props.title} onClick={this.onClicked.bind(this)} dangerouslySetInnerHTML={{__html: this.props.text}} />;
+    return <a
+      className="tweet-anchor"
+      dangerouslySetInnerHTML={{__html: this.props.text}}
+      href={this.props.url}
+      onClick={this.onClicked.bind(this)}
+      tabIndex="-1"
+      title={this.props.title}
+    />;
   }
 }
 
@@ -116,7 +123,7 @@ class Image extends React.Component {
   render() {
     return(
       <div>
-        <a href={this.props.tweetUrl} onClick={this.onClicked.bind(this)}>
+        <a href={this.props.tweetUrl} onClick={this.onClicked.bind(this)} tabIndex="-1">
           <img className="tweet-image" src={this.props.imageUrl} />
         </a>
       </div>
