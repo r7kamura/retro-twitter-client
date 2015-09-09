@@ -48,7 +48,17 @@ export default class Application {
   }
 
   fetchAndSubscribeUserData() {
-    this.twitterAccount.fetchAndSubscribeUserData();
+    this.twitterAccount.fetchUser().then(({ user }) => {
+      this.twitterAccount.fetchLists({ user });
+      this.twitterAccount.fetchHomeTimelineTweets({ user });
+      this.twitterAccount.subscribeUserStream({
+        user
+      }).on('favorite', (data) => {
+        this.onFavoriteReceived(data);
+      }).on('retweet', (tweet) => {
+        this.onRetweetReceived({ tweet });
+      });
+    });
   }
 
   onAnchorClicked(url) {
@@ -61,6 +71,26 @@ export default class Application {
 
   onFavoriteButtonClicked(tweetId) {
     this.twitterAccount.favorite({ tweetId });
+  }
+
+  onFavoriteReceived({ source, target_object }) {
+    new Notification(
+      `${source.screen_name} favorited your Tweet`,
+      {
+        body: target_object.text,
+        icon: source.profile_image_url
+      }
+    );
+  }
+
+  onRetweetReceived({ tweet }) {
+    new Notification(
+      `${tweet.user.screen_name} retweeted your Tweet`,
+      {
+        body: tweet.retweeted_status.text,
+        icon: tweet.user.profile_image_url
+      }
+    );
   }
 
   onSearchQueryStringSubmitted(queryString) {

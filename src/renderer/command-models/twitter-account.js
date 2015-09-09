@@ -20,14 +20,6 @@ export default class TwitterAccount {
     });
   }
 
-  fetchAndSubscribeUserData() {
-    this.fetchUser().then(({ user }) => {
-      this.fetchLists({ user });
-      this.fetchHomeTimelineTweets({ user });
-      this.subscribeUserStream({ user });
-    });
-  }
-
   fetchHomeTimelineTweets({ user }) {
     this.twitterClient.fetchHomeTimelineTweets({ screenName: user.screen_name }).then(({ tweets }) => {
       store.dispatch({
@@ -93,7 +85,7 @@ export default class TwitterAccount {
   }
 
   subscribeUserStream({ user }) {
-    this.twitterClient.subscribeUserStream({
+    return this.twitterClient.subscribeUserStream({
       user
     }).on('tweet', (tweet) => {
       store.dispatch({
