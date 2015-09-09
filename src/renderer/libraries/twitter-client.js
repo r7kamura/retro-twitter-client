@@ -146,7 +146,9 @@ export default class TwitterClient {
           eventEmitter.emit('block', data);
         });
         stream.on('favorite', (data) => {
-          eventEmitter.emit('favorite', data);
+          if (data.source.id_str !== user.id_str) {
+            eventEmitter.emit('favorite', data);
+          }
         });
         stream.on('list_created', (data) => {
           eventEmitter.emit('list_created', data);
