@@ -25,6 +25,7 @@ export default class Header extends React.Component {
           <i className="fa fa-search header-search-icon "/>
           <input
             className="header-search-text-field"
+            id="search-text-field"
             onChange={this.onSearchQueryStringChanged.bind(this)}
             placeholder="Search"
             type="text"

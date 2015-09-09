@@ -61,6 +61,12 @@ export default class Application {
     });
   }
 
+  focusSearchBox() {
+    const textField = document.querySelector('#search-text-field')
+    textField.focus();
+    textField.select();
+  }
+
   onAnchorClicked(url) {
     this.defaultWebBrowser.openUrl(url);
   }
@@ -121,10 +127,13 @@ export default class Application {
   }
 
   subscribeGlobalShortcutEvents() {
-    ipc.on('select-next-channel-requested', () => {
+    ipc.on('focus-search-box', () => {
+      this.focusSearchBox();
+    });
+    ipc.on('select-next-channel', () => {
       this.channelSelector.selectNextChannel();
     });
-    ipc.on('select-previous-channel-requested', () => {
+    ipc.on('select-previous-channel', () => {
       this.channelSelector.selectPreviousChannel();
     });
   }

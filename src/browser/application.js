@@ -3,7 +3,6 @@ import app from 'app'
 import AuthenticationWindow from './authentication-window'
 import BrowserWindow from 'browser-window'
 import crashReporter from 'crash-reporter'
-import globalShortcut from 'global-shortcut'
 import MainWindow from './main-window'
 import Menu from 'menu'
 
@@ -16,6 +15,10 @@ export default class Application {
     this.mainWindow = null;
   }
 
+  focusSearchBox() {
+    this.mainWindow.send('focus-search-box');
+  }
+
   onAuthenticationSucceeded({ accessToken, accessTokenSecret }) {
     this.accessToken = accessToken;
     this.accessTokenSecret = accessTokenSecret;
@@ -25,7 +28,6 @@ export default class Application {
   onReady() {
     this.openAuthenicationWindow();
     this.setApplicationMenu();
-    this.registerGlobalShortcuts();
   }
 
   openAuthenicationWindow() {
@@ -47,25 +49,21 @@ export default class Application {
     app.on('ready', this.onReady.bind(this));
   }
 
-  registerGlobalShortcuts() {
-    globalShortcut.register('Alt+Down', this.selectNextChannel.bind(this));
-    globalShortcut.register('Alt+Up', this.selectPreviousChannel.bind(this));
-  }
-
   run() {
     this.startCrashReporter();
     this.registerApplicationCallbacks();
   }
 
   selectNextChannel() {
-    this.mainWindow.send('select-next-channel-requested');
+    this.mainWindow.send('select-next-channel');
   }
 
   selectPreviousChannel() {
-    this.mainWindow.send('select-previous-channel-requested');
+    this.mainWindow.send('select-previous-channel');
   }
 
   setApplicationMenu() {
+    const self = this;
     Menu.setApplicationMenu(
       Menu.buildFromTemplate(
         [
@@ -131,6 +129,27 @@ export default class Application {
           {
             label: 'View',
             submenu: [
+              {
+                label: 'Search',
+                accelerator: 'Command+F',
+                click() {
+                  self.focusSearchBox();
+                }
+              },
+              {
+                label: 'Select next channel',
+                accelerator: 'Alt+Down',
+                click() {
+                  self.selectNextChannel();
+                }
+              },
+              {
+                label: 'Select previous channel',
+                accelerator: 'Alt+Up',
+                click() {
+                  self.selectPreviousChannel();
+                }
+              },
               {
                 label: 'Reload',
                 accelerator: 'Command+R',
