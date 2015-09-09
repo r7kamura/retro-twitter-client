@@ -15,10 +15,6 @@ export default class Application {
     this.mainWindow = null;
   }
 
-  focusSearchBox() {
-    this.mainWindow.send('focus-search-box');
-  }
-
   onAuthenticationSucceeded({ accessToken, accessTokenSecret }) {
     this.accessToken = accessToken;
     this.accessTokenSecret = accessTokenSecret;
@@ -54,14 +50,6 @@ export default class Application {
     this.registerApplicationCallbacks();
   }
 
-  selectNextChannel() {
-    this.mainWindow.send('select-next-channel');
-  }
-
-  selectPreviousChannel() {
-    this.mainWindow.send('select-previous-channel');
-  }
-
   setApplicationMenu() {
     new ApplicationMenu().on('open-dev-tools', () => {
       this.mainWindow.window.toggleDevTools();
@@ -70,11 +58,11 @@ export default class Application {
     }).on('reload', () => {
       this.mainWindow.window.reloadIgnoringCache();
     }).on('search', () => {
-      this.focusSearchBox();
+      this.mainWindow.send('focus-search-box');
     }).on('select-next-channel', () => {
-      this.selectNextChannel();
+      this.mainWindow.send('select-next-channel');
     }).on('select-previous-channel', () => {
-      this.selectPreviousChannel();
+      this.mainWindow.send('select-previous-channel');
     });
   }
 
