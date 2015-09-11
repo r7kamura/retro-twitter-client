@@ -96,7 +96,9 @@
 }
 
 .tweets {
+  flex: 1;
   margin-top: 16px;
+  overflow-y: scroll;
 
   &-hidden {
     display: none;
