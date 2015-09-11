@@ -28,6 +28,7 @@ export default class Header extends React.Component {
             id="search-text-field"
             onChange={this.onSearchQueryStringChanged.bind(this)}
             placeholder="Search"
+            tabIndex="-1"
             type="text"
             value={this.state.queryString}
           />

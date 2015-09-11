@@ -1,25 +1,19 @@
-@import "qiita-coat/scss/buttons";
-
 .editor {
-  border-radius: 0 3px 3px 0;
+  border-radius: 3px;
+  border: solid 1px #ddd;
+  display: flex;
+  padding: 4px 8px;
 
   &-counter {
-    display: inline-block;
-    margin-left: 4px;
-    padding-bottom: 6px;
-    padding-top: 6px;
-  }
-
-  &-submit-button {
-    @include button;
-    @include button-primary;
+    color: #aaa;
   }
 
   &-textarea {
-    border: solid 1px #ddd;
-    border-radius: 3px;
+    border: 0;
+    display: block;
+    flex: 1;
     line-height: 1.5;
-    padding: 8px;
+    outline: none;
     resize: none;
     width: 100%;
   }

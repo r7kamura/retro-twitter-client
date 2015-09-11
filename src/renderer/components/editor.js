@@ -6,8 +6,12 @@ import twitterClient from '../libraries/twitter-client'
  * @return {String}
  */
 const keyStringOf = (event) => {
-  if (event.ctrlKey && event.keyCode === 13) {
-    return 'Ctrl+Return';
+  if (event.keyCode === 13) {
+    if (event.ctrlKey) {
+      return 'Ctrl+Return';
+    } else {
+      return 'Return';
+    }
   } else {
     return '';
   }
@@ -23,16 +27,12 @@ export default class Editor extends React.Component {
     return 140 - this.state.text.length;
   }
 
-  onSubmitButtonClicked(event) {
-    this.onTweetSubmitted();
-  }
-
   onTextareaChanged(event) {
     this.setState({ text: event.target.value });
   }
 
   onTextareaKeyDown(event) {
-    if (keyStringOf(event) == 'Ctrl+Return') {
+    if (keyStringOf(event) === 'Return') {
       event.preventDefault();
       this.onTweetSubmitted();
     }
@@ -41,17 +41,9 @@ export default class Editor extends React.Component {
   render() {
     return(
       <div className="editor">
-        <div>
-          <textarea name="name" rows="3" cols="40" className="editor-textarea" onChange={this.onTextareaChanged.bind(this)} onKeyDown={this.onTextareaKeyDown.bind(this)} placeholder="What's happening?" value={this.state.text}></textarea>
-        </div>
-        <div>
-          <button className="editor-submit-button" onClick={this.onSubmitButtonClicked.bind(this)} type="button">
-            <i className="fa fa-bullhorn"></i>
-            Tweet
-          </button>
-          <div className="editor-counter">
-            {this.getRestTextLength()}
-          </div>
+        <textarea name="name" rows="2" cols="40" className="editor-textarea" onChange={this.onTextareaChanged.bind(this)} onKeyDown={this.onTextareaKeyDown.bind(this)} placeholder="What's happening?" value={this.state.text}></textarea>
+        <div className="editor-counter">
+          {this.getRestTextLength()}
         </div>
       </div>
     );
