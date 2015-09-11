@@ -1,21 +1,6 @@
+import keyStringOf from '../libraries/key-string-of'
 import React from 'react'
 import twitterClient from '../libraries/twitter-client'
-
-/**
- * @param {KeyboardEvent} event
- * @return {String}
- */
-const keyStringOf = (event) => {
-  if (event.keyCode === 13) {
-    if (event.ctrlKey) {
-      return 'Ctrl+Return';
-    } else {
-      return 'Return';
-    }
-  } else {
-    return '';
-  }
-};
 
 export default class Editor extends React.Component {
   constructor(props) {
