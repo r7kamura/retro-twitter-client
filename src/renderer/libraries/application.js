@@ -51,7 +51,7 @@ export default class Application {
   }
 
   subscribeIpcEvents() {
-    ipc.on('focus-search-box', () => {
+    ipc.on('select-search-box', () => {
       this.searchBoxSelector.select();
     });
     ipc.on('select-next-channel', () => {

@@ -58,7 +58,7 @@ export default class Application {
     }).on('reload', () => {
       this.mainWindow.window.reloadIgnoringCache();
     }).on('search', () => {
-      this.mainWindow.send('focus-search-box');
+      this.mainWindow.send('select-search-box');
     }).on('select-next-channel', () => {
       this.mainWindow.send('select-next-channel');
     }).on('select-previous-channel', () => {
