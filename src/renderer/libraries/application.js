@@ -83,14 +83,14 @@ export default class Application {
   }
 
   run() {
-    this.subscribeDomainEventDispatcher();
+    this.subscribeDomainEvents();
     this.subscribeIpc();
     this.subscribeKeyboardEvents();
     this.renderView();
     this.twitterAccount.fetchUser();
   }
 
-  subscribeDomainEventDispatcher() {
+  subscribeDomainEvents() {
     domainEventPublisher.subscribe((domainEvent) => {
       store.dispatch(domainEvent);
     }).on('USER_FETCHED', (domainEvent) => {
