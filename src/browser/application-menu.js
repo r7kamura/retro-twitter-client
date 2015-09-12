@@ -1,4 +1,4 @@
-import EventEmitter from 'events'
+import { EventEmitter } from 'events'
 import Menu from 'menu'
 
 export default class ApplicationMenu extends EventEmitter {
