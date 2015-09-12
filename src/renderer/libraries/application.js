@@ -5,14 +5,13 @@ import DesktopNotifier from '../command-models/desktop-notifier'
 import domainEventPublisher from '../singletons/domain-event-publisher'
 import ipc from 'ipc'
 import KeyboardEventPublisher from '../libraries/keyboard-event-publisher'
-import React from 'react'
-import Root from '../components/root'
 import SearchBoxSelector from '../command-models/search-box-selector'
 import store from '../singletons/store'
 import TweetSelector from '../command-models/tweet-selector'
 import TwitterAccount from '../command-models/twitter-account'
 import twitterSignature from '../singletons/twitter-signature'
 import viewEventPublisher from '../singletons/view-event-publisher'
+import ViewRenderer from '../command-models/view-renderer'
 
 export default class Application {
   constructor() {
@@ -23,10 +22,7 @@ export default class Application {
     this.searchBoxSelector = new SearchBoxSelector();
     this.tweetSelector = new TweetSelector();
     this.twitterAccount = new TwitterAccount(twitterSignature);
-  }
-
-  renderView() {
-    React.render(<Root/>, document.body);
+    this.viewRenderer = new ViewRenderer();
   }
 
   run() {
@@ -34,7 +30,7 @@ export default class Application {
     this.subscribeIpcEvents();
     this.subscribeKeyboardEvents();
     this.subscribeViewEvents();
-    this.renderView();
+    this.viewRenderer.render();
     this.twitterAccount.fetchUser();
   }
 
