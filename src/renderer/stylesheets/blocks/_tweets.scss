@@ -70,6 +70,12 @@
 
   &-image {
     @include avatar;
+
+    &-container {
+      display: block;
+      max-height: 300px;
+      overflow: hidden;
+    }
   }
 
   &-main {

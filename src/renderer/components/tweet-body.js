@@ -122,7 +122,7 @@ class Image extends React.Component {
 
   render() {
     return(
-      <div>
+      <div className="tweet-image-container">
         <a href={this.props.tweetUrl} onClick={this.onClicked.bind(this)} tabIndex="-1">
           <img className="tweet-image" src={this.props.imageUrl} />
         </a>
