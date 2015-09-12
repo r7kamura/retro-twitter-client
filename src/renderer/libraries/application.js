@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import application from '../singletons/application'
 import ChannelSelector from '../command-models/channel-selector'
 import DefaultWebBrowser from '../command-models/default-web-browser'
 import DesktopNotifier from '../command-models/desktop-notifier'
@@ -12,6 +11,7 @@ import SearchBoxSelector from '../command-models/search-box-selector'
 import store from '../singletons/store'
 import TweetSelector from '../command-models/tweet-selector'
 import TwitterAccount from '../command-models/twitter-account'
+import twitterSignature from '../singletons/twitter-signature'
 import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class Application {
@@ -22,12 +22,7 @@ export default class Application {
     this.keyboardEventPublisher = new KeyboardEventPublisher();
     this.searchBoxSelector = new SearchBoxSelector();
     this.tweetSelector = new TweetSelector();
-    this.twitterAccount = new TwitterAccount({
-      accessToken: application.accessToken,
-      accessTokenSecret: application.accessTokenSecret,
-      consumerKey: application.consumerKey,
-      consumerSecret: application.consumerSecret
-    });
+    this.twitterAccount = new TwitterAccount(twitterSignature);
   }
 
   renderView() {
