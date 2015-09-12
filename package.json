@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "HTML5-Reset": "git://github.com/r7kamura/HTML5-Reset.git",
+    "eventemitter2": "^0.4.14",
     "font-awesome": "^4.4.0",
     "lodash": "^3.10.1",
     "moment": "^2.10.6",

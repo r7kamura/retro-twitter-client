@@ -35,7 +35,7 @@ export default class Application {
   }
 
   subscribeDomainEvents() {
-    domainEventPublisher.subscribe((domainEvent) => {
+    domainEventPublisher.on('*', (domainEvent) => {
       store.dispatch(domainEvent);
     }).on('FAVORITE_RECEIVED', ({ data }) => {
       this.desktopNotifier.notifyFavorite(data);
