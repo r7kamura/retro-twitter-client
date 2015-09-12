@@ -43,10 +43,10 @@ export default class Application {
       this.twitterAccount.fetchListTweets({ listId });
     }).on('RETWEET_RECEIVED', ({ tweet }) => {
       this.desktopNotifier.notifyRetweet({ tweet });
-    }).on('USER_FETCHED', (domainEvent) => {
-      this.twitterAccount.fetchLists({ user: domainEvent.user });
-      this.twitterAccount.fetchHomeTimelineTweets({ user: domainEvent.user });
-      this.twitterAccount.subscribeUserStream({ user: domainEvent.user });
+    }).on('USER_FETCHED', ({ user }) => {
+      this.twitterAccount.fetchHomeTimelineTweets({ user });
+      this.twitterAccount.fetchLists({ user });
+      this.twitterAccount.subscribeUserStream({ user });
     });
   }
 
