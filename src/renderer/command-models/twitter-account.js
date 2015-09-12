@@ -1,4 +1,4 @@
-import store from '../singletons/store'
+import domainEventPublisher from '../singletons/domain-event-publisher'
 import TwitterClient from '../libraries/twitter-client'
 
 export default class TwitterAccount {
@@ -13,7 +13,7 @@ export default class TwitterAccount {
 
   favorite({ tweetId }) {
     this.twitterClient.favorite({ tweetId }).then(({ tweet }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweet,
         type: 'TWEET_FAVORITED'
       });
@@ -22,7 +22,7 @@ export default class TwitterAccount {
 
   fetchHomeTimelineTweets({ user }) {
     this.twitterClient.fetchHomeTimelineTweets({ screenName: user.screen_name }).then(({ tweets }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweets,
         type: 'HOME_TIMELINE_TWEETS_FETCHED'
       });
@@ -31,7 +31,7 @@ export default class TwitterAccount {
 
   fetchLists({ user }) {
     this.twitterClient.fetchLists().then(({ lists }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         lists,
         type: 'LISTS_FETCHED'
       });
@@ -40,7 +40,7 @@ export default class TwitterAccount {
 
   fetchListTweets({ listId }) {
     this.twitterClient.fetchListTweets({ listId }).then(({ tweets }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweets,
         type: 'LIST_TWEETS_FETCHED'
       });
@@ -49,7 +49,7 @@ export default class TwitterAccount {
 
   fetchUser() {
     return this.twitterClient.fetchUser().then(({ user }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         user,
         type: 'USER_FETCHED'
       });
@@ -59,7 +59,7 @@ export default class TwitterAccount {
 
   postTweet(text) {
     this.twitterClient.postTweet({ text }).then(({ tweet }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweet,
         type: 'TWEET_POSTED'
       });
@@ -68,7 +68,7 @@ export default class TwitterAccount {
 
   searchTweets({ queryString }) {
     this.twitterClient.searchTweets({ queryString }).then(({ tweets }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweets,
         type: 'TWEETS_SEARCHED'
       });
@@ -77,7 +77,7 @@ export default class TwitterAccount {
 
   subscribeFilteredStream({ queryString }) {
     this.twitterClient.subscribeFilteredStream({ queryString }).on('tweet', (tweet) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweet,
         type: 'FILTERED_TWEET_RECEIVED'
       });
@@ -88,17 +88,17 @@ export default class TwitterAccount {
     return this.twitterClient.subscribeUserStream({
       user
     }).on('tweet', (tweet) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweet,
         type: 'HOME_TIMELINE_TWEET_RECEIVED'
       });
     }).on('favorite', (data) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         data,
         type: 'FAVORITE_RECEIVED'
       });
     }).on('retweet', (tweet) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweet,
         type: 'RETWEET_RECEIVED'
       });
@@ -107,7 +107,7 @@ export default class TwitterAccount {
 
   unfavorite({ tweetId }) {
     this.twitterClient.unfavorite({ tweetId }).then(({ tweet }) => {
-      store.dispatch({
+      domainEventPublisher.publish({
         tweet,
         type: 'TWEET_UNFAVORITED'
       });

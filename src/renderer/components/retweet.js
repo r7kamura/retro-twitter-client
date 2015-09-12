@@ -3,19 +3,14 @@ import React from 'react'
 import Time from './time'
 import TweetBody from './tweet-body'
 import UnfavoriteButton from './unfavorite-button'
+import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class Retweet extends React.Component {
   get favoriteButton() {
     if (this.props.tweet.favorited) {
-      return <UnfavoriteButton
-        onUnfavoriteButtonClicked={this.props.onUnfavoriteButtonClicked}
-        tweet={this.props.tweet.retweeted_status}
-      />;
+      return <UnfavoriteButton tweet={this.props.tweet.retweeted_status} />;
     } else {
-      return <FavoriteButton
-        onFavoriteButtonClicked={this.props.onFavoriteButtonClicked}
-        tweet={this.props.tweet.retweeted_status}
-      />;
+      return <FavoriteButton tweet={this.props.tweet.retweeted_status} />;
     }
   }
 
@@ -25,12 +20,7 @@ export default class Retweet extends React.Component {
 
   onAnchorClicked(event) {
     event.preventDefault();
-    this.props.onAnchorClicked(event.currentTarget.href);
-  }
-
-  onFavoriteButtonClicked(event) {
-    event.preventDefault();
-    this.props.onFavoriteButtonClicked(this.props.tweet.retweeted_status.id_str);
+    viewEventPublisher.emit('anchor-clicked', event.currentTarget.href);
   }
 
   render() {
@@ -62,7 +52,7 @@ export default class Retweet extends React.Component {
             </a>
           </div>
           <div className="tweet-body-container">
-            <TweetBody onAnchorClicked={this.props.onAnchorClicked} tweet={this.props.tweet.retweeted_status} />
+            <TweetBody tweet={this.props.tweet.retweeted_status} />
             <div className="tweet-buttons">
               {this.favoriteButton}
               <i className="fa fa-reply tweet-button-reply" />

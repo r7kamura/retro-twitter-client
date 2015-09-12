@@ -1,4 +1,5 @@
 import React from 'react'
+import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class Header extends React.Component {
   constructor(props) {
@@ -12,7 +13,7 @@ export default class Header extends React.Component {
 
   onSubmitted(event) {
     event.preventDefault();
-    this.props.onSearchQueryStringSubmitted(this.state.queryString);
+    viewEventPublisher.emit('search-query-string-submitted', this.state.queryString);
   }
 
   render() {
