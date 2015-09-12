@@ -2,6 +2,7 @@ import _ from 'lodash'
 import application from '../singletons/application'
 import ChannelSelector from '../command-models/channel-selector'
 import DefaultWebBrowser from '../command-models/default-web-browser'
+import DesktopNotifier from '../command-models/desktop-notifier'
 import domainEventPublisher from '../singletons/domain-event-publisher'
 import ipc from 'ipc'
 import KeyboardEventEmitter from '../libraries/keyboard-event-emitter'
@@ -14,6 +15,7 @@ import TwitterAccount from '../command-models/twitter-account'
 export default class Application {
   constructor() {
     this.defaultWebBrowser = new DefaultWebBrowser();
+    this.desktopNotifier = new DesktopNotifier();
     this.keyboardEventEmitter = new KeyboardEventEmitter(document);
     this.tweetSelector = new TweetSelector();
     this.twitterAccount = new TwitterAccount({
@@ -59,26 +61,6 @@ export default class Application {
     this.twitterAccount.favorite({ tweetId });
   }
 
-  onFavoriteReceived({ source, target_object }) {
-    new Notification(
-      `${source.screen_name} favorited your Tweet`,
-      {
-        body: target_object.text,
-        icon: source.profile_image_url
-      }
-    );
-  }
-
-  onRetweetReceived({ tweet }) {
-    new Notification(
-      `${tweet.user.screen_name} retweeted your Tweet`,
-      {
-        body: tweet.retweeted_status.text,
-        icon: tweet.user.profile_image_url
-      }
-    );
-  }
-
   onSearchQueryStringSubmitted(queryString) {
     this.channelSelector.selectSearchChannel();
     this.twitterAccount.searchTweets({ queryString });
@@ -115,10 +97,10 @@ export default class Application {
       this.twitterAccount.fetchLists({ user: domainEvent.user });
       this.twitterAccount.fetchHomeTimelineTweets({ user: domainEvent.user });
       this.twitterAccount.subscribeUserStream({ user: domainEvent.user });
-    }).on('FAVORITE_RECEIVED', (domainEvent) => {
-      this.onFavoriteReceived(domainEvent.data);
-    }).on('RETWEET_RECEIVED', (domainEvent) => {
-      this.onRetweetReceived({ tweet: domainEvent.tweet });
+    }).on('FAVORITE_RECEIVED', ({ data }) => {
+      this.desktopNotifier.notifyFavorite(data);
+    }).on('RETWEET_RECEIVED', ({ tweet }) => {
+      this.desktopNotifier.notifyRetweet({ tweet });
     });
   }
 
