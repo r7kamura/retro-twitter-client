@@ -16,6 +16,7 @@ import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class Application {
   constructor() {
+    this.channelSelector = new ChannelSelector();
     this.defaultWebBrowser = new DefaultWebBrowser();
     this.desktopNotifier = new DesktopNotifier();
     this.keyboardEventPublisher = new KeyboardEventPublisher();
@@ -26,9 +27,6 @@ export default class Application {
       accessTokenSecret: application.accessTokenSecret,
       consumerKey: application.consumerKey,
       consumerSecret: application.consumerSecret
-    });
-    this.channelSelector = new ChannelSelector({
-      twitterAccount: this.twitterAccount
     });
   }
 
@@ -48,14 +46,16 @@ export default class Application {
   subscribeDomainEvents() {
     domainEventPublisher.subscribe((domainEvent) => {
       store.dispatch(domainEvent);
+    }).on('FAVORITE_RECEIVED', ({ data }) => {
+      this.desktopNotifier.notifyFavorite(data);
+    }).on('LIST_CHANNEL_SELECTED', ({ listId }) => {
+      this.twitterAccount.fetchListTweets({ listId });
+    }).on('RETWEET_RECEIVED', ({ tweet }) => {
+      this.desktopNotifier.notifyRetweet({ tweet });
     }).on('USER_FETCHED', (domainEvent) => {
       this.twitterAccount.fetchLists({ user: domainEvent.user });
       this.twitterAccount.fetchHomeTimelineTweets({ user: domainEvent.user });
       this.twitterAccount.subscribeUserStream({ user: domainEvent.user });
-    }).on('FAVORITE_RECEIVED', ({ data }) => {
-      this.desktopNotifier.notifyFavorite(data);
-    }).on('RETWEET_RECEIVED', ({ tweet }) => {
-      this.desktopNotifier.notifyRetweet({ tweet });
     });
   }
 

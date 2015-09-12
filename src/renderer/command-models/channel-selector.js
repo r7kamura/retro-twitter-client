@@ -2,10 +2,6 @@ import domainEventPublisher from '../singletons/domain-event-publisher'
 import store from '../singletons/store'
 
 export default class ChannelSelector {
-  constructor({ twitterAccount }) {
-    this.twitterAccount = twitterAccount;
-  }
-
   selectChannel(channelId) {
     if (channelId !== 'HOME_TIMELINE_CHANNEL' && channelId !== 'SEARCH_CHANNEL') {
       if (store.getState().listId !== channelId) {
@@ -13,7 +9,10 @@ export default class ChannelSelector {
           type: 'LIST_TWEETS_CLEARED'
         });
       }
-      this.twitterAccount.fetchListTweets({ listId: channelId });
+      domainEventPublisher.publish({
+        listId: channelId,
+        type: 'LIST_CHANNEL_SELECTED'
+      });
     }
     domainEventPublisher.publish({
       channelId,
