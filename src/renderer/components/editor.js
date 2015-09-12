@@ -1,4 +1,4 @@
-import keyStringOf from '../libraries/key-string-of'
+import keyStringDetector from '../singletons/key-string-detector'
 import React from 'react'
 import twitterClient from '../libraries/twitter-client'
 
@@ -17,7 +17,7 @@ export default class Editor extends React.Component {
   }
 
   onTextareaKeyDown(event) {
-    if (keyStringOf(event) === 'Return') {
+    if (keyStringDetector.detect(event) === 'Return') {
       event.preventDefault();
       this.onTweetSubmitted();
     }

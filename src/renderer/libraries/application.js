@@ -3,23 +3,26 @@ import application from '../singletons/application'
 import ChannelSelector from '../command-models/channel-selector'
 import DefaultWebBrowser from '../command-models/default-web-browser'
 import ipc from 'ipc'
+import KeyboardEventEmitter from '../libraries/keyboard-event-emitter'
 import React from 'react'
 import Root from '../components/root'
+import TweetSelector from '../command-models/tweet-selector'
 import TwitterAccount from '../command-models/twitter-account'
 
 export default class Application {
-  get channelSelector() {
-    return _.memoize(() => {
-      return new ChannelSelector({
-        twitterAccount: this.twitterAccount
-      });
-    })();
-  }
-
-  get defaultWebBrowser() {
-    return _.memoize(() => {
-      return new DefaultWebBrowser();
-    })();
+  constructor() {
+    this.defaultWebBrowser = new DefaultWebBrowser();
+    this.keyboardEventEmitter = new KeyboardEventEmitter(document);
+    this.tweetSelector = new TweetSelector();
+    this.twitterAccount = new TwitterAccount({
+      accessToken: application.accessToken,
+      accessTokenSecret: application.accessTokenSecret,
+      consumerKey: application.consumerKey,
+      consumerSecret: application.consumerSecret
+    });
+    this.channelSelector = new ChannelSelector({
+      twitterAccount: this.twitterAccount
+    });
   }
 
   get propertiesForView() {
@@ -34,17 +37,6 @@ export default class Application {
       onUnfavoriteButtonClicked: this.onUnfavoriteButtonClicked.bind(this),
       twitterAccount: this.twitterAccount
     }
-  }
-
-  get twitterAccount() {
-    return _.memoize(() => {
-      return new TwitterAccount({
-        accessToken: application.accessToken,
-        accessTokenSecret: application.accessTokenSecret,
-        consumerKey: application.consumerKey,
-        consumerSecret: application.consumerSecret
-      });
-    })();
   }
 
   fetchAndSubscribeUserData() {
@@ -123,10 +115,11 @@ export default class Application {
   run() {
     this.renderView();
     this.fetchAndSubscribeUserData();
-    this.subscribeGlobalShortcutEvents();
+    this.subscribeIpc();
+    this.subscribeKeyboardEvents();
   }
 
-  subscribeGlobalShortcutEvents() {
+  subscribeIpc() {
     ipc.on('focus-search-box', () => {
       this.focusSearchBox();
     });
@@ -135,6 +128,16 @@ export default class Application {
     });
     ipc.on('select-previous-channel', () => {
       this.channelSelector.selectPreviousChannel();
+    });
+  }
+
+  subscribeKeyboardEvents() {
+    this.keyboardEventEmitter.on('J', (event) => {
+      event.preventDefault();
+      this.tweetSelector.selectNextTweet();
+    }).on('K', (event) => {
+      event.preventDefault();
+      this.tweetSelector.selectPreviousTweet();
     });
   }
 }
