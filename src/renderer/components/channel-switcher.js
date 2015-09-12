@@ -1,5 +1,6 @@
 import List from './list';
 import React from 'react';
+import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class ChannelSwitcher extends React.Component {
   getHomeChannelClassName() {
@@ -19,11 +20,11 @@ export default class ChannelSwitcher extends React.Component {
   }
 
   onHomeChannelClicked(event) {
-    this.props.onChannelClicked('HOME_TIMELINE_CHANNEL');
+    viewEventPublisher.emit('channel-clicked', 'HOME_TIMELINE_CHANNEL');
   }
 
   onSearchChannelClicked(event) {
-    this.props.onChannelClicked('SEARCH_CHANNEL');
+    viewEventPublisher.emit('channel-clicked', 'SEARCH_CHANNEL');
   }
 
   render() {
@@ -59,7 +60,7 @@ export default class ChannelSwitcher extends React.Component {
 
   renderLists() {
     return this.props.lists.map((list) => {
-      return <List channelId={this.props.channelId} key={list.id_str} list={list} onChannelClicked={this.props.onChannelClicked} />;
+      return <List channelId={this.props.channelId} key={list.id_str} list={list} />;
     });
   }
 }

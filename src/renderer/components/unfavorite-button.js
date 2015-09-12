@@ -1,9 +1,10 @@
 import React from 'react'
+import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class UnfavoriteButton extends React.Component {
   onUnfavoriteButtonClicked(event) {
     event.preventDefault();
-    this.props.onUnfavoriteButtonClicked(this.props.tweet.id_str);
+    viewEventPublisher.emit('unfavorite-button-clicked', this.props.tweet.id_str);
   }
 
   render() {

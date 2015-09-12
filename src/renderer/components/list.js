@@ -1,4 +1,5 @@
 import React from 'react';
+import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class List extends React.Component {
   getClassName() {
@@ -10,7 +11,7 @@ export default class List extends React.Component {
   }
 
   onChannelClicked() {
-    this.props.onChannelClicked(this.props.list.id_str);
+    viewEventPublisher.emit('channel-clicked', this.props.list.id_str);
   }
 
   render() {

@@ -5,18 +5,21 @@ import DefaultWebBrowser from '../command-models/default-web-browser'
 import DesktopNotifier from '../command-models/desktop-notifier'
 import domainEventPublisher from '../singletons/domain-event-publisher'
 import ipc from 'ipc'
-import KeyboardEventEmitter from '../libraries/keyboard-event-emitter'
+import KeyboardEventPublisher from '../libraries/keyboard-event-publisher'
 import React from 'react'
 import Root from '../components/root'
+import SearchBoxSelector from '../command-models/search-box-selector'
 import store from '../singletons/store'
 import TweetSelector from '../command-models/tweet-selector'
 import TwitterAccount from '../command-models/twitter-account'
+import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class Application {
   constructor() {
     this.defaultWebBrowser = new DefaultWebBrowser();
     this.desktopNotifier = new DesktopNotifier();
-    this.keyboardEventEmitter = new KeyboardEventEmitter(document);
+    this.keyboardEventPublisher = new KeyboardEventPublisher();
+    this.searchBoxSelector = new SearchBoxSelector();
     this.tweetSelector = new TweetSelector();
     this.twitterAccount = new TwitterAccount({
       accessToken: application.accessToken,
@@ -29,63 +32,15 @@ export default class Application {
     });
   }
 
-  get propertiesForView() {
-    return {
-      channelSelector: this.channelSelector,
-      defaultWebBrowser: this.defaultWebBrowser,
-      onAnchorClicked: this.onAnchorClicked.bind(this),
-      onChannelClicked: this.onChannelClicked.bind(this),
-      onFavoriteButtonClicked: this.onFavoriteButtonClicked.bind(this),
-      onSearchQueryStringSubmitted: this.onSearchQueryStringSubmitted.bind(this),
-      onTweetSubmitted: this.onTweetSubmitted.bind(this),
-      onUnfavoriteButtonClicked: this.onUnfavoriteButtonClicked.bind(this),
-      twitterAccount: this.twitterAccount
-    }
-  }
-
-  focusSearchBox() {
-    const textField = document.querySelector('#search-text-field')
-    textField.focus();
-    textField.select();
-  }
-
-  onAnchorClicked(url) {
-    this.defaultWebBrowser.openUrl(url);
-  }
-
-  onChannelClicked(channelId) {
-    this.channelSelector.selectChannel(channelId);
-  }
-
-  onFavoriteButtonClicked(tweetId) {
-    this.twitterAccount.favorite({ tweetId });
-  }
-
-  onSearchQueryStringSubmitted(queryString) {
-    this.channelSelector.selectSearchChannel();
-    this.twitterAccount.searchTweets({ queryString });
-    this.twitterAccount.subscribeFilteredStream({ queryString });
-  }
-
-  onTweetSubmitted(text) {
-    this.twitterAccount.postTweet(text);
-  }
-
-  onUnfavoriteButtonClicked(tweetId) {
-    this.twitterAccount.unfavorite({ tweetId });
-  }
-
   renderView() {
-    React.render(
-      <Root {...this.propertiesForView} />,
-      document.body
-    );
+    React.render(<Root/>, document.body);
   }
 
   run() {
     this.subscribeDomainEvents();
-    this.subscribeIpc();
+    this.subscribeIpcEvents();
     this.subscribeKeyboardEvents();
+    this.subscribeViewEvents();
     this.renderView();
     this.twitterAccount.fetchUser();
   }
@@ -104,9 +59,9 @@ export default class Application {
     });
   }
 
-  subscribeIpc() {
+  subscribeIpcEvents() {
     ipc.on('focus-search-box', () => {
-      this.focusSearchBox();
+      this.searchBoxSelector.select();
     });
     ipc.on('select-next-channel', () => {
       this.channelSelector.selectNextChannel();
@@ -117,12 +72,30 @@ export default class Application {
   }
 
   subscribeKeyboardEvents() {
-    this.keyboardEventEmitter.on('J', (event) => {
+    this.keyboardEventPublisher.on('J', (event) => {
       event.preventDefault();
       this.tweetSelector.selectNextTweet();
     }).on('K', (event) => {
       event.preventDefault();
       this.tweetSelector.selectPreviousTweet();
+    });
+  }
+
+  subscribeViewEvents() {
+    viewEventPublisher.on('anchor-clicked', (url) => {
+      this.defaultWebBrowser.openUrl(url);
+    }).on('channel-clicked', (channelId) => {
+      this.channelSelector.selectChannel(channelId);
+    }).on('favorite-button-clicked', (tweetId) => {
+      this.twitterAccount.favorite({ tweetId });
+    }).on('search-query-string-submitted', (queryString) => {
+      this.channelSelector.selectSearchChannel();
+      this.twitterAccount.searchTweets({ queryString });
+      this.twitterAccount.subscribeFilteredStream({ queryString });
+    }).on('tweet-submitted', (text) => {
+      this.twitterAccount.postTweet(text);
+    }).on('unfavorite-button-clicked', (tweetId) => {
+      this.twitterAccount.unfavorite({ tweetId });
     });
   }
 }
