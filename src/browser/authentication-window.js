@@ -35,9 +35,9 @@ export default class AuthenticationWindow extends EventEmitter {
           );
         });
         event.preventDefault();
-        setTimeout(() => {
+        setImmediate(() => {
           this.window.close();
-        }, 0);
+        });
       } else if (matched = url.match(/&redirect_after_login_verification=([^&]*)/)) {
         this.window.webContents.on('did-get-redirect-request', (event, oldUrl, newUrl, isMainFrame) => {
           this.getAccessToken(twitter, requestToken, requestTokenSecret, newUrl);
