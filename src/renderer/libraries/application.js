@@ -2,10 +2,12 @@ import _ from 'lodash'
 import application from '../singletons/application'
 import ChannelSelector from '../command-models/channel-selector'
 import DefaultWebBrowser from '../command-models/default-web-browser'
+import domainEventPublisher from '../singletons/domain-event-publisher'
 import ipc from 'ipc'
 import KeyboardEventEmitter from '../libraries/keyboard-event-emitter'
 import React from 'react'
 import Root from '../components/root'
+import store from '../singletons/store'
 import TweetSelector from '../command-models/tweet-selector'
 import TwitterAccount from '../command-models/twitter-account'
 
@@ -37,20 +39,6 @@ export default class Application {
       onUnfavoriteButtonClicked: this.onUnfavoriteButtonClicked.bind(this),
       twitterAccount: this.twitterAccount
     }
-  }
-
-  fetchAndSubscribeUserData() {
-    this.twitterAccount.fetchUser().then(({ user }) => {
-      this.twitterAccount.fetchLists({ user });
-      this.twitterAccount.fetchHomeTimelineTweets({ user });
-      this.twitterAccount.subscribeUserStream({
-        user
-      }).on('favorite', (data) => {
-        this.onFavoriteReceived(data);
-      }).on('retweet', (tweet) => {
-        this.onRetweetReceived({ tweet });
-      });
-    });
   }
 
   focusSearchBox() {
@@ -113,10 +101,25 @@ export default class Application {
   }
 
   run() {
-    this.renderView();
-    this.fetchAndSubscribeUserData();
+    this.subscribeDomainEventDispatcher();
     this.subscribeIpc();
     this.subscribeKeyboardEvents();
+    this.renderView();
+    this.twitterAccount.fetchUser();
+  }
+
+  subscribeDomainEventDispatcher() {
+    domainEventPublisher.subscribe((domainEvent) => {
+      store.dispatch(domainEvent);
+    }).on('USER_FETCHED', (domainEvent) => {
+      this.twitterAccount.fetchLists({ user: domainEvent.user });
+      this.twitterAccount.fetchHomeTimelineTweets({ user: domainEvent.user });
+      this.twitterAccount.subscribeUserStream({ user: domainEvent.user });
+    }).on('FAVORITE_RECEIVED', (domainEvent) => {
+      this.onFavoriteReceived(domainEvent.data);
+    }).on('RETWEET_RECEIVED', (domainEvent) => {
+      this.onRetweetReceived({ tweet: domainEvent.tweet });
+    });
   }
 
   subscribeIpc() {

@@ -1,10 +1,10 @@
 import { openExternal } from 'shell'
-import store from '../singletons/store'
+import domainEventPublisher from '../singletons/domain-event-publisher'
 
 export default class DefaultWebBrowser {
   openUrl(url) {
     openExternal(url);
-    store.dispatch({
+    domainEventPublisher.publish({
       type: 'URL_OPENED',
       url
     });

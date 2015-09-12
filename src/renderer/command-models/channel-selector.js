@@ -1,3 +1,4 @@
+import domainEventPublisher from '../singletons/domain-event-publisher'
 import store from '../singletons/store'
 
 export default class ChannelSelector {
@@ -8,13 +9,13 @@ export default class ChannelSelector {
   selectChannel(channelId) {
     if (channelId !== 'HOME_TIMELINE_CHANNEL' && channelId !== 'SEARCH_CHANNEL') {
       if (store.getState().listId !== channelId) {
-        store.dispatch({
+        domainEventPublisher.publish({
           type: 'LIST_TWEETS_CLEARED'
         });
       }
       this.twitterAccount.fetchListTweets({ listId: channelId });
     }
-    store.dispatch({
+    domainEventPublisher.publish({
       channelId,
       type: 'CHANNEL_SELECTED'
     });

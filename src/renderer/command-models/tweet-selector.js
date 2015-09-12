@@ -1,14 +1,14 @@
-import store from '../singletons/store'
+import domainEventPublisher from '../singletons/domain-event-publisher'
 
 export default class TweetSelector {
   selectNextTweet() {
-    store.dispatch({
+    domainEventPublisher.publish({
       type: 'NEXT_TWEET_SELECTED'
     });
   }
 
   selectPreviousTweet() {
-    store.dispatch({
+    domainEventPublisher.publish({
       type: 'PREVIOUS_TWEET_SELECTED'
     });
   }
