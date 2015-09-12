@@ -72,6 +72,7 @@
     @include avatar;
 
     &-container {
+      margin-top: 12px;
       max-height: 300px;
       overflow: hidden;
     }
