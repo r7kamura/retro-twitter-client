@@ -1,12 +1,13 @@
 import Application from './application'
+import applicationState from '../singletons/application-state'
 import React from 'react';
-import store from '../singletons/store'
+import ViewState from '../libraries/view-state'
 
-export default class StoreSubscriber extends React.Component {
+export default class Root extends React.Component {
   constructor(props) {
     super(props);
-    this.state = store.getState();
-    store.subscribe(() => this.setState(store.getState()));
+    this.state = new ViewState(applicationState);
+    applicationState.on('changed', () => this.setState(new ViewState(applicationState)));
   }
 
   render() {

@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import applicationState from '../singletons/application-state'
 import ChannelSelector from '../command-models/channel-selector'
 import DefaultWebBrowser from '../command-models/default-web-browser'
 import DesktopNotifier from '../command-models/desktop-notifier'
@@ -6,7 +7,6 @@ import domainEventPublisher from '../singletons/domain-event-publisher'
 import ipc from 'ipc'
 import KeyboardEventPublisher from '../libraries/keyboard-event-publisher'
 import SearchBoxSelector from '../command-models/search-box-selector'
-import store from '../singletons/store'
 import TweetSelector from '../command-models/tweet-selector'
 import TwitterAccount from '../command-models/twitter-account'
 import twitterSignature from '../singletons/twitter-signature'
@@ -36,7 +36,7 @@ export default class Application {
 
   subscribeDomainEvents() {
     domainEventPublisher.on('*', (domainEvent) => {
-      store.dispatch(domainEvent);
+      applicationState.emit(domainEvent.type, domainEvent);
     }).on('FAVORITE_RECEIVED', ({ data }) => {
       this.desktopNotifier.notifyFavorite(data);
     }).on('LIST_CHANNEL_SELECTED', ({ listId }) => {
