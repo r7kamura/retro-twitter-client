@@ -60,7 +60,7 @@ const lists = (state = [], action) => {
 
 const listTweets = (state = [], action) => {
   switch (action.type) {
-  case 'LIST_TWEETS_CLEARE':
+  case 'LIST_TWEETS_CLEAR':
     return [];
   case 'LIST_TWEETS_FETCHED':
     return [...action.tweets, ...state];
