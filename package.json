@@ -38,8 +38,6 @@
     "node-twitter-api": "^1.6.0",
     "qiita-coat": "git://github.com/increments/qiita-coat.git#d751df7df60d0dcd0c97b9dc05c8ab5da3db22e3",
     "react": "^0.13.3",
-    "redux": "^1.0.1",
-    "redux-logger": "^1.0.6",
     "twitter": "^1.2.5",
     "twitter-text": "^1.13.0"
   }

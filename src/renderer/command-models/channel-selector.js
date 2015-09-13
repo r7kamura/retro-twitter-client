@@ -1,10 +1,10 @@
 import domainEventPublisher from '../singletons/domain-event-publisher'
-import store from '../singletons/store'
+import applicationState from '../singletons/application-state'
 
 export default class ChannelSelector {
   selectChannel(channelId) {
     if (channelId !== 'HOME_TIMELINE_CHANNEL' && channelId !== 'SEARCH_CHANNEL') {
-      if (store.getState().listId !== channelId) {
+      if (applicationState.listId !== channelId) {
         domainEventPublisher.publish({
           type: 'LIST_TWEETS_CLEARED'
         });
@@ -21,31 +21,28 @@ export default class ChannelSelector {
   }
 
   selectNextChannel() {
-    const state = store.getState();
-    switch (state.channelId) {
+    switch (applicationState.channelId) {
     case 'HOME_TIMELINE_CHANNEL':
       this.selectSearchChannel();
       break;
     case 'SEARCH_CHANNEL':
-      if (state.lists.length > 0) {
-        this.selectChannel(state.lists[0].id_str);
+      if (applicationState.listIds.length > 0) {
+        this.selectChannel(applicationState.listIds[0]);
         break;
       } else {
         this.selectChannel('HOME_TIMELINE_CHANNEL');
         break;
       }
     default:
-      const channelId = state.channelId;
-      const lists = state.lists;
       let index = -1;
-      for (var i = 0; i < lists.length; i++) {
+      for (var i = 0; i < applicationState.listIds.length; i++) {
         index++;
-        if (lists[i].id_str === channelId) {
+        if (applicationState.listIds[i] === applicationState.channelId) {
           break;
         }
       }
-      if (-1 < index && index < state.lists.length - 1) {
-        this.selectChannel(lists[index + 1].id_str);
+      if (-1 < index && index < applicationState.listIds.length - 1) {
+        this.selectChannel(applicationState.listIds[index + 1]);
       } else {
         this.selectChannel('HOME_TIMELINE_CHANNEL');
       }
@@ -53,28 +50,25 @@ export default class ChannelSelector {
   }
 
   selectPreviousChannel() {
-    const state = store.getState();
-    switch (state.channelId) {
+    switch (applicationState.channelId) {
     case 'HOME_TIMELINE_CHANNEL':
-      if (state.lists.length > 0) {
-        this.selectChannel(state.lists[state.lists.length - 1].id_str);
+      if (applicationState.listIds.length > 0) {
+        this.selectChannel(applicationState.listIds[applicationState.listIds.length - 1]);
         break;
       }
     case 'SEARCH_CHANNEL':
       this.selectChannel('HOME_TIMELINE_CHANNEL');
       break;
     default:
-      const channelId = state.channelId;
-      const lists = state.lists;
       let index = -1;
-      for (var i = 0; i < lists.length; i++) {
+      for (var i = 0; i < applicationState.listIds.length; i++) {
         index++;
-        if (lists[i].id_str === channelId) {
+        if (applicationState.listIds[i] === applicationState.channelId) {
           break;
         }
       }
       if (index - 1 >= 0) {
-        this.selectChannel(lists[index - 1].id_str);
+        this.selectChannel(applicationState.listIds[index - 1]);
       } else {
         this.selectSearchChannel();
       }
