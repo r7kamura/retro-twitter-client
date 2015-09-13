@@ -6,6 +6,10 @@ import UnfavoriteButton from './unfavorite-button'
 import viewEventPublisher from '../singletons/view-event-publisher'
 
 export default class Tweet extends React.Component {
+  get className() {
+    return `tweet ${this.props.tweet.selected ? 'tweet-selected' : ''}`;
+  }
+
   get favoriteButton() {
     if (this.props.tweet.favorited) {
       return <UnfavoriteButton tweet={this.props.tweet} />;
@@ -25,7 +29,7 @@ export default class Tweet extends React.Component {
 
   render() {
     return(
-      <li className="tweet" key={this.props.tweet.id_str}>
+      <li className={this.className} key={this.props.tweet.id_str}>
         <div className="tweet-sub">
           <img className="tweet-avatar" src={this.props.tweet.user.profile_image_url} height="48" width="48" />
         </div>

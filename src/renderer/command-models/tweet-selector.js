@@ -1,15 +1,19 @@
+import applicationState from '../singletons/application-state'
 import domainEventPublisher from '../singletons/domain-event-publisher'
 
 export default class TweetSelector {
-  selectNextTweet() {
+  selectTweet(tweetId) {
     domainEventPublisher.publish({
-      type: 'NEXT_TWEET_SELECTED'
+      tweetId,
+      type: 'TWEET_SELECTED'
     });
   }
 
+  selectNextTweet() {
+    this.selectTweet(applicationState.nextTweetId);
+  }
+
   selectPreviousTweet() {
-    domainEventPublisher.publish({
-      type: 'PREVIOUS_TWEET_SELECTED'
-    });
+    this.selectTweet(applicationState.previousTweetId);
   }
 }

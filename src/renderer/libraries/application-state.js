@@ -11,6 +11,17 @@ export default class ApplicationState extends EventEmitter {
     this.subscribeDomainEvents();
   }
 
+  get currentTweetIds() {
+    switch (this.channelId) {
+    case 'HOME_TIMELINE_CHANNEL':
+      return this.homeTimelineTweetIds;
+    case 'SEARCH_CHANNEL':
+      return this.searchedTweetIds;
+    default:
+      return this.listTweetIds;
+    }
+  }
+
   get nextChannelId() {
     switch (this.channelId) {
     case 'HOME_TIMELINE_CHANNEL':
@@ -28,6 +39,16 @@ export default class ApplicationState extends EventEmitter {
       } else {
         return 'HOME_TIMELINE_CHANNEL';
       }
+    }
+  }
+
+  get nextTweetId() {
+    const tweetIds = this.currentTweetIds;
+    const index = _.findIndex(tweetIds, (tweetId) => tweetId === this.selectedTweetId);
+    if (index === tweetIds.length - 1) {
+      return tweetIds[index];
+    } else {
+      return tweetIds[index + 1];
     }
   }
 
@@ -51,6 +72,16 @@ export default class ApplicationState extends EventEmitter {
     }
   }
 
+  get previousTweetId() {
+    const tweetIds = this.currentTweetIds;
+    const index = _.findIndex(tweetIds, (tweetId) => tweetId === this.selectedTweetId);
+    if (index === 0) {
+      return tweetIds[index];
+    } else {
+      return tweetIds[index - 1];
+    }
+  }
+
   initializeState() {
     this.channelId = 'HOME_TIMELINE_CHANNEL';
     this.homeTimelineTweetIds = [];
@@ -58,6 +89,7 @@ export default class ApplicationState extends EventEmitter {
     this.listIds = [];
     this.listTweetIds = [];
     this.searchedTweetIds = [];
+    this.selectedTweetId = null;
     this.userId = {};
   }
 
@@ -93,6 +125,9 @@ export default class ApplicationState extends EventEmitter {
     }).on('TWEET_POSTED', ({ tweet }) => {
       this.updateRepositoriesFromTweet(tweet);
       this.homeTimelineTweetIds = [tweet.id_str, ...this.homeTimelineTweetIds];
+      this.emit('changed');
+    }).on('TWEET_SELECTED', ({ tweetId }) => {
+      this.selectedTweetId = tweetId;
       this.emit('changed');
     }).on('TWEET_UNFAVORITED', ({ tweet }) => {
       this.updateRepositoriesFromTweet(tweet);

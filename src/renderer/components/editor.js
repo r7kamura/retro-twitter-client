@@ -27,9 +27,11 @@ export default class Editor extends React.Component {
   render() {
     return(
       <div className="editor">
-        <textarea name="name" rows="2" cols="40" className="editor-textarea" onChange={this.onTextareaChanged.bind(this)} onKeyDown={this.onTextareaKeyDown.bind(this)} placeholder="What's happening?" value={this.state.text}></textarea>
-        <div className="editor-counter">
-          {this.getRestTextLength()}
+        <div className="editor-box">
+          <textarea name="name" rows="2" cols="40" className="editor-textarea" onChange={this.onTextareaChanged.bind(this)} onKeyDown={this.onTextareaKeyDown.bind(this)} placeholder="What's happening?" value={this.state.text}></textarea>
+          <div className="editor-counter">
+            {this.getRestTextLength()}
+          </div>
         </div>
       </div>
     );

@@ -3,10 +3,7 @@
 
 .tweet {
   display: flex;
-
-  & + & {
-    margin-top: 16px;
-  }
+  padding: 8px 16px;
 
   &-anchor {
     color: $color-link;
@@ -96,6 +93,10 @@
     margin-left: 4px;
   }
 
+  &-selected {
+    background: #eee;
+  }
+
   &-sub {
     margin-right: 12px;
   }
@@ -103,7 +104,6 @@
 
 .tweets {
   flex: 1;
-  margin-top: 16px;
   overflow-y: scroll;
 
   &-hidden {
