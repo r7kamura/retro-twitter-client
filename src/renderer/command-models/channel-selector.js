@@ -21,58 +21,11 @@ export default class ChannelSelector {
   }
 
   selectNextChannel() {
-    switch (applicationState.channelId) {
-    case 'HOME_TIMELINE_CHANNEL':
-      this.selectSearchChannel();
-      break;
-    case 'SEARCH_CHANNEL':
-      if (applicationState.listIds.length > 0) {
-        this.selectChannel(applicationState.listIds[0]);
-        break;
-      } else {
-        this.selectChannel('HOME_TIMELINE_CHANNEL');
-        break;
-      }
-    default:
-      let index = -1;
-      for (var i = 0; i < applicationState.listIds.length; i++) {
-        index++;
-        if (applicationState.listIds[i] === applicationState.channelId) {
-          break;
-        }
-      }
-      if (-1 < index && index < applicationState.listIds.length - 1) {
-        this.selectChannel(applicationState.listIds[index + 1]);
-      } else {
-        this.selectChannel('HOME_TIMELINE_CHANNEL');
-      }
-    }
+    this.selectChannel(applicationState.nextChannelId);
   }
 
   selectPreviousChannel() {
-    switch (applicationState.channelId) {
-    case 'HOME_TIMELINE_CHANNEL':
-      if (applicationState.listIds.length > 0) {
-        this.selectChannel(applicationState.listIds[applicationState.listIds.length - 1]);
-        break;
-      }
-    case 'SEARCH_CHANNEL':
-      this.selectChannel('HOME_TIMELINE_CHANNEL');
-      break;
-    default:
-      let index = -1;
-      for (var i = 0; i < applicationState.listIds.length; i++) {
-        index++;
-        if (applicationState.listIds[i] === applicationState.channelId) {
-          break;
-        }
-      }
-      if (index - 1 >= 0) {
-        this.selectChannel(applicationState.listIds[index - 1]);
-      } else {
-        this.selectSearchChannel();
-      }
-    }
+    this.selectChannel(applicationState.previousChannelId);
   }
 
   selectSearchChannel() {

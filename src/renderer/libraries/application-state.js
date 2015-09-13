@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { EventEmitter } from 'events'
 import listRepository from '../singletons/list-repository'
 import tweetRepository from '../singletons/tweet-repository'
@@ -8,6 +9,46 @@ export default class ApplicationState extends EventEmitter {
     super();
     this.initializeState();
     this.subscribeDomainEvents();
+  }
+
+  get nextChannelId() {
+    switch (this.channelId) {
+    case 'HOME_TIMELINE_CHANNEL':
+      return 'SEARCH_CHANNEL';
+    case 'SEARCH_CHANNEL':
+      if (this.listIds.length > 0) {
+        return this.listIds[0];
+      } else {
+        return 'HOME_TIMELINE_CHANNEL';
+      }
+    default:
+      const index = _.findIndex(this.listIds, (listId) => listId === this.channelId);
+      if (-1 < index && index < this.listIds.length - 1) {
+        return this.listIds[index + 1];
+      } else {
+        return 'HOME_TIMELINE_CHANNEL';
+      }
+    }
+  }
+
+  get previousChannelId() {
+    switch (this.channelId) {
+    case 'HOME_TIMELINE_CHANNEL':
+      if (this.listIds.length > 0) {
+        return this.listIds[this.listIds.length - 1];
+      } else {
+        return 'SEARCH_CHANNEL';
+      }
+    case 'SEARCH_CHANNEL':
+      return 'HOME_TIMELINE_CHANNEL';
+    default:
+      const index = _.findIndex(this.listIds, (listId) => listId === this.channelId);
+      if (index - 1 >= 0) {
+        return this.listIds[index - 1];
+      } else {
+        return 'SEARCH_CHANNEL';
+      }
+    }
   }
 
   initializeState() {
